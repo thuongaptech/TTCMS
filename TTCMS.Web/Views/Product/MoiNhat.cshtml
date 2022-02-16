@@ -1,0 +1,22 @@
+﻿@model TTCMS.Web.Models.Product.ProductVM[]
+@if (Model.Any())
+{
+    int icount = 1;
+    <div id="block-right">
+        <div class="product-right-content">
+        @foreach (var item in Model)
+        {
+            <div class="product-box @(icount==1?"block-box":"")">
+                @if (icount == 1)
+                {
+                    <div class="block-title">Mới nhất</div>
+                }
+                <div class="product-box-content"><a title="@item.Name" href="@Url.Action("Detail", new { Id = item.Id, alias = item.Route })" class="itm-link" rel="nofollow"><img width="100%" src="@item.Img_Thumbnail" alt="@item.Name"></a><div class="contentinfo-show"><a id="fancybox@(item.Id)" class="fancybox sprites buynow " href="/lien-he.html" title="Liên hệ mua sản phẩm này" rel="nofollow"></a></div></div><div class="contentprice"><div class="infoprice"><h3 class="product-name"><a title="@item.Name" href="@Url.Action("Detail", new { Id = item.Id, alias = item.Route })">@item.Name</a></h3><div class="priceold"><span>@(item.GiaKM > 0 ? string.Format("{0:#,###} đ", Convert.ToDouble(item.GiaBan)) : "")</span></div><div class="pricespecial">@(item.GiaKM > 0 ? string.Format("{0:#,###}đ", Convert.ToDouble(item.GiaKM)) : "")</div></div></div>
+            </div>
+            icount++;
+        }
+        </div>
+    </div>
+}
+
+

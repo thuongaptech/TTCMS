@@ -1,0 +1,34 @@
+﻿@model TTCMS.Web.Areas.TT_Admin.Models.UserInfoViewModel
+<li class="light-blue">
+    <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+        @if (System.IO.File.Exists(Server.MapPath("/Content/avatars/" + Model.ProfilePicUrl)))
+        {
+            <img src="/Content/avatars/@Model.ProfilePicUrl" alt="@Model.LastName" class="nav-user-photo" />
+        }
+        else
+        {
+            <img src="/Content/avatar/default_avatar.png" alt="@Model.LastName" class="nav-user-photo" />
+        }
+        <span class="user-info">
+            <small>@TTCMS.Resources.Resources.WelcomeText,</small>
+            @Model.LastName
+        </span>
+
+        <i class="ace-icon fa fa-caret-down"></i>
+    </a>
+    <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+        <li>
+            <a href="@Url.Action("Profile", "UserManagement")">
+                <i class="ace-icon fa fa-user"></i>
+                @TTCMS.Resources.Resources.ProfileText
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="@Url.Action("LogOff", "UserManagement")">
+                <i class="ace-icon fa fa-power-off"></i>
+                @TTCMS.Resources.Resources.LogoutText
+            </a>
+        </li>
+    </ul>
+</li>

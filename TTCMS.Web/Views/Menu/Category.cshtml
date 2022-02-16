@@ -1,0 +1,40 @@
+﻿@model TTCMS.Domain.Menu[]
+@if (Model.Any())
+{
+    var model = Model.Where(x => x.ParentID == null || x.ParentID == 0).OrderBy(x => x.Order);
+    <ul class="branding__menu">
+        @foreach (var item in model)
+        {
+            var parent = Model.Where(x => x.ParentID == item.Id).OrderBy(x => x.Order);
+            
+            <li class="branding__item branding branding--restaurant multicolumns">
+                <a href="@item.Link"><i class="@item.CssClass"></i> @item.Name</a>
+                <div class="submenu-wrapper">
+                    <div class="branding__submenu columns columns-2">
+                        <div class="menucolumn menucolumn-lv_0">
+                            @if (parent.Any())
+                            {
+                                <ul class="submenu">
+                                    @foreach (var child in parent)
+                                    {
+                                        <li class="submenu-heading "><a href="@child.Link">@child.Name</a></li>
+                                    }
+                                </ul>
+                            }
+                        </div>
+                        <div class="menucolumn menucolumn-lv_1">
+                            <ul class="submenu">
+                                <li class=" view-all"><a href="@item.Link"><strong>Xem tất cả danh mục</strong> <i class="fa fa-angle-right"></i></a></li>
+                                <li class=" view-all" style="margin-top: 4px;"><a href="@item.Link?field=hot"><strong>Bán chạy</strong> <i class="fa fa-angle-right"></i></a></li>
+                                <li class=" view-all" style="margin-top: 4px;"><a href="@item.Link"><strong>Hàng mới </strong><i class="fa fa-angle-right"></i></a></li>
+                                <li class=" view-all" style="margin-top: 4px;"><a href="@item.Link?field=price"><strong>Giảm giá </strong><i class="fa fa-angle-right"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        }
+        
+    </ul>
+}
+

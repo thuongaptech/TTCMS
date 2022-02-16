@@ -1,0 +1,60 @@
+﻿@model TTCMS.Web.Areas.TT_Admin.Models.ContactViewModel
+<style>
+    .pop-logdetai .form-group {
+        margin-bottom:2px;
+    }
+</style>
+<div id="modal-form" class="modal pop-logdetai" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="blue bigger">Chi tiết liên hệ</h4>
+            </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 change-password">
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label">FullName:</label>
+                                <div class="col-sm-7">
+                                    @Model.FullName
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label">Email:</label>
+                                <div class="col-sm-7">
+                                    @Model.Email
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label">Phone:</label>
+                                <div class="col-sm-7">
+                                    @Model.PhoneNumber
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 change-password">
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label">Nội dung:</label>
+                                <div class="col-sm-7">
+                                    @Model.NoiDung
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-sm" data-dismiss="modal">
+                        <i class="ace-icon fa fa-times"></i>
+                        @TTCMS.Resources.Resources.ColseText
+                    </button>
+                </div>
+        </div>
+    </div>
+</div>
+<!-- PAGE CONTENT ENDS -->

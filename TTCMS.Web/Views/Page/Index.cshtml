@@ -1,0 +1,99 @@
+﻿@model TTCMS.Web.Models.News.NewsCatVM
+@{
+    var name = Model.Catalogy.SingleOrDefault(x => x.Route == ViewBag.routecate);
+    ViewBag.Title = name==null?"Tin tức":name.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="main-container col1-layout">
+    <div class="main">
+        <div class="col-main">
+            <div id="block-left" class="post-content">
+                <div class="top-bar">
+                    <div class="breadcrumbs">
+                        <ul>
+                            <li class="home" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                                <a itemprop="url" href="/" title="Đến trang chủ"><span itemprop="title">Trang chủ</span></a>
+                            </li>
+                            <li class="blog_page icon-li">
+                                <strong>@(name==null?"Tin tức":name.Name)</strong>
+                            </li>
+                            <li style="float: right; max-height:22px; overflow:hidden;">
+                                <div class="share">
+                                    <div class="facebook">
+                                        <div class="fb-like" data-send="true" data-layout="button_count" data-width="100" data-show-faces="false"></div>
+                                    </div>
+                                    <div class="google">
+                                        <g:plusone size="medium"></g:plusone>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <ul style="margin-top:15px;" class="tablist pn-listtab">
+                    @foreach (var item in Model.Catalogy)
+                    {
+                    <li class="tabclick" id="@item.Route"><a href="@Url.Action("Index", "Page", new { Id = item.Id, alias = item.Route })">@item.Name</a></li>
+                    }
+
+                </ul>
+                <div style="clear:both;"></div>
+                <div class="accountpage blogpage">
+                    <div class="block-content">
+                        <div id="messages_product_view">
+                        </div>
+                        <div class="post-list">
+                            @foreach (var item in Model.NewsList)
+                            {
+                            <div class="content-post-child">
+                                <h2><a href="@Url.Action("DetailNews", "Page", new { Id = item.Id, alias = item.Route })">@item.Title</a></h2>
+                                <div class="post-img">
+                                    <a href="@Url.Action("DetailNews", "Page", new { Id = item.Id, alias = item.Route })" title="@item.Title">
+                                        <img src="@item.Img_Thumbnail" alt="@item.Title" />
+                                    </a>
+                                </div>
+                                <div class="post-content">
+                                    <!--<h3>16/10/2015 16:21</h3>-->
+                                    <div class="postContent">
+                                        @item.Summary
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="block-right">
+                <div class="product-right-content">
+                    <div class="product-box block-box">
+                        <div class="block-title">Xem nhiều</div>
+                        <div class="product-box-content">
+                            <div class="right-post-content">
+                                <ul>
+                                    @Html.Action("NewViewMore", "Page")
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>
+<!----->
+@section Scripts{
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+    <script language="javascript">
+        $(document).ready(function () {
+            $(function () {
+                $('#@ViewBag.routecate').addClass("selected");
+            });
+        });
+
+    </script>
+}

@@ -1,0 +1,6 @@
+2021-12-23 21:34:46,446 [$thread] ERROR TTCMS.Web.Areas.TT_Admin.Controllers.BaseController - Ldap login::The server is not operational.
+
+
+2021-12-23 21:38:32,582 [$thread] ERROR TTCMS.Web.Areas.TT_Admin.Controllers.BaseController - Ldap login::The server is not operational.
+
+

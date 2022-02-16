@@ -1,0 +1,19 @@
+﻿@model TTCMS.Web.Areas.TT_Admin.Models.TabLanguageViewModel[]
+@if (Model.Count() > 0)
+{
+    int key = Model.Count();
+    int icount = 1;
+    foreach (var item in Model)
+    {
+        if (item.IsYes == true)
+        {
+            <a href="@Url.Action("Edit", new { Id = item.ContentId, Lang = item.LangId })" title="@TTCMS.Resources.Resources.EditPostByLanguage" data-toggle="modal" data-target="#myModal" data-remote="false" data-ajax="modal-json" class="ace-icon fa fa-pencil bigger-130"></a><text>@(key > icount ? " | " : "")</text>
+        }
+        else
+        {
+            <a href="@Url.Action("Edit", new { Id = item.ContentId, Lang = item.LangId })" title="@TTCMS.Resources.Resources.UpdatePostByLanguage" data-toggle="modal" data-target="#myModal" data-remote="false" data-ajax="modal-json" class="ace-icon fa fa-search-plus bigger-130"></a><text>@(key > icount ? " | " : "")</text>
+        }
+        icount++;
+    }
+
+}

@@ -1,0 +1,24 @@
+﻿@model TTCMS.Domain.Menu[]
+@if (Model.Any())
+{
+    var model = Model.Where(x => x.ParentID == 0).OrderBy(x => x.Order);
+    <div class="sidebar">
+        <div class="sidebar__widget widget">
+            @foreach (var item in model)
+            {
+                var parent = Model.Where(x => x.ParentID == item.Id).OrderBy(x => x.Order);
+                <h3 class="widget__title">@item.Name</h3>
+                if (parent.Any())
+                {
+                    <ul class="side-menu">
+                        @foreach (var child in parent)
+                        {
+                            <li class="@(child.WithId == ViewBag.Id ? "active" : "")"><a href="@child.Link">@child.Name</a></li>
+                        }
+                    </ul>
+                }
+            }
+        </div>
+    </div>
+}
+

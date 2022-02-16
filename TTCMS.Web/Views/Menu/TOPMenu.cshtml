@@ -1,0 +1,771 @@
+﻿@model TTCMS.Domain.Menu[]
+@*@if (Model.Count() > 0)
+    {
+        foreach (var item in Model)
+        {
+            <li><a href="@(item.Controller != null ? Url.Action(item.Action, item.Controller, new { Id = item.WithId, alias = item.Link }) : item.Link)" title="@item.Name">@item.Name</a></li>
+        }
+    }*@
+
+<header>
+    <div class="box-shadow">
+        <div class="pc">
+            <div class="box-shadow">
+                <div class="container">
+                    <div class="top">
+                        <a class="logo" href="home.html">
+                            <img src="../webroot/images/logo/logo.svg" alt="Logo">
+                        </a>
+                        <div class="action">
+                            <div class="left">
+                                <a href="@Url.Action("About","Page")">
+                                    Về TVSI
+                                </a>
+                                <a href="@Url.Action("News","Page")">
+                                    Tin tức hoạt động
+                                </a>
+                                <a href="@Url.Action("InvestorRelations","Page")">
+                                    Quan hệ nhà đầu tư
+                                </a>
+                                @*<a href="@Url.Action("Maintenance", "Page")">Cơ hội nghề nghiệp</a>*@
+                                <a href="@Url.Action("CareerOpportunities", "Page")">Cơ hội nghề nghiệp</a>
+                            </div>
+                            <div class="right">
+                                <div class="language-select">
+                                    <p class="display selected" data-type="1"><img src="../webroot/images/icon/flag/vie.png" alt="VIE">VIE</p>
+                                    <p class="display" data-type="2"><img src="../webroot/images/icon/flag/eng.png" alt="ENG">ENG</p>
+                                    <ul class="d-none">
+                                        <li data-type="1">
+                                            <img src="../webroot/images/icon/flag/vie.png" alt="VIE">
+                                            <p>VIE</p>
+                                        </li>
+                                        <li data-type="2">
+                                            <img src="../webroot/images/icon/flag/eng.png" alt="ENG">
+                                            <p>ENG</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <a class="login" href="#">
+                                    <p>Đăng nhập</p>
+                                </a>
+                                <a class="register" href="@Url.Action("Register","Account")">
+                                    <p>MỞ TÀI KHOẢN</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="container">
+                    <div class="bottom">
+                        <div class="left">
+                            <a href="home.html" class="logo">
+                                <img src="../webroot/images/logo/logo.svg" alt="TVSI">
+                            </a>
+                            <ul class="list-menu-default">
+                                <li data-type="1">SẢN PHẨM & DỊCH VỤ</li>
+                                <li data-type="2">
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        TRUNG TÂM PHÂN TÍCH
+                                    </a>
+                                </li>
+                                <li data-type="3">HƯỚNG DẪN & HỖ TRỢ</li>
+                                <li data-type="4">
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        BIỂU PHÍ
+                                    </a>
+                                </li>
+                                <li data-type="5">
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        TRUNG TÂM ĐÀO TẠO
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="right">
+                            <div class="search">
+                                <input type="text" placeholder="Tìm kiếm">
+                            </div>
+                            <div class="search-scroll">
+                                <a href="#">
+                                    <img src="../webroot/images/icon/header/search.svg" alt="Search">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-menu-default-detail d-none" data-type="1">
+                <div class="container px-0">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Đầu tư</th>
+                                <th>Dịch vụ chứng khoán</th>
+                                <th>Dịch vụ tài chính</th>
+                                <th>Tài chính doanh nghiệp</th>
+                                <th>Quản lý tài sản</th>
+                                <th>Dịch vụ môi giới</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/san-pham-dich-vu/chung-khoan-co-so.svg"
+                                             alt="Chung khoan"> Chứng khoán cơ sở
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/san-pham-dich-vu/luu-ky.svg"
+                                             alt="Luu ky"> Lưu ký
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/san-pham-dich-vu/cho-vay-gdkq.svg"
+                                             alt="Cho vay"> Cho vay GDKQ
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/san-pham-dich-vu/nghiep-vu-von.svg"
+                                             alt="Luu ky"> Nghiệp vụ thị trường vốn
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/cate.svg" alt="Luu ky"> Cate 1
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/cate.svg" alt="Luu ky"> Cate 1
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/san-pham-dich-vu/trai-phieu.svg"
+                                             alt="Trai phieu"> Trái phiếu
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/san-pham-dich-vu/chuyen-chung-khoan.svg"
+                                             alt="Trai phieu"> Chuyển chứng khoán
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/san-pham-dich-vu/ung-truoc-tien-ban.svg"
+                                             alt="Trai phieu"> Ứng trước tiền bán
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/san-pham-dich-vu/nghiep-vu-no.svg"
+                                             alt="Trai phieu"> Nghiệp vụ thị trường nợ
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/cate.svg" alt="Trai phieu"> Cate 2
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/cate.svg" alt="Trai phieu"> Cate 2
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/san-pham-dich-vu/thuc-hien-quyen.svg"
+                                             alt="Trai phieu"> Thực hiện quyền
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/san-pham-dich-vu/rut-tien-bang-suc-mua.svg"
+                                             alt="Trai phieu"> Rút tiền bằng sức mua
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/san-pham-dich-vu/nghiep-vu-ngan-hang.svg"
+                                             alt="Trai phieu"> Nghiệp vụ ngân hàng đầu tư
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/cate.svg" alt="Trai phieu"> Cate 3
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/cate.svg" alt="Trai phieu"> Cate 3
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/san-pham-dich-vu/dai-ly-dau-gia.svg"
+                                             alt="Trai phieu"> Đại lý đấu giá
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/san-pham-dich-vu/cho-vay-thanh-toan.svg"
+                                             alt="Trai phieu"> Cho vay thanh toán vượt mức
+                                    </a>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/cate.svg" alt="Trai phieu"> Cate 4
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/san-pham-dich-vu/quan-ly-so-co-dong.svg"
+                                             alt="Trai phieu"> Quản lý số cổ đông
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/san-pham-dich-vu/tien-gui.svg"
+                                             alt="Trai phieu"> Tiền gửi
+                                    </a>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/cate.svg" alt="Trai phieu"> Cate 5
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/san-pham-dich-vu/quan-ly-so-trai-phieu.svg"
+                                             alt="Trai phieu"> Quản lý số trái phiếu
+                                    </a>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img src="../webroot/images/icon/header/san-pham-dich-vu/the-chap-chung-khoan.svg"
+                                             alt="Trai phieu"> Thế chấp chứng khoán
+                                    </a>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="list-menu-default-detail d-none" data-type="3">
+                <div class="container px-0">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Hướng dẫn giao dịch chứng khoán</th>
+                                <th>Hướng dẫn giao dịch tiền</th>
+                                <th>Hướng dẫn tra cứu & quả lý tài sản</th>
+                                <th>Các mẫu biểu</th>
+                                <th>Kiến thức & Hỏi đáp</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/mo-tai-khoan.svg"
+                                             alt="TVSI" class="lazyload"> Mở tài khoản
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/nop-tien.svg"
+                                             alt="TVSI" class="lazyload"> Nộp tiền
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/tra-cuu-qua-contact.svg"
+                                             alt="TVSI" class="lazyload"> Tra cứu qua contact center (CC)
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/mo-tai-khoan-dang-ky.svg"
+                                             alt="TVSI" class="lazyload"> Mở tài khoản & Đăng ký dịch vụ
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/hoi-dap.svg"
+                                             alt="TVSI" class="lazyload"> Hỏi đáp (FAQs)
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/giao-dich-co-phieu.svg"
+                                             alt="TVSI" class="lazyload"> Giao dịch cổ phiếu
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/chuyen-tien.svg"
+                                             alt="TVSI" class="lazyload"> Chuyển tiền
+                                    </a>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/mau-nop-rut-tien.svg"
+                                             alt="TVSI" class="lazyload"> Mẫu nộp & Rút tiền
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/kien-thuc.svg"
+                                             alt="TVSI" class="lazyload"> Kiến thức
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/giao-dich-ky-quy.svg"
+                                             alt="TVSI" class="lazyload"> Giao dịch ký quỹ
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/rut-tien-bang-suc-mua.svg"
+                                             alt="TVSI" class="lazyload"> Rút tiền bằng sức mua trên TKGDKQ
+                                    </a>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/cam-ket-chat-luong.svg"
+                                             alt="TVSI" class="lazyload"> Cam kết chất lượng dịch vụ (SLA)
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/cho-vay-vuot-muc.svg"
+                                             alt="TVSI" class="lazyload"> Cho vay thanh toán vượt mức
+                                    </a>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <a href="@Url.Action("Maintenance", "Page")">
+                                        <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/bieu-phi.svg"
+                                             alt="TVSI" class="lazyload"> Biểu phí
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="sp">
+            <div class="container">
+                <div class="content">
+                    <div class="left">
+                        <a href="home.html">
+                            <img src="../webroot/images/logo/logo.svg" alt="TVSI">
+                        </a>
+                    </div>
+                    <div class="right">
+                        <a data-type="1">
+                            <img src="../webroot/images/icon/header/search.svg" alt="Search" class="white">
+                            <img src="../webroot/images/icon/header/search-red.svg" alt="Search" class="red">
+                        </a>
+                        <a data-type="2">
+                            <img src="../webroot/images/icon/header/menu.svg" alt="Menu" class="white">
+                            <img src="../webroot/images/icon/header/menu-red.svg" alt="Menu" class="red">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="detail d-none" data-type="1">
+                <div class="cover">
+                    <div class="search">
+                        <input type="text" placeholder="Nhập từ khoá">
+                        <button>Tìm kiếm</button>
+                    </div>
+                    <ul>
+                        <li>
+                            <a href="#">Cổ phiếu là gì</a>
+                        </li>
+                        <li>
+                            <a href="#">Cổ phiếu FLC</a>
+                        </li>
+                        <li>
+                            <a href="#">Cổ phiếu rớt giá</a>
+                        </li>
+                        <li>
+                            <a href="#">Cổ phiếu hôm nay</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="detail d-none" data-type="2">
+                <div class="button-group">
+                    <a class="login" href="#">
+                        <img src="../webroot/images/icon/user.svg" alt="User">
+                        <p>Đăng nhập</p>
+                    </a>
+                    <a class="register" href="ekyc.html">
+                        <p>MỞ TÀI KHOẢN</p>
+                    </a>
+                </div>
+                <div class="top">
+                    <a href="#">Về TVSI</a>
+                    <a href="#">Tin tức hoạt động</a>
+                    <a href="#">Quan hệ nhà đầu tư</a>
+                    <a href="#">Cơ hội nghề nghiệp</a>
+                </div>
+                <hr>
+                <div class="bottom">
+                    <div class="list">
+                        <h3>SẢN PHẨM & DỊCH VỤ</h3>
+                        <div class="list-menu-default">
+                            <div class="list-detail">
+                                <h4>Đầu tư</h4>
+                                <ul>
+                                    <li>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/san-pham-dich-vu/chung-khoan-co-so.svg"
+                                                 alt="TVSI"> Chứng khoán cơ sở
+                                        </a>
+                                        <a href="#">
+                                            <img src="../webroot/images/icon/header/san-pham-dich-vu/trai-phieu.svg"
+                                                 alt="TVSI"> Trái phiếu
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="list-detail">
+                                <h4>Dịch vụ chứng khoán</h4>
+                                <ul>
+                                    <li>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/san-pham-dich-vu/luu-ky.svg"
+                                                 alt="TVSI"> Lưu ký
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/san-pham-dich-vu/quan-ly-so-co-dong.svg"
+                                                 alt="TVSI"> Quản lý số cổ đông
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/san-pham-dich-vu/chuyen-chung-khoan.svg"
+                                                 alt="TVSI"> Chuyển chứng khoán
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/san-pham-dich-vu/quan-ly-so-trai-phieu.svg"
+                                                 alt="TVSI"> Quản lý số trái phiếu
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/san-pham-dich-vu/thuc-hien-quyen.svg"
+                                                 alt="TVSI"> Thực hiện quyền
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/san-pham-dich-vu/the-chap-chung-khoan.svg"
+                                                 alt="TVSI"> Thế chấp chứng khoán
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/san-pham-dich-vu/dai-ly-dau-gia.svg"
+                                                 alt="TVSI"> Đại lý đấu giá
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="list-detail">
+                                <h4>Dịch vụ tài chính</h4>
+                                <ul>
+                                    <li>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/san-pham-dich-vu/cho-vay-gdkq.svg"
+                                                 alt="TVSI"> Cho vay GDKQ
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/san-pham-dich-vu/cho-vay-thanh-toan.svg"
+                                                 alt="TVSI"> Cho vay thanh toán vượt mức
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/san-pham-dich-vu/ung-truoc-tien-ban.svg"
+                                                 alt="TVSI"> Ứng trước tiền bán
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/san-pham-dich-vu/tien-gui.svg"
+                                                 alt="TVSI"> Tiền gửi
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/san-pham-dich-vu/rut-tien-bang-suc-mua.svg"
+                                                 alt="TVSI"> Rút tiền bằng sức mua
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="list-detail">
+                                <h4>Tài chính doanh nghiệp</h4>
+                                <ul>
+                                    <li>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/san-pham-dich-vu/nghiep-vu-von.svg"
+                                                 alt="TVSI"> Nghiệp vụ thị trường vốn
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/san-pham-dich-vu/cho-vay-thanh-toan.svg"
+                                                 alt="TVSI"> Cho vay thanh toán vượt mức
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/san-pham-dich-vu/ung-truoc-tien-ban.svg"
+                                                 alt="TVSI"> Ứng trước tiền bán
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="list-detail">
+                                <h4>Quản lý tài sản</h4>
+                                <ul>
+                                    <li>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/cate.svg" alt="TVSI"> Cate 1
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/cate.svg" alt="TVSI"> Cate 3
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/cate.svg" alt="TVSI"> Cate 2
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="list-detail">
+                                <h4>Dịch vụ môi giới</h4>
+                                <ul>
+                                    <li>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/cate.svg" alt="TVSI"> Cate 1
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/cate.svg" alt="TVSI"> Cate 4
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/cate.svg" alt="TVSI"> Cate 2
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/cate.svg" alt="TVSI"> Cate 5
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img src="../webroot/images/icon/header/cate.svg" alt="TVSI"> Cate 3
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="@Url.Action("Maintenance", "Page")" class="link">
+                        <h3>TRUNG TÂM PHÂN TÍCH</h3>
+                    </a>
+                    <div class="list">
+                        <h3>HƯỚNG DẪN & HỖ TRỢ</h3>
+                        <div class="list-menu-default">
+                            <div class="list-detail">
+                                <h4>Hướng dẫn giao dịch chứng khoán</h4>
+                                <ul>
+                                    <li>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/mo-tai-khoan.svg"
+                                                 alt="TVSI" class="lazyload"> Mở tài khoản
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/giao-dich-co-phieu.svg"
+                                                 alt="TVSI" class="lazyload"> Mở tài khoản
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/giao-dich-trai-phieu.svg"
+                                                 class="lazyload" alt="TVSI"> Mở tài khoản
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/giao-dich-ky-quy.svg"
+                                                 class="lazyload" alt="TVSI"> Mở tài khoản
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="list-menu-default">
+                            <div class="list-detail">
+                                <h4>Hướng dẫn giao dịch tiền</h4>
+                                <ul>
+                                    <li>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/nop-tien.svg"
+                                                 alt="TVSI" class="lazyload"> Nộp tiền
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/rut-tien-bang-suc-mua.svg"
+                                                 alt="TVSI" class="lazyload"> Rút tiền bằng sức mua trên TKGDKQ
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/chuyen-tien.svg"
+                                                 class="lazyload" alt="TVSI"> Chuyển tiền
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/cho-vay-vuot-muc.svg"
+                                                 class="lazyload" alt="TVSI"> Cho vay thanh toán vượt mức
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/ung-truoc-tien.svg"
+                                                 class="lazyload" alt="TVSI"> Ứng trước tiền bán
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="list-menu-default">
+                            <div class="list-detail">
+                                <h4>Hướng dẫn tra cứu & quả lý tài sản</h4>
+                                <ul>
+                                    <li>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/tra-cuu-qua-contact.svg"
+                                                 alt="TVSI" class="lazyload"> Tra cứu qua contact center (CC)
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="list-menu-default">
+                            <div class="list-detail">
+                                <h4>Các mẫu biểu</h4>
+                                <ul>
+                                    <li>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/mo-tai-khoan-dang-ky.svg"
+                                                 alt="TVSI" class="lazyload"> Mở tài khoản & Đăng ký dịch vụ
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/mau-nop-rut-tien.svg"
+                                                 alt="TVSI" class="lazyload"> Mẫu nộp & Rút tiền
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/cac-bieu-mau-khac.svg"
+                                                 alt="TVSI" class="lazyload"> Các biểu mẫu khác
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="list-menu-default">
+                            <div class="list-detail">
+                                <h4>Kiến thức & Hỏi đáp</h4>
+                                <ul>
+                                    <li>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/hoi-dap.svg"
+                                                 alt="TVSI" class="lazyload"> Hỏi đáp (FAQs)
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/kien-thuc.svg"
+                                                 alt="TVSI" class="lazyload"> Kiến thức
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/kinh-nghiem.svg"
+                                                 alt="TVSI" class="lazyload"> Kinh nghiệm
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/cam-ket-chat-luong.svg"
+                                                 alt="TVSI" class="lazyload"> Cam kết chất lượng dịch vụ (SLA)
+                                        </a>
+                                        <a href="@Url.Action("Maintenance", "Page")">
+                                            <img data-src="../webroot/images/icon/header/huong-dan-ho-tro/bieu-phi.svg"
+                                                 alt="TVSI" class="lazyload"> Biểu phí
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="@Url.Action("Maintenance", "Page")" class="link">
+                        <h3>BIỂU PHÍ</h3>
+                    </a>
+                    <a href="@Url.Action("Maintenance", "Page")" class="link">
+                        <h3>TRUNG TÂM ĐÀO TẠO</h3>
+                    </a>
+                </div>
+                <div class="language-select">
+                    <p class="display selected" data-type="1"><img src="../webroot/images/icon/flag/vie.png" alt="VIE">VIE</p>
+                    <p class="display" data-type="2"><img src="../webroot/images/icon/flag/eng.png" alt="ENG">ENG</p>
+                    <ul class="d-none">
+                        <li data-type="1">
+                            <img src="../webroot/images/icon/flag/vie.png" alt="VIE">
+                            <p>VIE</p>
+                        </li>
+                        <li data-type="2">
+                            <img src="../webroot/images/icon/flag/eng.png" alt="ENG">
+                            <p>ENG</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

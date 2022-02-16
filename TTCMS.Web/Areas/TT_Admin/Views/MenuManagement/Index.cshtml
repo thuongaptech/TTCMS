@@ -1,0 +1,297 @@
+﻿@model TTCMS.Web.Areas.TT_Admin.Models.MenuTableViewModel
+@{
+    ViewBag.Title = TTCMS.Resources.Resources.ManagerMenuText;
+}
+
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs" id="breadcrumbs">
+            <script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+            </script>
+
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/pk_admin">@TTCMS.Resources.Resources.Home</a>
+                </li>
+                <li class="active">@TTCMS.Resources.Resources.ManagerMenuText</li>
+            </ul><!-- /.breadcrumb -->
+        </div>
+        <style>
+            .group label {
+                font-size:12px;
+            }
+        </style>
+        <div class="page-content">
+            <input type="hidden" id="alert_delete" value="@TTCMS.Resources.Resources.ConfirmText">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-sm-4" style=" width: 30.333%">
+                            <div id="accordion" class="accordion-style2">
+                                @Html.Action("_Page")
+                                <div class="group">
+                                    <h3 class="accordion-header">@TTCMS.Resources.Resources.CustomLinksText</h3>
+                                    <div class="no-padding-left">
+                                        <div>
+                                            <p class="col-sm-12 no-padding-left no-padding-right">
+                                                <i class="col-sm-3">@TTCMS.Resources.Resources.URLText:</i><input class="col-sm-9" type="text" id="url" placeholder="URL" value="http://" />
+                                            </p>
+                                            <p class="col-sm-12 no-padding-left no-padding-right">
+                                                <i class="col-sm-3">@TTCMS.Resources.Resources.LinkTextURL:</i><input class="col-sm-9" id="menu_item" type="text" placeholder="@TTCMS.Resources.Resources.MenuItemText" />
+                                            </p>
+                                        </div>
+                                        <ul style="margin-top:5px;" class="add-menu col-sm-12">
+                                            <li style="float:right"><a class="btn btn-white btn-sm btn-primary url-text" href="#" onclick="UpCustomLinks();" style="padding: 0 3px;">@TTCMS.Resources.Resources.AddToMenuText</a></li>
+                                        </ul>
+                                    </div>
+                                   
+                                </div>
+                        @Html.Action("_NewsCate")
+                       @Html.Action("_ProductCate")
+                            </div><!-- #accordion -->
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-xs-12" style=" min-height: 500px;">
+                                <div class="widget-box transparent ui-sortable-handle">
+                                    <div class="widget-header">
+                                        <h4 class="widget-title lighter">Tùy chỉnh hiển thị</h4>
+
+                                        <div class="widget-toolbar">
+                                            <button type="button" style=" margin-bottom: 5px;" id="btn-updatesort" class="btn btn-sm btn-pink" onclick="UpSort();" data-loading-text="Đang xử lí...">
+                                                <i class="ace-icon fa fa-floppy-o bigger-120 "></i>
+                                                Lưu lại
+                                            </button>
+                                        </div>
+                                        <div class="widget-toolbar">
+                                            @Html.DropDownList("LanguageId", Model.Lang, TTCMS.Resources.Resources.LanguageDefaultText, new { @onchange = "ChangeLanguage();", @class = "form-control" })
+                                        </div>
+                                        <div class="widget-toolbar">
+                                            @Html.DropDownList("GroupId", (SelectList)Model.Group, new { @onchange = "LoadListmenu();", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="widget-body" style="display: block;">
+
+                                        <div class="widget-main padding-6 no-padding-left no-padding-right">
+                                            <div class="widget-main padding-4 scrollable" data-size="500">
+                                                <div class="content" style="min-height:410px">
+                                                    <div class="dd" id="nestable">
+                                                       
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="space-6"></div>
+                    </div>
+                <!-- PAGE CONTENT ENDS -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.page-content -->
+    </div>
+</div><!-- /.main-content -->
+@section Scripts {
+<script src="~/Content/admin/js/jquery.nestable.min.js"></script>
+<script src="~/Content/admin/js/fuelux/fuelux.spinner.min.js"></script>
+    <script>
+    jQuery(function ($) {
+
+        $('.dd').nestable();
+
+        $('.dd-handle a').on('mousedown', function (e) {
+            e.stopPropagation();
+        });
+
+        $('[data-rel="tooltip"]').tooltip();
+
+    });
+    $('.scrollable').each(function () {
+        var $this = $(this);
+        $(this).ace_scroll({
+            size: $this.attr('data-size') || 100,
+            //styleClass: 'scroll-left scroll-margin scroll-thin scroll-dark scroll-light no-track scroll-visible'
+        });
+    });
+    //jquery accordion
+    $("#accordion").accordion({
+        collapsible: true,
+        heightStyle: "content",
+        animate: 250,
+        header: ".accordion-header"
+    }).sortable({
+        axis: "y",
+        handle: ".accordion-header",
+        stop: function (event, ui) {
+            // IE doesn't register the blur when sorting
+            // so trigger focusout handlers to remove .ui-state-focus
+            ui.item.children(".accordion-header").triggerHandler("focusout");
+        }
+    });
+    $(document).ready(function () {
+        $('#selectall').click(function () {
+            $('.pageId').prop('checked', this.checked);
+        });
+
+
+    });
+    LoadListmenu();
+    function LoadListmenu() {
+        var show = $('#LanguageId').val();
+        var group = $('#GroupId').val();
+        $.get("@Url.Action("_AjaxLoadMenu")?group=" + group + "&&show=" + show).done(function (html) {
+            $("#nestable").html(html);
+        });
+    };
+
+    //up page
+    function UpMenuPage() {
+        var names = [];
+        $('#uppage .pageId:checked').each(function () {
+            names.push(this.value);
+        });
+        var show = $('#LanguageId').val();
+        var group = $('#GroupId').val();
+        if (names.length > 0) {
+            $.ajax({
+                url: '@Url.Action("UpPage", "MenuManagement")',
+                type: 'POST',
+                data: { ids: names, group: group, show: show },
+                success: function (data) {
+                    onSuccess(data);
+                    $('.pageId').attr('checked', false);
+                    LoadListmenu();
+                }
+            });
+        }
+        else {
+            alert("Not found data");
+        }
+    };
+    //up news cate
+    function UpNewsCate() {
+        var names = [];
+        $('#up-news-cate .news-cateId:checked').each(function () {
+            names.push(this.value);
+        });
+        var show = $('#LanguageId').val();
+        var group = $('#GroupId').val();
+        if (names.length > 0) {
+            $.ajax({
+                url: '@Url.Action("UpNewsCate", "MenuManagement")',
+                type: 'POST',
+                data: { ids: names, group: group, show: show },
+                success: function (data) {
+                    onSuccess(data);
+                    $('.news-cateId').attr('checked', false);
+                    LoadListmenu();
+                }
+            });
+        }
+        else {
+            alert("Not found data");
+        }
+    };
+        //up news cate
+        function UpProCate() {
+            var names = [];
+            $('#up-pro-cate .pro-cateId:checked').each(function () {
+                names.push(this.value);
+            });
+            var show = $('#LanguageId').val();
+            var group = $('#GroupId').val();
+            if (names.length > 0) {
+                $.ajax({
+                    url: '@Url.Action("UpProCate", "MenuManagement")',
+                    type: 'POST',
+                    data: { ids: names, group: group, show: show },
+                    success: function (data) {
+                        onSuccess(data);
+                        $('.pro-cateId').attr('checked', false);
+                        LoadListmenu();
+                    }
+                });
+            }
+            else {
+                alert("Not found data");
+            }
+        };
+    //select all news cate
+    $(document).ready(function () {
+        $('#selectall_news_cate').click(function () {
+            $('.news-cateId').prop('checked', this.checked);
+        });
+
+
+    });
+    //up custom link
+    function UpCustomLinks() {
+        var url = $("#url").val();
+        var item = $("#menu_item").val();
+        var show = $('#LanguageId').val();
+        var group = $('#GroupId').val();
+
+        if (url != "" && item != "") {
+            $.ajax({
+                url: '@Url.Action("UpCustomLink", "MenuManagement")',
+                type: 'POST',
+                data: { url: url, item: item, group: group, show: show },
+                success: function (data) {
+                    onSuccess(data);
+                    var url = $("#url").val("");
+                    var item = $("#menu_item").val("http://");
+                    LoadListmenu();
+                }
+            });
+        }
+        else {
+            alert("Not found data");
+        }
+    };
+    //up sort
+    function UpSort() {
+        $.ajax({
+            url: '@Url.Action("UpMenuList", "MenuManagement")',
+            type: 'POST',
+            traditional: true,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify($(".dd").nestable('serialize')),
+            success: function (data) {
+                onSuccess(data);
+            }
+        });
+    };
+        function ChangeLanguage()
+        {
+            var show = $('#LanguageId').val();
+            var group = $('#GroupId').val();
+            window.location.href = "@Url.Action("Index")?group=" + group + "&&show=" + show;
+        }
+        LoadClickAjaxModalJson();
+        function CompleteAjaxRequestMenu(result) {
+            var returnObj = eval('(' + result.responseText + ')');
+            $("#AjaxAlert").html("");
+            if (returnObj.RedirectUrl != null && returnObj.Success == true) {
+                $('#modal-form').modal('hide');
+                AjaxAlert(returnObj.Code, returnObj.Msg);
+                LoadListmenu();
+            }
+            else {
+                AjaxAlert(returnObj.Code, returnObj.Msg);
+            }
+        };
+    </script>
+}
+
+
+
+

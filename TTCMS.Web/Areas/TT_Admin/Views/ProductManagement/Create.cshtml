@@ -1,0 +1,502 @@
+﻿@model  TTCMS.Web.Areas.TT_Admin.Models.ProductViewModel
+
+@{
+    ViewBag.Title = TTCMS.Resources.Resources.CreateProductText;
+}
+<link href="~/Content/admin/css/chosen.min.css" rel="stylesheet" />
+<link href="~/Content/admin/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs" id="breadcrumbs">
+            <script type="text/javascript">
+                try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+            </script>
+
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/pk_admin">@TTCMS.Resources.Resources.Home</a>
+                </li>
+
+                <li>
+                    <a href="@Url.Action("Index")">@TTCMS.Resources.Resources.ProductText</a>
+                </li>
+                <li class="active">@TTCMS.Resources.Resources.CreateProductText</li>
+            </ul><!-- /.breadcrumb -->
+        </div>
+        <div class="page-content">
+            <div class="row">
+                @using (Html.BeginForm("Create", "ProductManagement", FormMethod.Post, new { @role = "form", @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger" })
+                @Html.HiddenFor(x=>x.CreatedDate)
+                    <div class="col-xs-8">
+                        <div class="tabbable">
+                            <ul class="nav nav-tabs" id="myTab">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#tab_1" aria-expanded="true">
+                                        <i class="ace-icon fa fa-cog bigger-120"></i>
+                                        @TTCMS.Resources.Resources.GeneralInfo
+                                    </a>
+                                </li>
+                               
+                                <li class="">
+                                    <a data-toggle="tab" href="#tab_2" aria-expanded="false">
+                                        <i class="ace-icon fa fa-picture-o bigger-120"></i>
+                                        @TTCMS.Resources.Resources.Images
+
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a data-toggle="tab" href="#tab_3" aria-expanded="false">
+                                        <i class="ace-icon fa fa-rocket bigger-120"></i>
+                                        @TTCMS.Resources.Resources.MetaSeo
+
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div id="tab_1" class="tab-pane fade active in">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-4">
+                                                <label class="ace-file-input ace-file-multiple">
+                                                    <span class="ace-file-container hide-placeholder selected">
+                                                        <span data-title="Ảnh đại diện" class="ace-file-name large" onclick="BrowseServer();">
+                                                            @Html.HiddenFor(x => x.Img_Thumbnail)
+                                                            <img id="Image" class="middle" style="max-width:250px;max-height:250px;" src="/Content/images/add-image.jpg">
+                                                            <i class=" ace-icon fa fa-picture-o file-image"></i>
+                                                        </span>
+                                                    </span>
+                                                </label>
+                                            </div> 
+                                            <div class="col-sm-8">
+                                                <div class="space-4"></div>
+                                                <div class="form-group" style="margin-bottom:5px;">
+                                                    <div class="col-sm-12">
+                                                        @Html.TextBoxFor(x => x.Name, new { @class = "col-xs-12 col-sm-12 get-slug", @placeholder = TTCMS.Resources.Resources.TitleText })
+                                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" style="margin-bottom:5px; margin-left:5px;">
+                                                    <div class="col-sm-12">
+                                                        <div id="Permalink">
+                                                        </div>
+                                                        @Html.ValidationMessageFor(model => model.Route, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="space-4"></div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-12">
+                                                        @Html.TextAreaFor(x => x.Summary, new { @class = "col-xs-12 col-sm-12",@rows="6", @placeholder = TTCMS.Resources.Resources.Description })
+                                                        @Html.ValidationMessageFor(model => model.Summary, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="space-4"></div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <hr />
+                                            <div class="space-4"></div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    @Html.TextAreaFor(x => x.Body, new { @class = "col-xs-12 col-sm-12 ckeditor", @placeholder = TTCMS.Resources.Resources.BodyText })
+                                                    @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tab_2" class="tab-pane fade">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="text-align-reverse margin-bottom-10">
+                                                <a onclick="addImage();" class="btn btn-sm yellow">
+                                                    <i class="fa fa-plus"></i> @TTCMS.Resources.Resources.AddNewImages
+                                                </a>
+                                            </div>
+                                            <table class="table table-bordered table-hover" id="Imagelist">
+                                                <thead>
+                                                    <tr role="row" class="heading">
+                                                        <th width="8%">
+                                                            Image
+                                                        </th>
+                                                        <th width="25%">
+                                                            Url image
+                                                        </th>
+                                                        <th width="3%">
+                                                            Option
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tab_3" class="tab-pane fade">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    @Html.TextBoxFor(x => x.Keywords, new { @class = "col-xs-12 col-sm-12", @placeholder = TTCMS.Resources.Resources.KeywordsText })
+                                                    @Html.ValidationMessageFor(model => model.Keywords, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="space-4"></div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    @Html.TextAreaFor(x => x.Description, new { @class = "col-xs-12 col-sm-12", @placeholder = TTCMS.Resources.Resources.DescriptionText })
+                                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="space-4"></div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    @Html.TextBoxFor(x => x.Tag, new { @class = "col-xs-12 col-sm-12", @placeholder = TTCMS.Resources.Resources.TagText })
+                                                    @Html.ValidationMessageFor(model => model.Tag, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- PAGE CONTENT BEGINS -->
+                        <div class="clearfix form-actions">
+                            <div class="col-md-9">
+                                <div class="col-md-5">
+                                    @Html.ActionLink(@TTCMS.Resources.Resources.BackToList, "Index")
+                                </div>
+                                <button class="btn btn-info" type="submit" onclick="SetSubmit();">
+                                    <i class="ace-icon fa fa-check bigger-110"></i>
+                                    @TTCMS.Resources.Resources.btnCreateSubmit
+                                </button>
+                                &nbsp; &nbsp; &nbsp;
+                                <button class="btn" type="reset" onclick="BrowseServer();">
+                                    <i class="ace-icon fa fa-undo bigger-110"></i>
+                                    @TTCMS.Resources.Resources.btnReset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="widget-box" style="overflow:hidden">
+                            <div class="widget-header">
+                                <h4 class="widget-title">@TTCMS.Resources.Resources.Option</h4>
+                            </div>
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <div style="padding-top:10px;" class="form-group">
+                                        <div class="col-xs-12">
+                                          
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-12 col-sm-1"></label>
+                                                <div class="controls col-xs-12 col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-xs-6">
+                                                            <label>
+                                                                @Html.CheckBoxFor(x => x.IsHot, new { @class = "ace input-lg" })
+                                                                <span class="lbl"> Hot</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-xs-6">
+                                                            <label>
+                                                                @Html.CheckBoxFor(x => x.IsBanChay, new { @class = "ace input-lg" })
+                                                                <span class="lbl"> Bán chạy</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-12 col-sm-4">Mã sản phẩm</label>
+                                                <div class="col-xs-12 col-sm-8">
+                                                    @Html.TextBoxFor(x => x.MaSP, new { @class = "col-xs-12 col-sm-12", @placeholder = TTCMS.Resources.Resources.ProductCode })
+                                                    @Html.ValidationMessageFor(model => model.MaSP, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-12 col-sm-4">Giá bán</label>
+                                                <div class="col-xs-12 col-sm-8">
+                                                    @Html.TextBoxFor(x => x.GiaBan, new { @class = "col-xs-12 col-sm-12", @type = "number", @min = "0", @placeholder = TTCMS.Resources.Resources.ProductPrice })
+                                                    @Html.ValidationMessageFor(model => model.GiaBan, "", new { @class = "text-danger" })
+                                                </div>
+                                                <label class="col-xs-12 col-sm-12 fomat-curency" style="text-align: center; color: red; padding-top: 5px;">
+                                                    0 đ
+                                                </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-12 col-sm-4">Giá giảm</label>
+                                                <div class="col-xs-12 col-sm-8">
+                                                    @Html.TextBoxFor(x => x.GiaKM, new { @class = "col-xs-12 col-sm-12", @type = "number", @min="0", @placeholder = TTCMS.Resources.Resources.ProductPricePromotion })
+                                                    @Html.ValidationMessageFor(model => model.GiaKM, "", new { @class = "text-danger" })
+                                                </div>
+                                                <label class="col-xs-12 col-sm-12 fomat-curency-km" style="text-align: center; color: red; padding-top: 5px;">
+                                                    0 đ
+                                                </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-12 col-sm-4">Đã mua</label>
+                                                <div class="col-xs-12 col-sm-8">
+                                                    @Html.TextBoxFor(x => x.DaMua, new { @class = "col-xs-12 col-sm-12", @type = "number", @min = "0", @placeholder = "Đã mua" })
+                                                    @Html.ValidationMessageFor(model => model.DaMua, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   <hr />
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-12 col-sm-4">@TTCMS.Resources.Resources.ActiveText</label>
+                                        <div class="controls col-xs-12 col-sm-8">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <label>
+                                                        @Html.CheckBoxFor(x => x.IsActive, new { @class = "ace ace-switch ace-switch-4 btn-flat" })
+                                                        <span class="lbl"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-12 col-sm-4"> @TTCMS.Resources.Resources.PublishedText </label>
+                                        <div class="controls col-xs-12 col-sm-8">
+                                            <div class="row">
+                                                <div class="input-group">
+                                                    @Html.TextBoxFor(x => x.Published, "{0:dd/MM/yyyy hh:mm:ss}", new { @class = "form-control", @placeholder = TTCMS.Resources.Resources.SortText })
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-clock-o bigger-110"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="space-6"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<div class="form-group">
+                                        <label class="control-label col-xs-12 col-sm-4">Chọn Size</label>
+                                        <div class="controls col-xs-12 col-sm-8">
+                                            <div class="row">
+                                                @Html.DropDownList("ProductSize", (MultiSelectList)ViewBag.Size, new { multiple = "multiple", @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-12 col-sm-4">@TTCMS.Resources.Resources.Category</label>
+                                        <div class="controls col-xs-12 col-sm-8">
+                                            <div class="row">
+                                                @Html.DropDownListFor(model => model.CategoryId, (SelectList)ViewBag.Parents, TTCMS.Resources.Resources.Category, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div><!-- /.row -->
+        </div><!-- /.page-content -->
+    </div>
+</div><!-- /.main-content -->
+@section Scripts {
+<script src="~/Content/admin/js/chosen.jquery.min.js"></script>
+    <script src="~/Content/admin/js/fuelux/fuelux.spinner.min.js"></script>
+    <script src="~/Content/admin/js/bootstrap-tag.min.js"></script>
+    <script src="~/Content/admin/js/date-time/moment.min.js"></script>
+    <script src="~/Content/admin/js/date-time/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/ckfinder/ckfinder.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                CKEDITOR.replace("ckeditor");
+            });
+        });
+        function BrowseServer() {
+            var finder = new CKFinder();
+            finder.selectActionFunction = SetFileFieldThumb;
+            finder.popup();
+        }
+        function SetSubmit() {
+
+            $(".pn-hinhanh").each(function (index) {
+                $(this).attr("name", "ProductImages[" + index + "][Url]");
+            });
+            $(".pn-img-color").each(function (index2) {
+                $(this).find("input").attr("name", "ColorImages[" + index2 + "][Url]");
+                $(this).find("select").attr("name", "ColorImages[" + index2 + "][Color]");
+            });
+            return true;
+
+        }
+        //Color
+        function SetFileFieldThumb(fileUrl) {
+            $("#Img_Thumbnail").val(fileUrl);
+            document.getElementById('Image').src = fileUrl;
+        }
+        function SetFileField(fileUrl) {
+            $("#ImgURl").val(fileUrl);
+            document.getElementById('Image').src = fileUrl;
+        }
+        function GetCkFinder(Id) {
+            var ckfinder = new CKFinder();
+            ckfinder.selectActionFunction = function (fileUrl) {
+                $("#Color_Thumb" + Id + "").val(fileUrl);
+                $("#Color_Thumbnail" + Id + "").attr('src', fileUrl);
+            };
+            ckfinder.popup();
+        }
+        var color_row = 0;
+        function addColor() {
+            var str1 = $("#drp").html().replace("MauSacs", "ColorImages[" + color_row + "][Color]");
+            var str = '<script> $("#btn_Color_Thumbnail' + color_row + '").click(function () { GetCkFinder("' + color_row + '");});';
+            str += "<";
+            str += "/script>";
+            html = '<tr id="image-row' + color_row + '" class=\"pn-img-color\">';
+            html += '<td><a  href=\"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjE4IiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDIxOCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMjE4IiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9Ijg0IiB5PSI3MCIgc3R5bGU9ImZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0O2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjIxOHgxNDA8L3RleHQ+PC9nPjwvc3ZnPg==\" class=\"fancybox-button\" data-rel=\"fancybox-button\">';
+            html += '<img class=\"img-responsive\" id="Color_Thumbnail' + color_row + '" src=\"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjE4IiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDIxOCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMjE4IiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9Ijg0IiB5PSI3MCIgc3R5bGU9ImZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0O2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjIxOHgxNDA8L3RleHQ+PC9nPjwvc3ZnPg==\" alt=\"\"style=\"max-width:100px\"></a></td>';
+            html += '<td><div class="input-group">';
+            html += '<input type="text" name="ColorImages[' + color_row + '][Url]" class="form-control" id="Color_Thumb' + color_row + '"  placeholder="Link image">';
+            html += '<span class="input-group-btn">';
+            html += '<a class="btn yellow" id="btn_Color_Thumbnail' + color_row + '" ><i class="fa fa-upload"></i> Choose..</a></span></div></td>';
+            html += '<td>' + str1 + '</td>';
+            html += '<td><a href=\"javascript:;\" onclick="$(\'#image-row' + color_row + '\').remove();" class=\"btn default btn-sm\"> <i class=\"fa fa-times\"></i> Remove</a>' + str + '</td>';
+            html += '</tr>';
+
+            $('#Colorlist tbody').append(html);
+            color_row++;
+        }
+
+        //Image
+        function SetFileFieldImage(fileUrl) {
+            $("#ImgURl").val(fileUrl);
+            document.getElementById('Image').src = fileUrl;
+        }
+        function GetCkFinderImage(Id) {
+            var ckfinder = new CKFinder();
+            ckfinder.selectActionFunction = function (fileUrl) {
+                $("#Img_Thumb" + Id + "").val(fileUrl);
+                $("#Img_Thumbnail" + Id + "").attr('src', fileUrl);
+            };
+            ckfinder.popup();
+        }
+        var image_row = 0;
+
+        function addImage() {
+            var str = '<script> $("#btn_Img_Thumbnail' + image_row + '").click(function () { GetCkFinderImage("' + image_row + '");});';
+            str += "<";
+            str += "/script>";
+
+            html = '<tr id="image-row' + image_row + '">';
+            html += '<td><a  href=\"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjE4IiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDIxOCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMjE4IiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9Ijg0IiB5PSI3MCIgc3R5bGU9ImZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0O2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjIxOHgxNDA8L3RleHQ+PC9nPjwvc3ZnPg==\" class=\"fancybox-button\" data-rel=\"fancybox-button\">';
+            html += '<img class=\"img-responsive\" id="Img_Thumbnail' + image_row + '" src=\"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjE4IiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDIxOCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMjE4IiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9Ijg0IiB5PSI3MCIgc3R5bGU9ImZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0O2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjIxOHgxNDA8L3RleHQ+PC9nPjwvc3ZnPg==\" alt=\"\" style=\"max-width:100px\"></a></td>';
+            html += '<td><div class="input-group">';
+            html += '<input type="text" name="ProductImages[' + image_row + '][Url]" class="form-control pn-hinhanh" id="Img_Thumb' + image_row + '"  placeholder="Link image">';
+            html += '<span class="input-group-btn">';
+            html += '<a class="btn yellow" id="btn_Img_Thumbnail' + image_row + '" ><i class="fa fa-upload"></i> Choose..</a></span></div></td>';
+            html += '<td><a href=\"javascript:;\" onclick="$(\'#image-row' + image_row + '\').remove();" class=\"btn default btn-sm\"> <i class=\"fa fa-times\"></i> Remove</a>' + str + '</td>';
+            html += '</tr>';
+
+            $('#Imagelist tbody').append(html);
+            image_row++;
+        }
+
+        $('#Published').datetimepicker({
+            format: 'DD/MM/YYYY  hh:mm:ss'
+        });
+        jQuery.validator.methods["date"] = function (value, element) { return true; }
+        function URL_Edit(type) {
+            if (type == "edit") {
+                $(".url-text").css("display", "none");
+                $(".url-edit").css("display", "block");
+            }
+            else if (type == "save") {
+                var value = $(".url-edit-save").val();
+                $(".url-edit-value").text(value);
+                alert($("#Route").val());
+                $("#Route").val(value);
+                $(".url-text").css("display", "block");
+                $(".url-edit").css("display", "none");
+            }
+        }
+        $(".get-slug").change(function () {
+            var text = $("#Name").val();
+            $.get("@(Url.Action("_getSlug"))?val=" + text).done(function (html) {
+                $("#Permalink").html(html);
+            });
+        });
+        var tag_input = $('#Tag');
+        try {
+            tag_input.tag(
+              {
+                  placeholder: tag_input.attr('placeholder'),
+                  //enable typeahead by specifying the source array
+                  source: ace.vars['US_STATES'],//defined in ace.js >> ace.enable_search_ahead
+                  /**
+                  //or fetch data from database, fetch those that match "query"
+                  source: function(query, process) {
+                    $.ajax({url: 'remote_source.php?q='+encodeURIComponent(query)})
+                    .done(function(result_items){
+                      process(result_items);
+                    });
+                  }
+                  */
+              }
+            )
+
+            //programmatically add a new
+            var $tag_obj = $('#Tag').data('tag');
+            //$tag_obj.add('Programmatically Added');
+        }
+        catch (e) {
+            //display a textarea for old IE, because it doesn't support this plugin or another one I tried!
+            tag_input.after('<textarea id="' + tag_input.attr('id') + '" name="' + tag_input.attr('name') + '" rows="3">' + tag_input.val() + '</textarea>').remove();
+            //$('#form-field-tags').autosize({append: "\n"});
+        }
+        $('#chosen-multiple-style .btn').on('click', function (e) {
+            var target = $(this).find('input[type=radio]');
+            var which = parseInt(target.val());
+            if (which == 2) $('#form-field-select-4').addClass('tag-input-style');
+            else $('#form-field-select-4').removeClass('tag-input-style');
+        });
+        Number.prototype.toCurrencyString = function (prefix, suffix) {
+            if (typeof prefix === 'undefined') { prefix = ''; }
+            if (typeof suffix === 'undefined') { suffix = ''; }
+            var _localeBug = new RegExp((1).toLocaleString().replace(/^1/, '').replace(/\./, '\\.') + "");
+            return prefix + (~~this).toLocaleString().replace(_localeBug, '') + (this % 1).toFixed(0).toLocaleString().replace(/^[+-]?0+/, '') + suffix;
+        }
+        $("#GiaBan").keyup(function () {
+            formatprice();
+        });
+        function formatprice() {
+            var val = parseInt($("#GiaBan").val(), 10);
+            if (val.toString() == "NaN" || val.toString() == "0NaN") {
+                alert("Giá bán không hợp lệ!");
+            }
+            else {
+                $(".fomat-curency").html('Giá bán: '+val.toCurrencyString('', ' đ'))
+            }
+        }
+        $("#GiaKM").keyup(function () {
+            formatpricekm();
+        });
+        function formatpricekm() {
+            var val = parseInt($("#GiaKM").val(), 10);
+            if (val.toString() == "NaN" || val.toString() == "0NaN") {
+                alert("Giá khuyến mãi không hợp lệ!");
+            }
+            else {
+                $(".fomat-curency-km").html('Giá KM: '+val.toCurrencyString('', ' đ'))
+            }
+        }
+    </script>
+}

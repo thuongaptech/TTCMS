@@ -1,0 +1,120 @@
+﻿@model  TTCMS.Web.Areas.TT_Admin.Models.ActionLangViewModel
+
+@{
+    ViewBag.Title = TTCMS.Resources.Resources.CreateRoleText;
+}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs" id="breadcrumbs">
+            <script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+            </script>
+
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/pk_admin">@TTCMS.Resources.Resources.Home</a>
+                </li>
+
+                <li>
+                    <a href="@Url.Action("Index")">@TTCMS.Resources.Resources.RoleText</a>
+                </li>
+                <li class="active">@TTCMS.Resources.Resources.CreateRoleText</li>
+            </ul><!-- /.breadcrumb -->
+        </div>
+        <div class="page-content">
+            <div class="row">
+                @using (Html.BeginForm("Create", "ActionManagement", FormMethod.Post, new { @role = "form", @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger" })
+                    <div class="col-xs-8">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> @TTCMS.Resources.Resources.RoleId </label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(x => x.Id, new { @class = "col-xs-10 col-sm-5", @placeholder = TTCMS.Resources.Resources.RoleId })
+                                @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> @TTCMS.Resources.Resources.RoleName </label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(x => x.Name, new { @class = "col-xs-10 col-sm-7", @placeholder = TTCMS.Resources.Resources.RoleName })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> @TTCMS.Resources.Resources.Description </label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(x => x.Description, new { @class = "col-xs-10 col-sm-7", @placeholder = TTCMS.Resources.Resources.Description })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="space-4"></div>
+                        <div class="clearfix form-actions">
+                            <div class="col-md-9">
+                                <div class="col-md-5">
+                                    @Html.ActionLink(@TTCMS.Resources.Resources.BackToList, "Index")
+                                </div>
+                                <button class="btn btn-info" type="submit">
+                                    <i class="ace-icon fa fa-check bigger-110"></i>
+                                    @TTCMS.Resources.Resources.btnCreateSubmit
+                                </button>
+                                &nbsp; &nbsp; &nbsp;
+                                <button class="btn" type="reset">
+                                    <i class="ace-icon fa fa-undo bigger-110"></i>
+                                    @TTCMS.Resources.Resources.btnReset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="widget-box" style="overflow:hidden">
+                            <div class="widget-header">
+                                <h4 class="widget-title">@TTCMS.Resources.Resources.Option</h4>
+                            </div>
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-12 col-sm-4">@TTCMS.Resources.Resources.ActiveText</label>
+                                        <div class="controls col-xs-12 col-sm-8">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <label>
+                                                        @Html.CheckBoxFor(x => x.IsActived, new { @class = "ace ace-switch ace-switch-4 btn-flat" })
+                                                        <span class="lbl"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-12 col-sm-4">@TTCMS.Resources.Resources.LanguageText</label>
+                                        <div class="controls col-xs-12 col-sm-8">
+                                            <div class="row">
+                                                @Html.DropDownListFor(model => model.LanguageId, (SelectList)Model.Lang, TTCMS.Resources.Resources.AllLanguage, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div><!-- /.row -->
+        </div><!-- /.page-content -->
+    </div>
+</div><!-- /.main-content -->
+@section Scripts {
+    <script src="~/Content/admin/js/fuelux/fuelux.spinner.min.js"></script>
+    <script>
+    $('#Order').ace_spinner({ value: 0, min: 0, step: 1, btn_up_class: 'btn-info', btn_down_class: 'btn-info' })
+				.closest('.ace-spinner')
+				.on('changed.fu.spinbox', function () {
+				    //alert($('#spinner1').val())
+				});
+    </script>
+}

@@ -1,0 +1,20 @@
+﻿@model TTCMS.Web.Models.Product.ProductVM[]
+@if (Model.Any())
+{
+    int icount = 1;
+    <div class="blockproductcat">
+        <div class="blocktitle">
+            <h2 class="catname"><a href="@Url.Action("Sales", "Product")">SẢN PHẨM KHUYẾN MÃI</a></h2>
+            <div class="viewall"><a style="text-decoration:none;" href="@Url.Action("Sales", "Product")" class="sprites"></a></div>
+        </div><div class="boxhomeproducthot-content">
+        <ul class="products-grid">
+        @foreach (var item in Model)
+        {
+            <li class="item @(icount==1?"first":"") @(icount == 4 ? "last" : "")"><a class="product-content" rel="nofollow" href="@Url.Action("Detail", new { Id = item.Id, alias = item.Route })" title="@item.Name"><img src="@item.Img_Thumbnail" alt="@item.Name" /></a><h3 class="product-name"><a href="@Url.Action("Detail", new { Id = item.Id, alias = item.Route })" title="@item.Name">@item.Name</a></h3><div class="discountpercent">@(Math.Round(100 - (item.GiaKM / item.GiaBan) * 100))%</div><div class="infoprice"><span class="priceold">@(item.GiaKM > 0 ? string.Format("{0:#,###}", Convert.ToDouble(item.GiaBan)) : "")</span><span class="pricespecial">@(item.GiaKM > 0 ? string.Format("{0:#,###}", Convert.ToDouble(item.GiaKM)) : "")</span></div><div class="buybutton"><a rel='nofollow' title='Liên hệ mua sản phẩm này' href='/lien-he.html' class='fancybox buynow ' id='fancybox@(item.Id)'>MUA</a></div></li>
+            icount++;
+        }
+        </ul>
+        </div>
+    </div>
+}
+

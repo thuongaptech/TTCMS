@@ -1,0 +1,14 @@
+﻿@model TTCMS.Domain.News[]
+
+@foreach (var item in Model)
+{
+    <li class='clear'>
+        <div class="rightthumb">
+            <a href="@Url.Action("DetailNews", "Page", new { Id = item.Id, alias = item.Route })" title="@item.Title">
+                <img src="@item.Img_Thumbnail" alt="@item.Title" />
+            </a>
+        </div>
+        <div style="height: 2px"></div>
+        <a href="@Url.Action("DetailNews", "Page", new { Id = item.Id, alias = item.Route })">@item.Title</a>
+    </li>
+}

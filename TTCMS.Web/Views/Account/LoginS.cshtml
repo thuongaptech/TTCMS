@@ -1,0 +1,147 @@
+﻿@model TTCMS.Web.Models.LoginViewModel
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng ký tài khoản</title>
+    <link rel="shortcut icon" type="image/ico" href="@ViewBag.Meta.Favicon" />
+    <link rel="icon" type="image/ico" href="@ViewBag.Meta.Favicon" />
+    <meta http-equiv="content-language" content="vi" />
+    <meta name="description" content="@Html.Raw(ViewBag.Meta.Description)" />
+    <meta name="keywords" content="@Html.Raw(ViewBag.Meta.Keywords)" />
+    <meta name="robots" content="index, follow" />
+    <meta name="geo.region" content="VN-SG" />
+    <meta name="geo.placename" content="@Html.Raw(ViewBag.Meta.Address)" />
+    <meta property="og:site_name" content="@Html.Raw(ViewBag.Meta.ApplicationName)" />
+    <meta property="og:title" content="@Html.Raw(ViewBag.Title)" />
+    <meta property="og:description" content="@Html.Raw(ViewBag.Meta.Description)" />
+    <meta property="og:url" itemprop="url" content='@Request.Url.AbsoluteUri' />
+    <meta property="og:image" content="@ViewBag.Meta.Seo_Image" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" itemprop="inLanguage" content="vi_VN" />
+    <link rel="canonical" href="@Request.Url.AbsoluteUri" />
+    <link rel="image_src" href="@ViewBag.Meta.Seo_Image" />
+    <link href="/Content/Default/css/base-2.6.3.min.css" rel="stylesheet" />
+    <link href="/Content/Default/css/app-2.8.7.min.css" rel="stylesheet" />
+    <link href="/Content/Default/css/style.css" rel="stylesheet" />
+</head>
+<body class=" page-checkout">
+    <div id="ohsnap"></div>
+    <div id="hd-container" class="hd-container">
+        <a class="toggle-nav visible-xs visible-sm" data-target="#hd-container" data-effect="hd-effect-4">
+            <i class="fa fa-bars"></i>
+        </a>
+        <div class="hd-menu hd-effect-4 visible-xs visible-sm">
+            <div class="hd-menu-container">
+                @Html.Action("Category_Mobile", "Menu")
+                <div class="hotline">
+                    <span class="hotline__text">HOTLINE</span>
+                    <span class="hotline__number">@ViewBag.Meta.HotLine</span>
+                </div>
+            </div>
+        </div>
+        <div class="hd-pusher">
+            <div class="hd-content">
+                <div class="hd-content-inner">
+                    <div id="page-wrapper">
+                        <div class="hd-touch-layer"></div>
+                        <header id="header" class="header clearfix">
+                            <div class="header__main header__main--simple clearfix">
+                                <div class="container">
+                                    <div class="row">
+                                        <a class="toggle-nav visible-xs visible-sm" data-target="#hd-container" data-effect="hd-effect-4"><i class="fa fa-bars"></i></a>
+                                        <a class="toggle-search visible-xs visible-sm" data-target="#main-search"><i class="hd hd-search"></i></a>
+                                        <div id="logo" class="logo-wrapper col-md-3">
+                                            <a href="@Url.Action("Index","Home")">
+                                                <img style="margin: 0 auto;" class="hidden-xs hidden-sm logo" src="@ViewBag.Meta.Logo" />
+                                                <img style="margin: 0 auto;" class="visible-xs visible-sm logo" src="@ViewBag.Meta.Logo" />
+                                            </a>
+                                        </div>
+                                        <div id="main-search" class="search-area col-md-5 " style="padding-left: 10px;">
+                                        </div>
+                                        <div class="col-md-2 header-cart-wrapper ">
+                                        </div>
+                                        @Html.Action("Login", "Account")
+                                    </div>
+                                </div>
+                            </div>
+                        </header>
+                        <main class="main-content clearfix" id="main">
+                            <div class="container">
+                                <div class="content content--full">
+                                    <div class="box box--center box--login">
+                                        <div class="box__header">
+                                            <h2 class="box__title">Đăng nhập</h2>
+                                        </div>
+                                        <div class="box__body">
+                                         @using (Html.BeginForm("LoginS", "Account", new { ReturnUrl = Request.Url.AbsoluteUri }, FormMethod.Post, new { @class = "form-horizontal form--general fv-form fv-form-bootstrap", role = "form" }))
+                                                {
+                                             @Html.Partial("_Alerts")
+                                            @Html.AntiForgeryToken()
+                                                <button type="submit" class="fv-hidden-submit" style="display: none; width: 0px; height: 0px;"></button>
+                                                <div class="form-group form-group-lg form-group-no-label has-feedback">
+                                                    <label class="visible-xs visible-sm" for="user_login">Tên đăng nhập / Email <span class="required">*</span></label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon"><i class="hd hd-user"></i></div>
+                                                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Tên đăng nhập" })
+                                                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger alert-error" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group form-group-lg form-group-no-label has-feedback">
+                                                    <label class="visible-xs visible-sm" for="user_login">Mật khẩu <span class="required">*</span></label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon"><i class="hd hd-lock"></i></div>
+                                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Mật khẩu" })
+                                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger alert-error" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group password-helper clearfix">
+                                                    <label class="pull-left remember-me" for="RememberMe">@Html.CheckBoxFor(m => m.RememberMe) Ghi nhớ đăng nhập</label>
+                                                    <a href="/khoi-phuc-mat-khau.html" rel="nofollow" class="pull-right">Quên mật khẩu?</a>
+                                                </div>
+                                                <div style="margin-bottom: 0;" class="form-group form-group-lg">
+                                                    <button class="btn btn-success btn-lg btn-block" type="submit">ÐĂNG NHẬP</button>
+                                                    <p class="login-register-helper">Bạn chưa có tài khoản? <a href="@Url.Action("Register", "Account")" rel="nofollow">Ðăng ký ngay</a></p>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+                        <footer id="footer" class="footer clearfix">
+                            <div class="footer__bottom ">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-2 col-xs-12 col-sm-12 hidden-xs hidden-sm">
+                                            <a target="_blank" href="@ViewBag.Meta.LinkFooter">
+                                                <img class="img-responsive" src="@ViewBag.Meta.FileXML" style="max-width: 165px;" />
+                                            </a>
+                                        </div>
+                                        <div class="col-md-6 col-xs-12 col-sm-12 address-block">
+                                            <div class="visible-xs text-center">
+                                            </div>
+                                            <p>
+                                                @Html.Raw(ViewBag.Meta.Strfooter)
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4 col-xs-12 col-sm-12 websites-block">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#top" data-offset="300" class="btn btn-default btn--to-top to-top"><i class="fa fa-arrow-up"></i></a>
+    <script src="~/Content/Default/js/base-2.6.3.min.js"></script>
+    <script src="~/Content/Default/js/app-2.8.7.min.js"></script>
+    <script src="~/Content/js-custom.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+</body>
+</html>

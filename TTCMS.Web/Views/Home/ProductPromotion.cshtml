@@ -1,0 +1,20 @@
+﻿@model TTCMS.Web.Models.Product.ProductVM[]
+@{
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div class="boxspkm">
+            <a href="@item.Route"><img src="@item.Img_Thumbnail" border="0" alt="@item.Name" /></a>
+            <div class="boxspkm-name">
+                <a href="#">@item.Name </a>
+                <div class=" boxspkm-name gia">@string.Format(info, "{0:c}", item.GiaBan).Replace(",00", "")</div>
+                <div class=" boxspkm-name giared">@string.Format(info, "{0:c}", item.GiaKM).Replace(",00", "")</div>
+            </div>
+        </div><!--boxspkmai-->
+    }
+
+}

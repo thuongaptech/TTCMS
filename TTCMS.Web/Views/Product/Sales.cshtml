@@ -1,0 +1,81 @@
+﻿@model PagedList.IPagedList<TTCMS.Web.Models.Product.ProductHomeViewModel>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Sản phẩm khuyến mãi";
+    int icount = 1;
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<div class="main-container col1-layout">
+    <div class="top-bar">
+        <div class="breadcrumbs">
+            <ul>
+                <li class="home" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a itemprop="url" href="zanado_default.html" title="Đến trang chủ"><span itemprop="title">Trang chủ</span></a>
+                </li>
+                <li class="category17 icon-li" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+
+                    <div class="link-site-more">
+                        <a itemprop="url" href="#" title=""><span itemprop="title">Sản Phẩm</span></a>
+                    </div>
+                </li>
+                <li class="category75 icon-li">
+                    <strong>Sản phẩm khuyến mãi</strong>
+                </li>
+                <li style="float: right; max-height:22px; overflow:hidden;">
+                    <div class="share">
+                        <div class="facebook">
+                            <div class="fb-like" data-send="true" data-layout="button_count" data-width="100" data-show-faces="false"></div>
+                        </div>
+                        <div class="google">
+                            <g:plusone size="medium"></g:plusone>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main">
+        <div class="col-main">
+            <div class="">
+                <div class="blocktitle"><div class="catname"><h1>Sản phẩm khuyến mãi</h1></div></div>
+                <div class="blockproductcat">
+                    <div style="clear:both;"></div>
+                    <div class="boxhomeproduct-content">
+                        <ul class="products-grid">
+                            @foreach (var item in Model)
+                            {
+                                <li class="item @(icount==1?"first":"") @(icount == 4 ? "last" : "")">
+                                    <a class="product-content" rel="nofollow" href="@Url.Action("Detail","Product", new { Id = item.Id, alias = item.Route })" title="@item.Name"><img src="@item.Img_Thumbnail" alt="@item.Name" /></a><h3 class="product-name"><a href="@Url.Action("Detail", new { Id = item.Id, alias = item.Route })" title="@item.Name">@item.Name</a></h3>
+                                    @if (item.GiaKM > 0)
+                                    {
+                                        <div class="discountpercent">@(Math.Round(100 - (item.GiaKM / item.GiaBan) * 100))%</div>
+                                    }
+                                    <div class="infoprice">
+                                        @if (item.GiaKM > 0)
+                                        {
+                                            <span class="priceold">@(item.GiaKM > 0 ? string.Format("{0:#,###} đ", Convert.ToDouble(item.GiaBan)) : "")</span>
+                                        }
+                                        <span class="pricespecial">@(item.GiaKM > 0 ? string.Format("{0:#,###} đ", Convert.ToDouble(item.GiaKM)) : "")</span>
+                                    </div>
+                                    <div class="buybutton"><a rel='nofollow' title='Liên hệ mua sản phẩm này' href='/lien-he.html' class='fancybox buynow ' id='fancybox@(item.Id)'>MUA</a></div>
+                                </li>
+                                        icount++;
+                            }
+                        </ul>
+                    </div>
+                    @if (ViewBag.show == "1")
+                    {
+                        <div>
+                            @Html.PagedListPager(Model, page => Url.Action("Sales",
+                                new { page }))
+
+                        </div>
+                    }
+
+                </div>
+            </div>
+            <!----->
+        </div>
+    </div>
+</div>
+

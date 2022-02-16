@@ -1,0 +1,32 @@
+.nav-link {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+
+    /* #666666 */
+
+    color: #666666 !important;
+}
+.navbar-dark .navbar-toggler{
+    color: #666666 !important;
+}
+.navbar-toggler {
+    background-color: none !important;
+}
+
+.navbar .megamenu {
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin-top: 0;
+}
+.has-megamenu {
+    position: inherit !important;
+}
+.container-fluid .navbar-collapse .nav-link {
+    text-transform: uppercase;
+}

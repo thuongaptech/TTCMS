@@ -1,0 +1,53 @@
+﻿@model TTCMS.Web.Areas.TT_Admin.Models.CategoryViewModel[]
+<div class="group" id="up-pro-cate">
+    <h3 class="accordion-header">Danh mục sản phẩm</h3>
+    <div>
+        <div class="scrollable" data-size="300">
+            @foreach (var item in Model)
+            {
+                <p>
+                    <label class="inline">
+                        <input value="@item.Id" type="checkbox" class="ace pro-cateId">
+                        <span class="lbl"> @item.Name</span>
+                    </label>
+                </p>
+            }
+        </div>
+        <ul style="margin-top:5px;" class="add-menu">
+            <li style="float:left;"><input id="selectall_news_cate" type="checkbox" class="ace"><label class="lbl" for="selectall_news_cate" style="font-weight:bold"> @TTCMS.Resources.Resources.SelectAllText</label></li>
+            <li style="float:right"><a class="btn btn-white btn-sm btn-primary url-text" href="#" onclick="UpProCate();" style="padding: 0 3px;">@TTCMS.Resources.Resources.AddToMenuText</a></li>
+        </ul>
+    </div>
+
+</div>
+<script>
+    jQuery(function ($) {
+        $('.dd').nestable();
+        $('.dd-handle a').on('mousedown', function (e) {
+            e.stopPropagation();
+        });
+        $('[data-rel="tooltip"]').tooltip();
+    });
+    $('.scrollable').each(function () {
+        var $this = $(this);
+        $(this).ace_scroll({
+            size: $this.attr('data-size') || 100,
+            //styleClass: 'scroll-left scroll-margin scroll-thin scroll-dark scroll-light no-track scroll-visible'
+        });
+    });
+    //jquery accordion
+    $("#accordion").accordion({
+        collapsible: true,
+        heightStyle: "content",
+        animate: 250,
+        header: ".accordion-header"
+    }).sortable({
+        axis: "y",
+        handle: ".accordion-header",
+        stop: function (event, ui) {
+            // IE doesn't register the blur when sorting
+            // so trigger focusout handlers to remove .ui-state-focus
+            ui.item.children(".accordion-header").triggerHandler("focusout");
+        }
+    });
+</script>

@@ -1,0 +1,17 @@
+﻿@model TTCMS.Domain.Menu[]
+@if (Model.Any())
+{
+    var model = Model.Where(x => x.ParentID == null || x.ParentID == 0).OrderBy(x => x.Order);
+    <nav class="side-nav">
+        <ul class="nav-menu">
+            @foreach (var item in model)
+            {
+                <li class="nav-menu__item branding">
+                    <a href="@item.Link">@item.Name</a>
+                </li>
+            }
+        </ul>
+    </nav>
+}
+
+

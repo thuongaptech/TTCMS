@@ -1,0 +1,113 @@
+﻿@model TTCMS.Web.Areas.TT_Admin.Models.CategoryTableViewModel
+@using PagedList.Mvc;
+@if (Model.ModelList.Any())
+{
+    <input id="Page" type="hidden" value="@Model.ModelList.PageNumber" />
+    <table class="table table-striped table-bordered table-hover" id="simple-table">
+        <thead>
+            <tr>
+                <th class="center">
+                    <label class="pos-rel">
+                        <input type="checkbox" class="ace">
+                        <span class="lbl"></span>
+                    </label>
+                </th>
+                <th>@TTCMS.Resources.Resources.SizeNameText</th>
+                <th class="hidden-480">@TTCMS.Resources.Resources.SizeDescription</th>
+                <th class="text-center">@TTCMS.Resources.Resources.LanguageText</th>
+                <th>
+                    <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
+                    @TTCMS.Resources.Resources.Created
+                </th>
+                <th class="hidden-480">@TTCMS.Resources.Resources.Status</th>
+                <th>@TTCMS.Resources.Resources.Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ModelList)
+            {
+                <tr id="item_@item.Id">
+                    <td class="center">
+                        <label class="pos-rel">
+                            <input type="checkbox" class="ace" value="@item.Id">
+                            <span class="lbl"></span>
+                        </label>
+                    </td>
+                    <td>@item.Name</td>
+                    <td class="hidden-480">@item.Description</td>
+                    <td class="text-center">@item.NgonNgu</td>
+                    <td>@string.Format("{0:dd/MM/yyyy}", item.CreatedDate)</td>
+                    <td class="hidden-480">
+                        @if (item.IsActive == true)
+                        {
+                            <span class="label label-sm label-success arrowed arrowed-right"><i class="fa fa-unlock"></i> Active</span>
+                        }
+                        else
+                        {
+                            <span class="label label-sm label-danger arrowed arrowed-right"><i class="fa fa-unlock-alt"></i> NotActive</span>
+                        }
+                    </td>
+                    <td>
+                        <div class="hidden-sm hidden-xs btn-group">
+                            <a href="@Url.Action("Edit", new {Id = item.Id })" data-toggle="modal" data-target="#myModal" data-remote="false" data-ajax="modal-json" title="@TTCMS.Resources.Resources.EditPost" class="btn btn-xs btn-info">
+                                @TTCMS.Resources.Resources.EditText
+                            </a>
+                            @Ajax.ActionLink(TTCMS.Resources.Resources.DeleteText, "Delete", new { Id = item.Id },
+                                            new AjaxOptions()
+                                            {
+                                                HttpMethod = "Delete",
+                                                Confirm = TTCMS.Resources.Resources.ConfirmText,
+                                                UpdateTargetId = @item.Id.ToString(),
+                                                OnSuccess = "onSuccess"
+                                            }, new { @class = "btn btn-xs btn-danger DeleteDialog", @title = TTCMS.Resources.Resources.DeletePost })
+                        </div>
+                        <div class="hidden-md hidden-lg">
+                            <div class="inline pos-rel">
+                                <button data-position="auto" data-toggle="dropdown" class="btn btn-minier btn-primary dropdown-toggle">
+                                    <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+                                    <li>
+                                        <a title="@TTCMS.Resources.Resources.EditPost" data-toggle="modal" data-target="#myModal" data-remote="false" data-ajax="modal-json" class="btn btn-xs btn-info" href="@Url.Action("Edit", new {Id = item.Id })">
+                                            @TTCMS.Resources.Resources.EditText
+                                        </a>
+                                    </li>
+                                    <li>
+                                        @Ajax.ActionLink(TTCMS.Resources.Resources.DeleteText, "Delete", new { Id = item.Id },
+                                            new AjaxOptions()
+                                            {
+                                                HttpMethod = "Delete",
+                                                Confirm = TTCMS.Resources.Resources.ConfirmText,
+                                                UpdateTargetId = @item.Id.ToString(),
+                                                OnSuccess = "onSuccess"
+                                            }, new { @class = "btn btn-xs btn-danger DeleteDialog", @title = TTCMS.Resources.Resources.DeletePost })
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-xs-6"><div class="dataTables_info" id="dynamic-table_info" role="status" aria-live="polite">@TTCMS.Resources.Resources.Page @(Model.ModelList.PageCount < Model.ModelList.PageNumber ? 0 : Model.ModelList.PageNumber) @TTCMS.Resources.Resources.Of @Model.ModelList.PageCount</div></div>
+        <div class="col-xs-6 no-padding">
+            <div class="dataTables_paginate paging_simple_numbers" id="ajax_paging">
+               @Html.PagedListPager(
+            Model.ModelList,
+            page => Url.Action("Index",
+        new { page, show = Model.Show, search = Model.Search }),
+                             PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { UpdateTargetId = "TableContainer" })
+            )
+            </div>
+    </div>
+    </div>
+    <script>
+        LoadClickAjaxModalJson();
+    </script>
+}
+else
+{
+    @Html.Partial("_AlertInfo", @TTCMS.Resources.Resources.ErrorNoData);
+}

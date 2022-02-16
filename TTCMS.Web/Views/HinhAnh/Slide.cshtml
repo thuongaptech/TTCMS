@@ -1,0 +1,35 @@
+﻿@model TTCMS.Domain.Slide[]
+@*@if (Model.Any())
+{
+    <div class="promo-slider__slides">
+        @foreach (var item in Model)
+        {
+            <div class="slider-item">
+                <a href="@item.LinkRedirec" target="@item.Target" title="@item.Title">
+                    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 10;"></div>
+                    <div class="">
+                        <div class="div-mobile-layer div-layer layer-bg" style="width:750px;height:390px;" data-src="@item.Images" alt="@item.Title"></div>
+                    </div>
+                </a>
+            </div>
+        }
+        
+    </div>
+}*@
+
+<section class="swiper-container banner">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <img src="../webroot/images/banner/img.png" data-src="../webroot/images/banner/img.png"
+                 class="lazyload">
+        </div>
+        <div class="swiper-slide">
+            <img src="../webroot/images/banner/img.png" data-src="../webroot/images/banner/img.png"
+                 class="lazyload">
+        </div>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
+</section>
+

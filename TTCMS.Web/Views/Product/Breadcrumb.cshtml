@@ -1,0 +1,32 @@
+﻿@model TTCMS.Web.Models.Product.BreadcrumbViewModel
+<div class="breadcrumb">
+    <div class="container">
+        <ol itemscope="" itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                <a class="breadcrumb__link breadcrumb__link--home" href="@Url.Action("Index","Home")"
+                   itemprop="item">
+                    <span>Trang chủ</span>
+                    <meta itemprop="name" content="@Html.Raw(ViewBag.Meta.ApplicationName)">
+                    <meta itemprop="position" content="1">
+                </a>
+            </li>
+            <li><span class="breadcrumb__sep"><i class="fa fa-angle-right"></i></span></li>
+            <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                <a class="breadcrumb__link breadcrumb__link--last" href="@Url.Action("Category", new { Id = Model.RootId, alias = Model.RootRouter }).ToLower()" title="@Model.RootName">
+                    <span itemprop="name">@Model.RootName</span>
+                    <meta itemprop="position" content="2" />
+                </a>
+            </li>
+            @if (Model.Childrent == true)
+            {
+                <li><span class="breadcrumb__sep"><i class="fa fa-angle-right"></i></span></li>
+                <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                    <a class="breadcrumb__link breadcrumb__link--last" href="@Url.Action("Category", new { Id = Model.ParentId, alias = Model.ParentRouter }).ToLower()" title="@Model.ParentName">
+                        <span itemprop="name">@Model.ParentName</span>
+                        <meta itemprop="position" content="3" />
+                    </a>
+                </li>
+            }
+        </ol>
+    </div>
+</div>

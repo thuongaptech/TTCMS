@@ -1,0 +1,79 @@
+﻿@model IList<TTCMS.Web.Areas.TT_Admin.Models.PermissionViewModel>
+
+@{
+    ViewBag.Title = TTCMS.Resources.Resources.SetRole;
+    var listPermission = (List<TTCMS.Domain.Permission>)ViewBag.Permissions;
+}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div id="breadcrumbs" class="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/pk_admin">@TTCMS.Resources.Resources.Home</a>
+                </li>
+                <li class="active">@TTCMS.Resources.Resources.SetRole</li>
+            </ul><!-- /.breadcrumb -->
+        </div>
+        <div class="page-content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- PAGE CONTENT BEGINS -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                                @using (Html.BeginForm("Update", "PermissionManagement", FormMethod.Post, new { @role = "form" }))
+                                {
+                                    @Html.Hidden("roleId", ViewBag.roleId as string)
+                            <table id="simple-table" class="table border-none">
+                                <tbody>
+                                    @for (int i = 0; i < Model.Count; i++)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <label class="pos-rel" style="font-weight:bold">
+                                                    @Model[i].Functions.Text
+                                                </label>
+                                            </td>
+                                            @Html.Hidden("Model[" + i + "].Functions.Id", Model[i].Functions.Id)
+                                            @for (int j = 0; j < Model[i].GAction.Count; j++)
+                                            {
+                                                <td>
+                                                    <label class="pos-rel">
+                                                        @if (listPermission.Count(x => x.Function.Id == Model[i].Functions.Id && x.GAction.Id == Model[i].GAction[j].Id) > 0)
+                                                        {
+                                                            @Html.CheckBox("Cb.Model[" + i + "].GAction[" + j + "].GActionId", true, new { @class = "ace" })
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.CheckBox("Cb.Model[" + i + "].GAction[" + j + "].GActionId", false, new { @class = "ace" })
+                                                        }
+                                                        <span class="lbl"></span>
+                                                        @Html.Hidden("Hd.Model[" + i + "].GAction[" + j + "].GActionId", Model[i].GAction[j].Id)
+                                                        
+                                                    </label>
+                                                    @Model[i].GAction[j].Name
+                                                </td>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                                <div class="clearfix form-actions">
+                                    <div class="col-md-9">
+                                        <div class="col-md-5">
+                                            @Html.ActionLink(@TTCMS.Resources.Resources.BackToList, "Index", "RoleManagement")
+                                        </div>
+                                        <button class="btn btn-info" type="submit">
+                                            <i class="ace-icon fa fa-check bigger-110"></i>
+                                            @TTCMS.Resources.Resources.btnUpdateSubmit
+                                        </button>
+                                    </div>
+                                </div>
+                                    }
+                        </div><!-- /.span -->
+                    </div><!-- /.row -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.page-content -->
+    </div>
+</div>

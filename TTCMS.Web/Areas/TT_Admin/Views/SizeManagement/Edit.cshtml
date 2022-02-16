@@ -1,0 +1,97 @@
+﻿@model TTCMS.Web.Areas.TT_Admin.Models.CategoryViewModel
+
+<div id="modal-form" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="blue bigger">@TTCMS.Resources.Resources.SizeCreateText</h4>
+            </div>
+            @using (Ajax.BeginForm("Edit", "SizeManagement", null, new AjaxOptions { HttpMethod = "Post", OnComplete = "CompleteAjaxRequestSize" }, new { @role = "form", @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.CategoryType)
+                @Html.HiddenFor(m => m.Img_Icon)
+                @Html.HiddenFor(m => m.IsDelete)
+                @Html.HiddenFor(m => m.CreatedBy)
+                @Html.HiddenFor(m => m.CreatedDate)
+                @Html.HiddenFor(m => m.IsHome)
+                @Html.HiddenFor(m => m.Target)
+                @Html.HiddenFor(m => m.Route)
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 change-password">
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">@TTCMS.Resources.Resources.SizeNameText</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(x => x.Name, new { @class = "col-xs-12 col-sm-12", @placeholder = TTCMS.Resources.Resources.SizeNameText })
+                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">@TTCMS.Resources.Resources.SizeDescription</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(x => x.Description, new { @class = "col-xs-12 col-sm-12", @placeholder = TTCMS.Resources.Resources.SizeDescription })
+                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">@TTCMS.Resources.Resources.LanguageText</label>
+                                <div class="col-sm-5">
+                                    @Html.DropDownListFor(model => model.LanguageId, (SelectList)Model.Lang, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">@TTCMS.Resources.Resources.SortText</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(x => x.Order, new { @class = "col-xs-10 col-sm-4", @placeholder = TTCMS.Resources.Resources.SortText })
+                                    @Html.ValidationMessageFor(model => model.Order, "", new { @class = "text-danger" })
+                                    <div class="space-6"></div>
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">@TTCMS.Resources.Resources.ActiveText</label>
+                                <div class="col-sm-8">
+                                    <label>
+                                        @Html.CheckBoxFor(x => x.IsActive, new { @class = "ace ace-switch ace-switch-4 btn-flat" })
+                                        <span class="lbl"></span>
+                                        @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                                    </label>
+                                    <div class="space-6"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-sm" data-dismiss="modal">
+                        <i class="ace-icon fa fa-times"></i>
+                        @TTCMS.Resources.Resources.CancelText
+                    </button>
+
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <i class="ace-icon fa fa-check"></i>
+                        @TTCMS.Resources.Resources.btnCreateSubmit
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- PAGE CONTENT ENDS -->
+<script>
+    $.validator.unobtrusive.parse($("form"));
+    $('#Order').ace_spinner({ value: 0, min: 0, step: 1, btn_up_class: 'btn-info', btn_down_class: 'btn-info' })
+               .closest('.ace-spinner')
+               .on('changed.fu.spinbox', function () {
+                   //alert($('#spinner1').val())
+               });
+</script>
+

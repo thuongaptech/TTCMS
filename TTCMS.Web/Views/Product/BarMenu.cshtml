@@ -1,0 +1,22 @@
+﻿@model TTCMS.Web.Models.Product.CateHomeViewModel[]
+@if (Model.Any())
+{
+    <div class="scrollspy">
+        <ul class="nav nav--floating affix-top hidden" data-spy="affix">
+            @foreach (var item in Model)
+            {
+                if (item.ListProductNews.Count > 0)
+                {
+                    <li class="block-@XString.ToAscii(item.Name)-@(item.Id)"><a href="#block-@XString.ToAscii(item.Name)-@(item.Id)"><i class="@item.CssClass"></i> <span>@item.Name</span></a></li>
+                    <style>
+                        .nav--floating .block-@XString.ToAscii(item.Name)-@(item.Id):hover a span, .nav--floating .block-@XString.ToAscii(item.Name)-@(item.Id):hover a, .nav--floating .active.block-@XString.ToAscii(item.Name)-@(item.Id) a span, .nav--floating .active.block-@XString.ToAscii(item.Name)-@(item.Id) a {
+                             background-color: @(item.CodeColor);
+                            color: #fff;
+                        }
+                    </style>
+                }
+            }
+        </ul>
+    </div>
+    
+}

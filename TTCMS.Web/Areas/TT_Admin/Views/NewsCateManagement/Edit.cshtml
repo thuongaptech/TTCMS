@@ -1,0 +1,225 @@
+﻿@model  TTCMS.Web.Areas.TT_Admin.Models.CategoryViewModel
+
+@{
+    ViewBag.Title = TTCMS.Resources.Resources.EditNewsCatetext;
+}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs" id="breadcrumbs">
+            <script type="text/javascript">
+                try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+            </script>
+
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/pk_admin">@TTCMS.Resources.Resources.Home</a>
+                </li>
+
+                <li>
+                    <a href="@Url.Action("Index")">@TTCMS.Resources.Resources.NewsCateText</a>
+                </li>
+                <li class="active">@TTCMS.Resources.Resources.EditNewsCatetext</li>
+            </ul><!-- /.breadcrumb -->
+        </div>
+        <div class="page-content">
+            <div class="row">
+                @using (Html.BeginForm("Edit", "NewsCateManagement", FormMethod.Post, new { @role = "form", @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m=>m.Id)
+                    @Html.HiddenFor(m => m.CategoryType)
+                    @Html.HiddenFor(m => m.Img_Icon)
+                    @Html.HiddenFor(m => m.IsHome)
+                    @Html.HiddenFor(m => m.IsDelete)
+                    @Html.HiddenFor(m => m.CreatedBy)
+                    @Html.HiddenFor(m => m.CreatedDate)
+                    @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger" })
+                    <div class="col-xs-8">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"> @TTCMS.Resources.Resources.CategoryName </label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(x => x.Name, new { @class = "col-xs-10 col-sm-7 get-slug", @placeholder = TTCMS.Resources.Resources.CategoryName })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom:5px; margin-left:5px;">
+                            <label class="col-sm-3 control-label no-padding-right"></label>
+                            <div class="col-sm-9">
+                                <div id="Permalink">
+                                    @if (Model.Route != null)
+                                    {
+                                        <span><strong>Link:</strong>@Request.Url.Host/cate/</span>
+                                        <span class="url-text url-edit-value">@Model.Route</span>
+                                        <span><a style="padding: 0 3px;" onclick="URL_Edit('edit');" href="#" class="btn btn-white btn-sm btn-primary url-text"> @TTCMS.Resources.Resources.EditText</a></span>
+                                        <span class="url-edit" style="display:none"><input type="text" value="@Model.Route" style="height: 20px; padding: 0 2px;width:auto" name="Route" id="Route" class="url-edit-save"></span>
+                                        <span><a style="padding: 0 3px;display:none" onclick="URL_Edit('save');" href="#" class="btn btn-white btn-sm btn-primary url-edit">@TTCMS.Resources.Resources.SaveText</a></span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"> @TTCMS.Resources.Resources.KeywordsText </label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(x => x.Keywords, new { @class = "col-xs-12 col-sm-12", @placeholder = TTCMS.Resources.Resources.KeywordsText })
+                                @Html.ValidationMessageFor(model => model.Keywords, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"> @TTCMS.Resources.Resources.DescriptionText </label>
+                            <div class="col-sm-9">
+                                @Html.TextAreaFor(x => x.Description, new { @class = "col-xs-12 col-sm-12", @placeholder = TTCMS.Resources.Resources.DescriptionText })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"> @TTCMS.Resources.Resources.StyleCSS </label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(x => x.CssClass, new { @class = "col-xs-12 col-sm-12", @placeholder = TTCMS.Resources.Resources.StyleCSS })
+                                @Html.ValidationMessageFor(model => model.CssClass, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="clearfix form-actions">
+                            <div class="col-md-9">
+                                <div class="col-md-5">
+                                    @Html.ActionLink(@TTCMS.Resources.Resources.BackToList, "Index")
+                                </div>
+                                <button class="btn btn-info" type="submit">
+                                    <i class="ace-icon fa fa-check bigger-110"></i>
+                                    @TTCMS.Resources.Resources.btnUpdateSubmit
+                                </button>
+                                &nbsp; &nbsp; &nbsp;
+                                <button class="btn" type="reset">
+                                    <i class="ace-icon fa fa-undo bigger-110"></i>
+                                    @TTCMS.Resources.Resources.btnReset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="widget-box" style="overflow:hidden">
+                            <div class="widget-header">
+                                <h4 class="widget-title">@TTCMS.Resources.Resources.Option</h4>
+                            </div>
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <div style="padding-top:10px;" class="form-group">
+                                        <div class="col-xs-12">
+                                            <label class="ace-file-input ace-file-multiple">
+                                                <span class="ace-file-container hide-placeholder selected">
+                                                    <span data-title="Ảnh đại diện" class="ace-file-name large" onclick="BrowseServer();">
+                                                        @Html.HiddenFor(x => x.Img_Thumbnail)
+                                                        @if (System.IO.File.Exists(Server.MapPath(Model.Img_Thumbnail)))
+                                                        {
+                                                            <img id="Image" class="middle" style="max-width:250px;max-height:250px;" src="@Model.Img_Thumbnail">
+                                                        }
+                                                        else
+                                                        {
+                                                            <img id="Image" class="middle" style="max-width:250px;max-height:250px;" src="/Content/images/add-image.jpg">
+                                                        }
+                                                        <i class=" ace-icon fa fa-picture-o file-image"></i>
+                                                    </span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-12 col-sm-4">@TTCMS.Resources.Resources.ActiveText</label>
+                                        <div class="controls col-xs-12 col-sm-8">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <label>
+                                                        @Html.CheckBoxFor(x => x.IsActive, new { @class = "ace ace-switch ace-switch-4 btn-flat" })
+                                                        <span class="lbl"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-12 col-sm-4"> @TTCMS.Resources.Resources.SortText </label>
+                                        <div class="controls col-xs-12 col-sm-8">
+                                            <div class="row">
+                                                @Html.TextBoxFor(x => x.Order, new { @class = "col-xs-10 col-sm-4", @placeholder = TTCMS.Resources.Resources.SortText })
+                                                <div class="space-6"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-12 col-sm-4">@TTCMS.Resources.Resources.ShowText</label>
+                                        <div class="controls col-xs-12 col-sm-8">
+                                            <div class="row">
+                                                @Html.DropDownListFor(model => model.Target,
+                                                     new List<SelectListItem>()
+                                                        {
+                                                        new SelectListItem { Text = TTCMS.Resources.Resources.self, Value = "_self" },
+                                                        new SelectListItem { Text = TTCMS.Resources.Resources.blank,  Value = "_blank" },
+                                                        }, new { @class = "form-control" })
+                                                @Html.ValidationMessage("Target", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-12 col-sm-4">@TTCMS.Resources.Resources.LanguageText</label>
+                                        <div class="controls col-xs-12 col-sm-8">
+                                            <div class="row">
+                                                @Html.DropDownListFor(model => model.LanguageId, (SelectList)Model.Lang, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-12 col-sm-4">@TTCMS.Resources.Resources.Category</label>
+                                        <div class="controls col-xs-12 col-sm-8">
+                                            <div class="row">
+                                                @Html.DropDownListFor(model => model.ParentID, (SelectList)ViewBag.Parents, TTCMS.Resources.Resources.RootCategory, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div><!-- /.row -->
+        </div><!-- /.page-content -->
+    </div>
+</div><!-- /.main-content -->
+@section Scripts {
+    <script src="~/Content/admin/js/fuelux/fuelux.spinner.min.js"></script>
+    <script src="~/Content/ckfinder/ckfinder.js"></script>
+    <script>
+        $('#Order').ace_spinner({ value: 0, min: 0, step: 1, btn_up_class: 'btn-info', btn_down_class: 'btn-info' })
+                    .closest('.ace-spinner')
+                    .on('changed.fu.spinbox', function () {
+                        //alert($('#spinner1').val())
+                    });
+        if ($("#Name").val() == "") {
+            $("#Name").addClass("get-slug");
+        }
+        function URL_Edit(type)
+         {
+        if (type == "edit")
+        {
+            $(".url-text").css("display", "none");
+            $(".url-edit").css("display", "block");
+        }
+        else if (type == "save")
+        {
+            var value = $(".url-edit-save").val();
+            $(".url-edit-value").text(value);
+            $(".url-text").css("display", "block");
+            $(".url-edit").css("display", "none");
+        }
+    }
+    $(".get-slug").change(function () {
+        var text = $("#Name").val();
+        $.get("@(Url.Action("_getSlug"))?val=" + text).done(function (html) {
+            $("#Permalink").html(html);
+        });
+    });
+    </script>
+}

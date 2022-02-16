@@ -1,0 +1,17 @@
+﻿@model TTCMS.Domain.ProductImage[]
+@if (Model.Count() > 0)
+{
+    int icount = 0;
+    foreach (var item in Model)
+    {
+        <tr id="image-row@(item.Id)@icount">
+            <td><img style="max-width:100px" alt="" src="@item.UrlImage" id="Img_Thumbnail@(item.Id)@icount" class="img-responsive"></td>
+            <td><div class="input-group"><input type="text" placeholder="Link image" value="@item.UrlImage" id="Img_Thumb@(item.Id)@icount" class="form-control pn-hinhanh" name="ProductImages[@icount][Url]"><span class="input-group-btn"></span></div></td>
+            <td>
+                <a class="btn default btn-sm" onclick="$('#image-row@(item.Id)@icount').remove();" href="javascript:;"> <i class="fa fa-times"></i> Remove</a>
+            </td>
+        </tr>
+        icount++;
+    }
+    <input type="hidden" id="edit_image" value="@icount" />
+}

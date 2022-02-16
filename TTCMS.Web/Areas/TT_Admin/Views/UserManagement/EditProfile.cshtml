@@ -1,0 +1,201 @@
+﻿@model  TTCMS.Web.Areas.TT_Admin.Models.UserFormModel
+
+@{
+    ViewBag.Title = TTCMS.Resources.Resources.EditUser;
+}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs" id="breadcrumbs">
+            <script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+            </script>
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/pk_admin">@TTCMS.Resources.Resources.Home</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "UserManagement")">@TTCMS.Resources.Resources.UserText</a>
+                </li>
+                <li class="active">@TTCMS.Resources.Resources.EditUser</li>
+            </ul><!-- /.breadcrumb -->
+        </div>
+        <div class="page-content">
+            <div class="row">
+                @using (Html.BeginForm("EditProfile", "UserManagement", FormMethod.Post, new { enctype = "multipart/form-data", @role = "form", @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger" })
+                    @Html.HiddenFor(m => m.ProfilePicUrl)
+                    <div class="col-xs-8">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UserName, new { @class = "col-sm-3 control-label no-padding-right" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(x => x.UserName, new { @class = "col-xs-12 col-sm-12", @readonly = "readonly", @placeholder = TTCMS.Resources.Resources.UserName })
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FirstName, new { @class = "col-sm-3 control-label no-padding-right" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(x => x.FirstName, new { @class = "col-xs-12 col-sm-12", @placeholder = TTCMS.Resources.Resources.FirstNameText })
+                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LastName, new { @class = "col-sm-3 control-label no-padding-right" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(x => x.LastName, new { @class = "col-xs-12 col-sm-12", @placeholder = TTCMS.Resources.Resources.LastNameText })
+                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email, new { @class = "col-sm-3 control-label no-padding-right" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(x => x.Email, new { @class = "col-xs-12 col-sm-12", @placeholder = TTCMS.Resources.Resources.Email })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Address, new { @class = "col-sm-3 control-label no-padding-right" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(x => x.Address, new { @class = "col-xs-12 col-sm-12", @placeholder = TTCMS.Resources.Resources.AddressText })
+                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PhoneNumber, new { @class = "col-sm-3 control-label no-padding-right" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(x => x.PhoneNumber, new { @type = "number", @class = "col-xs-12 col-sm-12", @placeholder = TTCMS.Resources.Resources.PhoneNumberText })
+                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="clearfix form-actions">
+                            <div class="col-md-9">
+                                <div class="col-md-5">
+                                    @Html.ActionLink(@TTCMS.Resources.Resources.BackToList, "Index")
+                                </div>
+                                <button class="btn btn-info" type="submit">
+                                    <i class="ace-icon fa fa-check bigger-110"></i>
+                                    @TTCMS.Resources.Resources.btnUpdateSubmit
+                                </button>
+                                &nbsp; &nbsp; &nbsp;
+                                <button class="btn" type="reset">
+                                    <i class="ace-icon fa fa-undo bigger-110"></i>
+                                    @TTCMS.Resources.Resources.btnReset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="widget-box" style="overflow:hidden">
+                            <div class="widget-header">
+                                <h4 class="widget-title">@TTCMS.Resources.Resources.Option</h4>
+                            </div>
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <div class="form-group" style="padding-top:10px;">
+                                        <div class="col-xs-12">
+                                            <input type="file" name="File" id="File" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-12 col-sm-4">@TTCMS.Resources.Resources.ActiveText</label>
+                                        <div class="controls col-xs-12 col-sm-8">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <label>
+                                                        @Html.CheckBoxFor(x => x.Activated, new { @class = "ace ace-switch ace-switch-4 btn-flat" })
+                                                        <span class="lbl"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-12 col-sm-4">@TTCMS.Resources.Resources.SexText</label>
+                                        <div class="controls col-xs-12 col-sm-8">
+                                            <div class="row">
+                                                @Html.DropDownListFor(model => model.Sex,
+                                                     new List<SelectListItem>()
+                                                        {
+                                                        new SelectListItem { Text = TTCMS.Resources.Resources.MaleText, Value = "true" },
+                                                        new SelectListItem { Text = TTCMS.Resources.Resources.FemaleText,  Value = "false" },
+                                                        }, new { @class = "form-control" })
+                                                @Html.ValidationMessage("Sex", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div><!-- /.row -->
+        </div><!-- /.page-content -->
+    </div>
+</div><!-- /.main-content -->
+@section Scripts {
+    <script src="~/Content/admin/js/jquery.maskedinput.min.js"></script>
+    <script>
+    $('#Order').ace_spinner({ value: 0, min: 0, step: 1, btn_up_class: 'btn-info', btn_down_class: 'btn-info' })
+				.closest('.ace-spinner')
+				.on('changed.fu.spinbox', function () {
+				    //alert($('#spinner1').val())
+				});
+    $('#File').ace_file_input({
+        style: 'well',
+        btn_choose: '@(TTCMS.Resources.Resources.ChooseImageText)"',
+                    btn_change: null,
+                    no_icon: 'ace-icon fa fa-picture-o',
+                    droppable: true,
+                    'allowExt': ["jpeg", "jpg", "png", "gif", "bmp"],
+                    'allowMime': ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/bmp"],
+                    thumbnail: 'fit'//large | fit
+                    //,icon_remove:null//set null, to hide remove/reset button
+                    /**,before_change:function(files, dropped) {
+                        //Check an example below
+                        //or examples/file-upload.html
+                        return true;
+                    }*/
+                    /**,before_remove : function() {
+                        return true;
+                    }*/
+                    ,
+                    preview_error: function (filename, error_code) {
+                        //name of the file that failed
+                        //error_code values
+                        //1 = 'FILE_LOAD_FAILED',
+                        //2 = 'IMAGE_LOAD_FAILED',
+                        //3 = 'THUMBNAIL_FAILED'
+                        //alert(error_code);
+                    }
+
+                }).on('change', function () {
+                    //console.log($(this).data('ace_input_files'));
+                    //console.log($(this).data('ace_input_method'));
+                }
+
+
+                );
+        var img = "@(Model.ProfilePicUrl)";
+        if(img != "")
+        {
+            LoadAvatar();
+        };
+
+        function LoadAvatar() {
+            $('#File')
+            .ace_file_input('show_file_list', [
+            { type: 'image', name: '@(Model.UserName)', path: '/Content/avatar/@Model.ProfilePicUrl' },
+        ]);
+    };
+    </script>
+}

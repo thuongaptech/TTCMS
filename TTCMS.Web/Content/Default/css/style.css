@@ -1,0 +1,139 @@
+﻿.logo-wrapper {
+    padding: 10px;
+}
+.logo-wrapper .logo {
+    fill: #ed1c24;
+    height: 70px;
+    vertical-align: middle;
+    width: 240px;
+}
+.page-home .block {
+    margin-bottom: 10px;
+}
+.product__price
+{
+    font-size: 17px;
+}
+.price__discount{
+    margin-left:0;
+}
+.scrollspy li{
+    background:#fff;
+}
+@media all and (max-width: 800px) {
+ .tt-destop{
+     display:none !important;
+ }
+ .tt-mobile
+ {
+     display:block !important;
+ }
+ .product-item{
+     background:#fff;
+ }
+}
+.tt-filter{
+    width:335px;
+    float:left;
+}
+ .ajax-filter {
+     width:100%;
+     overflow:hidden;
+ }
+.ajax-filter li
+{
+    float:left;
+    list-style:none;
+}
+.product-sortings .tt-sorting {
+    border-radius: 5px;
+    color: #4d4d4d;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 400;
+    height: 26px;
+    line-height: 26px;
+    margin: 0 5px 8px 0;
+    padding: 0 10px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.product-sortings .sorting--active, .product-sortings .sorting.active, .product-sortings .tt-sorting:hover {
+    background-color: #71be0f;
+    box-shadow: none;
+    color: #fff;
+    text-decoration: none;
+}
+.loading-cover {
+    background: rgba(246, 248, 252, 0.5) none repeat scroll 0 0;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+.loading-content {
+    bottom: 0;
+    height: 90px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 90px;
+}
+.tabs--sticky
+{
+    padding-top:0;
+}
+.product--details .product__gallery.gallery--fashion .media-gallery{
+    height:400px;
+}
+.block--normal .block__title
+{
+    width:100%;
+}
+.hd-menu .side-nav ul li a{
+    padding: 10px 7px 10px 10px;
+}
+.main-nav .branding__menu > li > a {
+    font-family: Roboto-Medium;
+}
+ul.tt-mainmenu{width:100%;}
+nav.main-nav .nav > li.tt-hotline
+{
+    float:right;
+}
+.nav-hotline{
+    color: #fff;
+    float: right;
+    font-size: 20px;
+    font-family:Roboto-Medium;
+    height: 42px;
+    line-height: 42px;
+}
+#main-nav-clone .tt-mainmenu
+{
+    width:auto;
+}
+.tab-item-active-style-1, .block--tab.tab-style-1 .block__header .tab__item a:focus, .block--tab.tab-style-1 .block__header .tab__item a:hover, .block--tab.tab-style-1 .block__header .tab__item.active a{
+    font-family:Roboto-Medium;
+}
+.order-items .order-item .name {
+    padding-right: 5px;
+    width: 68%;
+}
+.top-bar__item--nav{
+    padding:0;
+}
+.tt-login a{
+    color:#444;
+}
+.logo-wrapper .logo {
+    fill: #ed1c24;
+    height: 75px;
+    vertical-align: middle;
+    width: 113px;
+}

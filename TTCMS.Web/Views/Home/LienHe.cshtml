@@ -1,0 +1,72 @@
+﻿@model TTCMS.Web.Models.LienHeViewModel
+@{
+    ViewBag.Title = "Thông tin liên hệ";
+    Layout = "~/Views/Shared/_Layout_Content.cshtml";
+}
+<main class="main-content clearfix" id="main">
+    <div class="container">
+        <div class="box box--shadow">
+            <div class="sidebar-content sidebar-first">
+                @Html.Action("PageMenu", "Menu")                
+                <div class="content wysiwyg">
+                    <h1 class="page-title">LIÊN HỆ VỚI CHÚNG TÔI</h1>
+                    @using (Html.BeginForm("LienHe", "Home", FormMethod.Post, new { @class = "form-horizontal form-contact fv-form fv-form-bootstrap", role = "form" }))
+                       {
+                        @Html.Partial("_Alerts")
+                         @Html.AntiForgeryToken()
+                        @Html.Raw(ViewBag.BanDo)
+                       
+                        <p>
+                            @Html.Raw(ViewBag.Meta.contactus_setting)
+                        </p>
+                        <p class="form-description">Thông tin có <span class="required">*</span> là bắt buộc nhập, cần phải nhập.</p>
+                        <div class="row form">
+                            <div class="col-md-8">
+                                <div class="form-group has-feedback">
+                                    <label class="col-md-4 control-label" for="FullName">Họ tên <span class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(m => m.FullName, new { @placeholder = "Họ tên của bạn", @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger alert-error" })
+                                    </div>
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <label class="col-md-4 control-label" for="Email">Email <span class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(m => m.Email, new { @placeholder = "Nhập email của bạn", @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger alert-error" })
+                                    </div>
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <label class="col-md-4 control-label" for="PhoneNumber">Số điện thoại <span class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(m => m.PhoneNumber, new { @placeholder = "Vui lòng nhập số điện thoại", @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger alert-error" })
+                                    </div>
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <label class="col-md-4 control-label" for="PhoneNumber">Nội dung liên hệ <span class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        @Html.TextAreaFor(m => m.NoiDung, new {cols="55", rows="5", @placeholder = "Nội dung liên hệ", @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.NoiDung, "", new { @class = "text-danger alert-error" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-lg btn-success pull-right" type="submit">Xác nhận</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+

@@ -1,0 +1,58 @@
+﻿@model TTCMS.Web.Models.ChangeViewModel
+@{
+    ViewBag.Title = "Thay đổi mật khẩu";
+    Layout = "~/Views/Shared/_Layout_Content.cshtml";
+}
+<main class="main-content clearfix" id="main">
+    <div class="container">
+        <div class="sidebar-content--2">
+            @Html.Action("Info_Right", "Account")
+            <div class="content">
+                <div class="box">
+                    <div class="box__header">
+                        <h2 class="box__title">Thay đổi mật khẩu</h2>
+                    </div>
+                    <div class="box__body">
+                @using (Html.BeginForm("ChangePass", "Account", FormMethod.Post, new { @class = "form-horizontal form form--general fv-form fv-form-bootstrap", role = "form" }))
+                  {
+                    @Html.Partial("_Alerts")
+                    @Html.AntiForgeryToken()
+                            <div class="row form">
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-lg has-feedback">
+                                        <label class="control-label" for="old_password">Mật khẩu cũ</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="hd hd-lock"></i></div>
+                                            @Html.PasswordFor(m => m.OldPassword, new { @class = "form-control", @placeholder = "Nhập mật khẩu cũ" })
+                                            @Html.ValidationMessageFor(model => model.OldPassword, "", new { @class = "text-danger alert-error" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group-lg has-feedback">
+                                        <label class="control-label" for="password">Mật khẩu mới</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="hd hd-lock"></i></div>
+                                            @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control", @placeholder = "Nhập mật khẩu mới" })
+                                            @Html.ValidationMessageFor(model => model.NewPassword, "", new { @class = "text-danger alert-error" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group-lg has-feedback">
+                                        <label class="control-label" for="password2">Nhập lại mật khẩu mới</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="hd hd-lock"></i></div>
+                                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Nhập lại mật khẩu mới" })
+                                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger alert-error" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group-lg">
+                                        <button class="btn btn-lg btn-success btn-block" type="submit">CẬP NHẬT</button>
+                                    </div>
+                                </div>
+                            </div>
+                }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+

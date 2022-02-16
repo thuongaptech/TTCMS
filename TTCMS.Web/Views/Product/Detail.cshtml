@@ -1,0 +1,232 @@
+﻿@model TTCMS.Web.Models.Product.ProductDetailViewModel
+@{
+    ViewBag.Title = Model.Name;
+    int icount = 2;
+    Layout = "~/Views/Shared/_Layout_Content.cshtml";
+}
+@Html.Action("Breadcrumb", "Product", new { Id = Model.CategoryId })
+<main id="main" class="main-content clearfix">
+    <div class="container">
+        <div itemscope itemtype="http://schema.org/Product">
+            <div class="product product--details clearfix">
+
+                <div id="product-gallery-@Model.Id" class="product__gallery gallery gallery--fashion" data-max-thumbs="5">
+                    <div class="gallery__image media-gallery">
+                        <a href="#" class="image--1">
+                            <img width="400" height="400" itemprop="image" style="max-width: 100%;" src="@Model.Img_Thumbnail" alt="@Model.Name" />
+                        </a>
+                        @foreach (var item in Model.ListHinhAnh)
+                        {
+                            <a href="#" class="@(icount > 1 ? "image--"+item.Id : "")">
+                                <img width="400" height="400" itemprop="image" style="max-width: 100%;" src="@item.UrlImage" alt="@Model.Name" />
+                            </a>
+                            icount++;
+                        }
+                    </div>
+                    <div class="gallery__thumbnails">
+                        <a class="image-thumb--1"><img src="@Model.Img_Thumbnail.Replace("images", "_thumbs/Images")" alt="@Model.Name" /></a>
+                        @{
+                            icount = 2;
+                        }
+                        @foreach (var item in Model.ListHinhAnh)
+                        {
+                        <a class="@(icount > 1 ? "image-thumb--" + item.Id : "")"><img src="@item.UrlImage.Replace("images", "_thumbs/Images")" alt="@Model.Name" /></a>
+                            icount++;
+                        }
+                    </div>
+                </div>
+                <div class="product__details">
+                    <div class="product__header">
+                        <h1 class="product__title" itemprop="name">@Model.Name</h1>
+                        <div class="product__sharing sharing">
+                            <div class="sharing__item" style="margin-right: 10px;">
+                                <div class="fb-like" data-href="@Request.Url.AbsoluteUri" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+                            </div>
+                            <div class="sharing__item">
+                                <g:plusone></g:plusone>
+                            </div>
+                            <div class="sharing__item">
+                                <script>
+                                    setTimeout(function () {
+                                        (function (d, s, id) {
+                                            var js, fjs = d.getElementsByTagName(s)[0];
+                                            if (d.getElementById(id)) return;
+                                            js = d.createElement(s);
+                                            js.id = id;
+                                            js.src = "http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e95ad1eb3d6fcf";
+                                            fjs.parentNode.insertBefore(js, fjs);
+                                        }(document, 'script', 'addthis'));
+                                    }, 7000);
+                                </script>
+                                <a class="pull-right share addthis_button_compact"><i class="hd hd-share"></i> Chia sẻ</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product__description" style="border-bottom: 1px solid #eaeaea;">
+                        <p>@Model.Summary</p>
+                    </div>
+                    <div class="product__price-info">
+                        <div class="product__price product__price--list-price">
+                            <span class="price price--list-price">
+                                <span class="hidden-xs hidden-sm">Mã sản phẩm:&nbsp;</span>
+                                <span class="price__value" style="text-decoration:none">
+                                    @Model.MaSP
+                                </span>
+                            </span>
+                        </div>
+                        <br />
+
+                        <div class="product__price product__price--list-price">
+                            <span class="price price--list-price">
+                                <span class="hidden-xs hidden-sm">Giá gốc:&nbsp;</span>
+                                <span class="price__value">
+                                    @string.Format("{0:#,###}",Model.GiaBan)
+                                </span>
+                                <span class="price__symbol">đ</span>
+                            </span>
+                        </div>
+                        <br class="hidden-xs hidden-sm" />
+                        <div class="product__price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                            <link itemprop="availability" href="http://schema.org/InStock" />
+                            <meta itemprop="priceCurrency" content="VND" />
+                            <span class="price">
+                                <span class="price__value" itemprop="price">@string.Format("{0:#,###}", Model.GiaKM)</span><span class="price__symbol">đ</span>
+                                <input type="hidden" name="variants[253995][price]" id="price_253995" value="129000" />
+                                <span class="price__discount">-@Model.Percent%</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="product__add-to-cart border-top clearfix">
+                        <div id="form-add-to-cart" method="post" class="add-to-cart add-to-cart--form">
+                            <input type="hidden" name="product_id" value="253995" />
+                            <div class="add-to-cart__quantity quantity">
+                                <span class="quantity__text">Số lượng</span>
+                                <select id="quantity" class="quantity__modifier quantity-modifier quantity-modifier-select ">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+                            <!-- hidden fields here -->
+                            <div class="add-to-cart__actions add-to-cart-buttons">
+                                <button id="btn--buy-now" data-id="@Model.Id" class="btn btn-success btn--buy-now btn--buy-now-x2">MUA NGAY <i class="fa fa-long-arrow-right"></i></button>
+                                <button id="add-to-cart" type="button" data-id="@Model.Id" class="btn btn-default btn--add-to-cart mua-hang"><i class="hd hd-cart"></i> THÊM VÀO GIỎ HÀNG</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product__stats border-top">
+                        <div class="product__purchases">
+                            <i class="fa fa-user"></i> @(Model.DaMua > 0 ?string.Format("{0:#,###}",Model.DaMua):"0") đã mua
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-sidebar clearfix">
+                <div class="content">
+                    <div id="product-details" class="tabs tabs--sticky" data-distance="70">
+                        <!-- Tab panes -->
+                        <div class="tab-content tabs__content">
+                            <div class="tab-pane active first" id="chi-tiet">
+                                <div class="block__header  clearfix">
+                                    <h3 class="block__title">Thông tin chi tiết</h3>
+                                </div>
+                                <div class="block__content clearfix">
+                                    <div class="wysiwyg">
+                                        @Html.Raw(Model.Body)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane active " id="danh-gia">
+                                <div class="block__content clearfix">
+                                    <hr class="clearfix" />
+                                    <h4 class="hidden-xs hidden-sm">BÌNH LUẬN</h4>
+                                    <div class="fb-comments" data-href="@Request.Url.AbsoluteUri" data-colorscheme="light"
+                                         data-numposts="5" data-width="100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- product short info -->
+                </div>
+                <div class="sidebar">
+                    <div class="block block--normal">
+                        <div class="block__header">
+                            <h3 class="block__title">Sản phẩm liên quan</h3>
+                        </div>
+                        <div data-toggle="similar-products" class="products products--list">
+                            @foreach (var item in Model.SPLienQuan)
+                            {
+                                <div class="product-wrapper product-auto-resize product-image-padding">
+                                    <div id="product-@item.Id" class="product">
+                                        <div class="product__image">
+                                            <a title="@item.Name" href="@Url.Action("Detail","Product", new { Id = item.Id, alias = item.Route }).ToLower()">
+                                                <img width="230" height="230" alt="@item.Name" src="@item.Img_Thumbnail" data-original="@item.Img_Thumbnail" class="lazy">
+                                            </a>
+                                        </div>
+                                        <div class="product__header">
+                                            <h3 class="product__title">
+                                                <a title="@item.Name" href="@Url.Action("Detail","Product", new { Id = item.Id, alias = item.Route }).ToLower()">@item.Name</a>
+                                            </h3>
+                                        </div>
+                                        <div class="product__info">
+                                            <div class="product__price">
+                                                <span class="price">
+                                                    <span class="price__value">@string.Format("{0:#,###}",item.GiaKM)</span><span class="price__symbol">đ</span>
+                                                </span>
+                                            </div>        <div class="product__price product__price--list-price">
+                                                <span class="price price--list-price">
+                                                    <span class="price__value">@string.Format("{0:#,###}", item.GiaBan)</span>
+                                                    <span class="price__symbol">đ</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                       
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>  
+@section Scripts {
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $(".mua-hang").click(function () {
+            pid = $(this).attr("data-id");
+            sl = $('#quantity').val();
+            $.ajax({
+                url: '@Url.Action("Add", "Cart")',
+                data: { id: pid, quantity: sl },
+                success: function (response) {
+                    $(".Count_Cart").html(response.Count);
+                    $(".cart_total").html(response.Total.toCurrencyString('', ''));
+                    $(".minicart__wrapper").html(response.data);
+                    $(".nav-cart").addClass("open");
+                }
+            });
+        });
+        $("#btn--buy-now").click(function () {
+            pid = $(this).attr("data-id");
+            sl = $('#quantity').val();
+            $.ajax({
+                url: '@Url.Action("Add", "Cart")',
+                data: { id: pid, quantity: sl },
+                success: function (response) {
+                    window.location.href = "@Url.Action("ThongTinDonHang", "Cart")";
+                }
+            });
+        });
+    });
+    </script>
+}
+

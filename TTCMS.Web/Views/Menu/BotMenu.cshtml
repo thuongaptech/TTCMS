@@ -1,0 +1,403 @@
+﻿@model TTCMS.Domain.Menu[]
+@*@if (Model.Any())
+{
+    var model = Model.Where(x => x.ParentID == 0).OrderBy(x => x.Order);
+    
+        foreach (var item in model)
+        {
+            <div class="col-md-4 footer-menu__column menu">
+                @{
+                var parent = Model.Where(x => x.ParentID == item.Id).OrderBy(x => x.Order);
+                }
+                <h3 class="menu__heading">@item.Name</h3>
+                @if (parent.Any())
+                {
+                    <ul class="menu__listing">
+                        @foreach (var child in parent)
+                        {
+                            <li><a href="@child.Link">@child.Name</a></li>
+                            <li><a rel="nofollow" href=""></a></li>
+                        }
+                    </ul>
+                }
+            </div>
+        }
+
+}*@
+<footer>
+    <div class="pc">
+        <div class="bg-red">
+            <div class="container">
+                <div class="top">
+                    <div class="left">
+                        <img src="../webroot/images/logo/logo-white.svg" alt="TVSI">
+                    </div>
+                    <div class="right">
+                        <a class="mail" href="mailto:contact@tvsi.com.vn">
+                            <img src="../webroot/images/icon/footer/mail.svg" alt="Mail">
+                            <span>contact@tvsi.com.vn</span>
+                        </a>
+                        <a href="tel:19001885">
+                            <img src="../webroot/images/icon/footer/phone.svg" alt="Phone">
+                            <span>1900 1885</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-purple">
+            <div class="container link">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>SẢN PHẨM ĐẦU TƯ</th>
+                            <th>HỆ THỐNG</th>
+                            <th>HỖ TRỢ</th>
+                            <th colspan="2">ỨNG DỤNG CHỨNG KHOÁN TVSI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="">Chứng khoán cơ sở</a></td>
+                            <td><a href="">Trung tâm phân tích</a></td>
+                            <td><a href="">FAQs</a></td>
+                            <td class="ps-4 vertical-middle no-icon" colspan="2" rowspan="3">
+                                <div class="app">
+                                    <a href="#">
+                                        <img data-src="../webroot/images/icon/footer/app-store.svg" alt="App store"
+                                             class="lazyload">
+                                    </a>
+                                    <a href="#">
+                                        <img data-src="../webroot/images/icon/footer/google-play.svg" alt="Google play"
+                                             class="lazyload">
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><a href="">Trái phiếu</a></td>
+                            <td><a href="">Bảng giá TVSI</a></td>
+                            <td><a href="">Kiến thức</a></td>
+                        </tr>
+                        <tr>
+                            <td class="opacity-0"><a href=""></a></td>
+                            <td><a href="">Bảng giá TVSI cho khách hàng đã có tài khoản</a></td>
+                            <td><a href="">Các mẫu biểu</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+            <div class="container address">
+                <h3>MẠNG LƯỚI GIAO DỊCH</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>TRỤ SỞ CHÍNH</th>
+                            <th>CN MỸ ĐÌNH</th>
+                            <th>CN HÀ THÀNH</th>
+                            <th>CN NGỌC KHÁNH</th>
+                            <th>CN HẢI PHÒNG</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                Tầng 6, 79 Lý Thường Kiệt, Quận Hoàn Kiếm, Hà Nội<br>
+                                Tel: 024 3728 0921<br>
+                                Fax: 024 3728 0920<br>
+                                Email: contact@tvsi.com.vn
+                            </td>
+                            <td>
+                                Tầng 2, toà nhà AP, 87 Trần Thái Tông, Q.Cầu Giấy, Hà Nội<br>
+                                Tel: 024. 3792 5181<br>
+                                Fax: 024. 3792 5180
+                            </td>
+                            <td>
+                                Tầng 3, 33 Lê Thánh Tông, Hoàn Kiếm, Hà Nội<br>
+                                Tel: 024 3717 3248<br>
+                                Fax: 024 3717 3250
+                            </td>
+                            <td>
+                                Tòa nhà Ngọc Khánh Plaza, Số 1 Phạm Huy Thông, Ba Đình, Hà Nội<br>
+                                Tel: 024. 3237 3090<br>
+                                Fax: 024. 3237 3092
+                            </td>
+                            <td>
+                                Tầng 1 tòa nhà Akashi, số 10 Lê Hồng Phong, TP.Hải Phòng<br>
+                                Tel: 0225. 3757559<br>
+                                Fax: 0225. 3757560
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CN ĐÀ NẴNG</th>
+                            <th>CN QUY NHƠN</th>
+                            <th>PHÒNG GD DAKLAK</th>
+                            <th>CN HỒ CHÍ MINH</th>
+                            <th class="opacity-0"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                Tầng 6, 79 Lý Thường Kiệt, Quận Hoàn Kiếm, Hà Nội<br>
+                                Tel: 024 3728 0921<br>
+                                Fax: 024 3728 0920<br>
+                                Email: contact@tvsi.com.vn
+                            </td>
+                            <td>
+                                Tầng 2, toà nhà AP, 87 Trần Thái Tông, Q.Cầu Giấy, Hà Nội<br>
+                                Tel: 024. 3792 5181<br>
+                                Fax: 024. 3792 5180
+                            </td>
+                            <td>
+                                Tầng 3, 33 Lê Thánh Tông, Hoàn Kiếm, Hà Nội<br>
+                                Tel: 024 3717 3248<br>
+                                Fax: 024 3717 3250
+                            </td>
+                            <td>
+                                Tòa nhà Ngọc Khánh Plaza, Số 1 Phạm Huy Thông, Ba Đình, Hà Nội<br>
+                                Tel: 024. 3237 3090<br>
+                                Fax: 024. 3237 3092
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="bg-black">
+            <div class="container">
+                <div class="content">
+                    <div class="left">
+                        <p>
+                            Liên hệ Sơ đồ Website Khuyến cáo<br>
+                            © Bản quyền 2020 thuộc Chứng khoán Tân Việt (TVSI)
+                        </p>
+                    </div>
+                    <div class="right">
+                        <a href="/">Trang chủ</a>
+                        <a href="#">Liên hệ</a>
+                        <a href="#">Điều khoản sử dụng</a>
+                        <a href="#">Sitemap</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sp">
+        <div class="bg-red">
+            <div class="container">
+                <div class="contact">
+                    <a href="mailto:contact@tvsi.com.vn">
+                        <img src="../webroot/images/icon/footer/mail.svg" alt="Mail">
+                        <span>contact@tvsi.com.vn</span>
+                    </a>
+                    <a href="tel:19001885">
+                        <img src="../webroot/images/icon/footer/phone.svg" alt="Phone">
+                        <span>1900 1885</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="bg-purple">
+            <div class="container link">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>SẢN PHẨM ĐẦU TƯ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="">Chứng khoán cơ sở</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="">Trái phiếu</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>HỆ THỐNG</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="">Trung tâm phân tích</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="">Bảng giá TVSI</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="">Bảng giá TVSI cho khách đã có tài khoản</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>HỖ TRỢ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="">FAQs</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="">Kiến thức</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="">Các mẫu biểu</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="font-size: 16px">ỨNG DỤNG CHỨNG KHOÁN TVSI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="no-icon">
+                                <div class="app">
+                                    <a href="#" class="app-store">
+                                        <img src="../webroot/images/icon/footer/app-store.svg" alt="App store">
+                                    </a>
+                                    <a href="#" class="google-play">
+                                        <img src="../webroot/images/icon/footer/google-play.svg" alt="Google play">
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+            <div class="container address">
+                <h3>MẠNG LƯỚI GIAO DỊCH</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>TRỤ SỞ CHÍNH</th>
+                            <th>CN MỸ ĐÌNH</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                Tầng 6, 79 Lý Thường Kiệt, Quận Hoàn Kiếm, Hà Nội<br>
+                                Tel: 024 3728 0921<br>
+                                Fax: 024 3728 0920<br>
+                                Email: contact@tvsi.com.vn
+                            </td>
+                            <td>
+                                Tầng 2, toà nhà AP, 87 Trần Thái Tông, Q.Cầu Giấy, Hà Nội<br>
+                                Tel: 024. 3792 5181<br>
+                                Fax: 024. 3792 5180
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CN HÀ THÀNH</th>
+                            <th>CN NGỌC KHÁNH</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                Tầng 3, 33 Lê Thánh Tông, Hoàn Kiếm, Hà Nội<br>
+                                Tel: 024 3717 3248<br>
+                                Fax: 024 3717 3250
+                            </td>
+                            <td>
+                                Tòa nhà Ngọc Khánh Plaza, Số 1 Phạm Huy Thông, Ba Đình, Hà Nội<br>
+                                Tel: 024. 3237 3090<br>
+                                Fax: 024. 3237 3092
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CN HẢI PHÒNG</th>
+                            <th>CN ĐÀ NẴNG</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                Tầng 1 tòa nhà Akashi, số 10 Lê Hồng Phong, TP.Hải Phòng<br>
+                                Tel: 0225. 3757559<br>
+                                Fax: 0225. 3757560
+                            </td>
+                            <td>
+                                Tầng 6, 79 Lý Thường Kiệt, Quận Hoàn Kiếm, Hà Nội<br>
+                                Tel: 024 3728 0921<br>
+                                Fax: 024 3728 0920<br>
+                                Email: contact@tvsi.com.vn
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CN QUY NHƠN</th>
+                            <th>PHÒNG GD DAKLAK</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                Tầng 3, 33 Lê Thánh Tông, Hoàn Kiếm, Hà Nội<br>
+                                Tel: 024 3717 3248<br>
+                                Fax: 024 3717 3250
+                            </td>
+                            <td>
+                                Tòa nhà Ngọc Khánh Plaza, Số 1 Phạm Huy Thông, Ba Đình, Hà Nội<br>
+                                Tel: 024. 3237 3090<br>
+                                Fax: 024. 3237 3092
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CN HỒ CHÍ MINH</th>
+                            <th class="opacity-0"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                Tòa nhà Ngọc Khánh Plaza, Số 1 Phạm Huy Thông, Ba Đình, Hà Nội<br>
+                                Tel: 024. 3237 3090<br>
+                                Fax: 024. 3237 3092
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="bg-black">
+            <div class="container">
+                <p>
+                    Liên hệ Sơ đồ Website Khuyến cáo<br>
+                    © Bản quyền 2020 thuộc Chứng khoán Tân Việt (TVSI)
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+

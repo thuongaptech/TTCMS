@@ -1,0 +1,36 @@
+﻿@model TTCMS.Web.Models.Product.CateHomeViewModel[]
+<div style="padding-left: 10px;" class="search-area col-md-5 " id="main-search">
+@using (Html.BeginForm("TimKiem", "Product", FormMethod.Get, new { role = "form" }))
+        {
+        <div class="search-box form-inline clearfix">
+            @*<div class="search-box__category">
+                <select class="selectpicker" id="category_search" name="category">
+                    <option value="0">Tất cả danh mục</option>
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.Id">- @item.Name</option>
+                    }
+                </select>
+                <div class="btn-group bootstrap-select">
+                    <button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown"
+                            data-id="category_search" title="Tất cả danh mục" aria-expanded="false">
+                        <span class="filter-option pull-left">Tất cả danh mục</span>&nbsp;<span class="caret"></span>
+                    </button>
+                </div>
+            </div>*@
+            <div class="search-box__input">
+                <input type="text" id="search_all" class="form-control input-search" name="q"
+                       placeholder="Tìm kiếm sản phẩm / khuyến mãi"
+                       value="@ViewBag.q" />
+                <a class="btn btn--remove hidden"><i class="hd hd-remove"></i></a>
+                <a class="btn btn--cancel hidden">Hủy</a>
+                <button class="btn btn-danger">
+                    <i class="hd hd-search"></i>
+                    <span class="sr-only">Tìm kiếm</span>
+                </button>
+            </div>
+        </div>
+   }
+</div>
+
+

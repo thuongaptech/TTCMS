@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" type="image/ico" href="@ViewBag.Meta.Favicon" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../webroot/images/logo/favicon.svg" type="image/x-icon" rel="icon">
+    <link href="../webroot/images/logo/favicon.svg" type="image/x-icon" rel="shortcut icon">
+    @*<link rel="stylesheet" href="./../webroot/css/main.css">*@
+    <link href="~/webroot/css/main.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="main">
+        @Html.Action("TOPMenu", "Menu")
+        <main>
+            @RenderBody()
+        </main>
+        @Html.Action("BotMenu", "Menu")
+        </div>
+        @*@RenderSection("scripts", required: false)*@
+        <script src="./../webroot/js/main.js"></script>
+        <script type="text/javascript">
+            actionHeader()
+            actionHome()
+        </script>
+</body>
+
+
+</html>

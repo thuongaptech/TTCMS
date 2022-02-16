@@ -1,0 +1,135 @@
+﻿@model TTCMS.Web.Models.Product.BanChayViewModel
+<div class="block block--tab tab-style-1">
+    <div class="block__header clearfix">
+        <div class="block__tab">
+            <ul class="tab nav nav-pills">
+                <li class="tab__item active">
+                    <a data-toggle="tab"
+                       data-title="Deal Nổi bật"
+                       href="#tab0">Sản phẩm bán chạy</a>
+                </li>
+                <li class="tab__item">
+                    <a data-toggle="tab"
+                       data-title="Deal mới"
+                       href="#tab1">Sản phẩm mới nhất</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="block__content tab-content clearfix">
+        <div role="tabpanel" class="tab-pane active" id="tab0">
+            <div class="row products products--mobile">
+                <div class="products__inner">
+                    @foreach (var item in Model.ListBanChay)
+                    {
+                        <div class="col-md-3 product-wrapper @(item.GiaKM < item.GiaBan ? "" : "product-item")" id="product-@item.Id-wrapper">
+                            <div class="product product-kind-1"
+                                 id="product-@item.Id"
+                                 itemscope itemtype="http://schema.org/Product"
+                                 data-toggle="box-link" data-url="@Url.Action("Detail","Product", new { Id = item.Id, alias = item.Route }).ToLower()">
+                                <div class="product__image">
+                                    <a href="@Url.Action("Detail","Product", new { Id = item.Id, alias = item.Route }).ToLower()" title="@item.Name">
+                                        <img itemprop="image" class="lazy" width="280" height="280"
+                                             data-original="@item.Img_Thumbnail"
+                                             data-src-mobile="@item.Img_Thumbnail"
+                                             src="@item.Img_Thumbnail"
+                                             alt="@item.Name" />
+                                        @if (item.IsHot)
+                                        {
+                                            <span class="icon-hot hot">HOT</span>
+                                        }
+                                        <div class="item__meta">
+                                            <span class="view" href="@Url.Action("Detail","Product", new { Id = item.Id, alias = item.Route }).ToLower()">Xem Ngay</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="product__header">
+                                    <h3 class="product__title">
+                                        <a href="@Url.Action("Detail","Product", new { Id = item.Id, alias = item.Route }).ToLower()" itemprop="name" title="@item.Name">@XString.CutString(item.Name, 65)</a>
+                                        <meta itemprop="brand" content="" />
+                                    </h3>
+                                </div>
+                                <div class="product__info">
+                                    <div itemtype="http://schema.org/Offer" itemscope="" itemprop="offers" class="product__price">
+                                        <meta content="VND" itemprop="priceCurrency">
+                                        <span class="price">
+                                            <span itemprop="price" class="price__value">@string.Format("{0:#,###}", item.GiaKM)</span><span class="price__symbol">đ</span>
+                                            <span class="price__discount">-@item.Percent%</span>
+                                        </span>
+                                    </div>
+                                    <div style="display: inline-block;" class="product__price product__price--list-price">
+                                        <span class="price price--list-price">
+                                            <span class="price__value">@string.Format("{0:#,###}", item.GiaBan)</span><span class="price__symbol">đ</span>
+                                        </span>
+                                    </div>
+                                    <div class="product__stats">
+                                        <div class="product__views">
+                                            <i class="hd hd-user"></i>@(item.DaMua > 0?string.Format("{0:#,###}", item.DaMua):"0")
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="tab1">
+            <div class="row products products--mobile">
+                <div class="products__inner">
+                    @foreach (var item in Model.ListMoiNhat)
+                    {
+                        <div class="col-md-3 product-wrapper @(item.GiaKM < item.GiaBan ? "" : "product-item")" id="product-@item.Id-wrapper">
+                            <div class="product product-kind-1"
+                                 id="product-@item.Id"
+                                 itemscope itemtype="http://schema.org/Product"
+                                 data-toggle="box-link" data-url="@Url.Action("Detail","Product", new { Id = item.Id, alias = item.Route }).ToLower()">
+                                <div class="product__image">
+                                    <a href="@Url.Action("Detail","Product", new { Id = item.Id, alias = item.Route }).ToLower()" title="@item.Name">
+                                        <img itemprop="image" class="lazy" width="280" height="280"
+                                             data-original="@item.Img_Thumbnail"
+                                             data-src-mobile="@item.Img_Thumbnail"
+                                             src="@item.Img_Thumbnail"
+                                             alt="@item.Name" />
+                                        @if (item.IsHot)
+                                        {
+                                            <span class="icon-hot hot">HOT</span>
+                                        }
+                                        <div class="item__meta">
+                                            <span class="view" href="@Url.Action("Detail","Product", new { Id = item.Id, alias = item.Route }).ToLower()">Xem Ngay</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="product__header">
+                                    <h3 class="product__title">
+                                        <a href="@Url.Action("Detail","Product", new { Id = item.Id, alias = item.Route }).ToLower()" itemprop="name" title="@item.Name">@XString.CutString(item.Name, 65)</a>
+                                        <meta itemprop="brand" content="" />
+                                    </h3>
+                                </div>
+                                <div class="product__info">
+                                    <div itemtype="http://schema.org/Offer" itemscope="" itemprop="offers" class="product__price">
+                                        <meta content="VND" itemprop="priceCurrency">
+                                        <span class="price">
+                                            <span itemprop="price" class="price__value">@string.Format("{0:#,###}", item.GiaKM)</span><span class="price__symbol">đ</span>
+                                            <span class="price__discount">-@item.Percent%</span>
+                                        </span>
+                                    </div>
+                                    <div style="display: inline-block;" class="product__price product__price--list-price">
+                                        <span class="price price--list-price">
+                                            <span class="price__value">@string.Format("{0:#,###}", item.GiaBan)</span><span class="price__symbol">đ</span>
+                                        </span>
+                                    </div>
+                                    <div class="product__stats">
+                                        <div class="product__views">
+                                            <i class="hd hd-user"></i>@(item.DaMua > 0 ? string.Format("{0:#,###}", item.DaMua) : "0")
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

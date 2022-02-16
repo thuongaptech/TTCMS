@@ -1,0 +1,56 @@
+﻿@model TTCMS.Web.Models.LayLaiMKViewModel
+@{
+    ViewBag.Title = "Lấy lại mật khẩu";
+    Layout = "~/Views/Shared/_Layout_Content.cshtml";
+}
+
+<main class="main-content clearfix" id="main">
+    <div class="container">
+        <div class="box box--center">
+            <div class="box__header">
+                <h2 class="box__title">Đặt lại mật khẩu của bạn</h2>
+            </div>
+            <div class="box__body">
+                <div class="login">
+                @using (Html.BeginForm("Reset", "Account", FormMethod.Post, new { @class = "form-horizontal form form--general fv-form fv-form-bootstrap", role = "form" }))
+                {
+                             @Html.Partial("_Alerts")
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(m => m.Id)
+                        <p>Hãy cập nhật lại mật khẩu của bạn ngay bây giờ bằng cách nhập mật khẩu mới vào các trường bên dưới.</p>
+                        <div class="center">
+                            <div class="form-group form-group-lg has-feedback">
+                                <label class="control-label" for="password">Mật khẩu mới</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-lock"></i></div>
+                                    @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control", @placeholder = "************" })
+                                    @Html.ValidationMessageFor(model => model.NewPassword, "", new { @class = "text-danger alert-error" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-lg has-feedback">
+                                <label class="control-label" for="password2">Nhập lại mật khẩu</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-lock"></i></div>
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "************" })
+                                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger alert-error" })
+                                </div>
+                            </div>
+                            <div class="buttons-container text-center left_text_align">
+                                <span class="button-submit"><input type="submit" class="btn btn-success" value="Cập Nhật" name="btnsubmit"></span>
+                            </div>
+                        </div>
+                     }
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+
+
+

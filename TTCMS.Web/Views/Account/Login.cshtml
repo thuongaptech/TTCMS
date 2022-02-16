@@ -1,0 +1,67 @@
+﻿@model TTCMS.Web.Models.LoginViewModel
+<div class="col-md-2 header-cart-wrapper hidden-xs hidden-sm">
+    <nav style="margin-top:30px; color:#444;" class="top-bar__item top-bar__item--nav navigation navigation--inline pull-right tt-login">
+@if (!Request.IsAuthenticated)
+{
+    <ul class="navbar-right" id="user_info_header">
+        <li><i class="hd hd-user"></i> <a href="@Url.Action("Register", "Account")" rel="nofollow">Đăng ký</a></li>
+        <li> | </li>
+        <li class="show-in-checkout dropdown dropdown-arrow" id="login-popup-header-form">
+            <a data-toggle="dropdown" href="@Url.Action("LoginS", "Account")">Đăng nhập</a>
+            <ul class="dropdown-menu login-popup" id="login-popup-header">
+                <li class="show-in-checkout">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-center">ÐĂNG NHẬP</h4>
+                    </div>
+                    <div class="modal-body clearfix">
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = Request.Url.AbsoluteUri }, FormMethod.Post, new { @class = "form--general fv-form fv-form-bootstrap", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="fv-hidden-submit" style="display: none; width: 0px; height: 0px;"></button>
+                            <div class="form-group has-feedback">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="hd hd-user"></i></div>
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Tên đăng nhập" })
+                                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger alert-error" })
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="hd hd-lock"></i></div>
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Mật khẩu" })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger alert-error" })
+                                </div>
+                            </div>
+                            <div class="form-group password-helper">
+                                <label class="pull-left remember-me" for="RememberMe">@Html.CheckBoxFor(m => m.RememberMe) Ghi nhớ đăng nhập</label>
+                                <a href="@Url.Action("ForgotPassword", "Account")" rel="nofollow" class="pull-right">Quên mật khẩu?</a>
+                            </div>
+                            <div style="margin-bottom: 0;" class="form-group">
+                                <button class="btn btn-success btn-block" type="submit">ÐĂNG NHẬP</button>
+                                <p class="login-register-helper">Bạn chưa có tài khoản? <a href="@Url.Action("Register", "Account")" rel="nofollow">Ðăng ký ngay</a></p>
+                            </div>
+                        }
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+}
+else
+{
+    <ul class="navbar-right" id="user_info_header">
+        <li class="dropdown dropdown-arrow">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="@Url.Action("Profile", "Account")" aria-expanded="false">
+                <i class="hd hd-user"></i> @XString.CutString(ViewBag.FullName, 20) <i class="fa fa-caret-down"></i>
+            </a>
+            <ul role="menu" class="dropdown-menu">
+                <li><a class="underlined" rel="nofollow" href="@Url.Action("Profile", "Account")">Thông tin tài khoản</a></li>
+                <li><a class="underlined" rel="nofollow" href="@Url.Action("Info", "Cart")">Thông tin đơn hàng</a></li>
+                <li><a rel="nofollow" href="@Url.Action("ChangePass", "Account")">Thay đổi mật khẩu</a></li>
+                <li class="show-in-checkout"><a class="underlined" rel="nofollow" href="@Url.Action("LogOff", "Account")">Đăng xuất</a></li>
+            </ul>
+        </li>
+    </ul>
+}  
+    </nav>
+</div>

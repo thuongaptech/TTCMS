@@ -1,0 +1,19 @@
+﻿@model TTCMS.Web.Models.News.SinglePageHomeViewModel
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout_Content.cshtml";
+}
+<main class="main-content clearfix" id="main">
+    <div class="container">
+        <div class="box box--shadow">
+            <div class="sidebar-content sidebar-first">
+                @Html.Action("PageMenu", "Menu", new { Id = ViewBag.Id })               
+                <div class="content wysiwyg">
+                    <h1 class="page-title">@Model.Title</h1>
+                    <p>@Model.Summary</p>
+                    @Html.Raw(Model.Body)
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

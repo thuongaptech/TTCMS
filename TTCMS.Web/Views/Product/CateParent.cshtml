@@ -1,0 +1,21 @@
+﻿@model TTCMS.Web.Models.Product.CateHomeViewModel[]
+@if (Model.Any())
+{
+    <div class="filter filter--listing">
+        <div class="filter__title">
+            <i class="filter__icon hd hd-list"></i> DANH MỤC
+
+            <a href="#" class="toggle-filter visible-xs visible-sm"><i class="fa fa-chevron-down"></i></a>
+        </div>
+        <div class="filter__body">
+            @foreach (var item in Model)
+            {
+                <label class="filter__button @(item.ActiveClass == true ? "active" : "")">
+                    <a href="@Url.Action("Category", new { Id = item.Id, alias = item.Route }).ToLower()">
+                        @item.Name <span>@item.CountProduct</span>
+                    </a>
+                </label>
+            }
+        </div>
+    </div>
+}

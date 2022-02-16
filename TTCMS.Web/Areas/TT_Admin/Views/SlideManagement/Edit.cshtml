@@ -1,0 +1,136 @@
+﻿@model TTCMS.Web.Areas.TT_Admin.Models.SlideViewModel
+
+<div id="modal-form" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="blue bigger">Chỉnh sữa Slide</h4>
+            </div>
+            @using (Ajax.BeginForm("Edit", "SlideManagement", null, new AjaxOptions { HttpMethod = "Post", OnComplete = "CompleteAjaxRequestSize" }, new { @role = "form", @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.SlideType)
+                @Html.HiddenFor(m => m.CreatedBy)
+                @Html.HiddenFor(m => m.CreatedDate)
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 change-password">
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Tiêu đề</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(x => x.Title, new { @class = "col-xs-12 col-sm-12", @placeholder = "Title" })
+                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Mô tả</label>
+                                <div class="col-sm-8">
+                                    @Html.TextAreaFor(x => x.Description, new { @class = "col-xs-12 col-sm-12", @placeholder = "Mô tả" })
+                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Link chuyển</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(x => x.LinkRedirec, new { @class = "col-xs-12 col-sm-12", @placeholder = "http://google.com" })
+                                    @Html.ValidationMessageFor(model => model.LinkRedirec, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Hình ảnh</label>
+                                <div class="col-sm-5">
+                                    @Html.TextBoxFor(x => x.Images, new { @class = "col-xs-12 col-sm-12", @placeholder = "Hình ảnh" })
+                                </div>
+                                <div class="col-sm-3">
+                                    <button class="btn btn-purple" id="chonanh" onclick="BrowseServerHangBay();" type="button">
+                                        <i class="fa fa-cloud-upload bigger-110"></i>
+                                        Chọn ảnh
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">@TTCMS.Resources.Resources.ShowText</label>
+                                <div class="col-sm-5">
+                                    @Html.DropDownListFor(model => model.Target,
+                                                     new List<SelectListItem>()
+                                                        {
+                                                        new SelectListItem { Text = TTCMS.Resources.Resources.self, Value = "_self" },
+                                                        new SelectListItem { Text = TTCMS.Resources.Resources.blank,  Value = "_blank" },
+                                                        }, new { @class = "form-control" })
+                                    @Html.ValidationMessage("Target", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">@TTCMS.Resources.Resources.LanguageText</label>
+                                <div class="col-sm-5">
+                                    @Html.DropDownListFor(model => model.LanguageId, (SelectList)Model.Lang, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">@TTCMS.Resources.Resources.SortText</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(x => x.Order, new { @class = "col-xs-10 col-sm-4", @placeholder = TTCMS.Resources.Resources.SortText })
+                                    @Html.ValidationMessageFor(model => model.Order, "", new { @class = "text-danger" })
+                                    <div class="space-6"></div>
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">@TTCMS.Resources.Resources.ActiveText</label>
+                                <div class="col-sm-8">
+                                    <label>
+                                        @Html.CheckBoxFor(x => x.IsActive, new { @class = "ace ace-switch ace-switch-4 btn-flat" })
+                                        <span class="lbl"></span>
+                                        @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                                    </label>
+                                    <div class="space-6"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-sm" data-dismiss="modal">
+                        <i class="ace-icon fa fa-times"></i>
+                        @TTCMS.Resources.Resources.CancelText
+                    </button>
+
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <i class="ace-icon fa fa-check"></i>
+                        @TTCMS.Resources.Resources.btnUpdateSubmit
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- PAGE CONTENT ENDS -->
+<script>
+    $.validator.unobtrusive.parse($("form"));
+    function BrowseServerHangBay() {
+        var finder = new CKFinder();
+        //finder.basePath = '../';
+        finder.selectActionFunction = SetFileFieldHangBay;
+        finder.popup();
+    };
+    function SetFileFieldHangBay(fileUrl) {
+        $("#Images").val(fileUrl);
+    };
+    $('#Order').ace_spinner({ value: 0, min: 0, step: 1, btn_up_class: 'btn-info', btn_down_class: 'btn-info' })
+               .closest('.ace-spinner')
+               .on('changed.fu.spinbox', function () {
+                   //alert($('#spinner1').val())
+               });
+
+</script>
+

@@ -1,0 +1,79 @@
+﻿@model TTCMS.Web.Models.Product.ProductHomeViewModel[]
+@{
+    ViewBag.Title = "Thông tin nhận hàng";
+    Layout = "~/Views/Shared/_Layout_GioHang.cshtml";
+}
+<main id="main" class="main-content clearfix page-checkout">
+    <div class="container">
+        <div class="visible-xs visible-sm">
+            <ol class="progress-steps">
+                <li data-step="1" class="@(ViewBag.Step == "1" ? "is-active" : ViewBag.Step == "2" ? "is-complete" : "")">
+                    <a>Thông Tin Sản Phẩm</a>
+                </li>
+                <li data-step="2" class="@(ViewBag.Step == "2" ? "is-active" : ViewBag.Step == "3" ? "is-complete" : "")">
+                    <a>Thông Tin Giao Hàng</a>
+                </li>
+                <li data-step="3" class="@(ViewBag.Step == "3" ? "is-active" : "") progress__last">
+                    <span>Thanh Toán</span>
+                </li>
+            </ol>
+        </div>
+        <div class="content-sidebar--2">
+            <div class="content">
+                <div class="box">
+                    <div class="box__header">
+                        <h2 class="box__title">Địa chỉ giao hàng</h2>
+
+                        <a href="/checkout-step-1" class="btn btn--back visible-xs visible-sm"><i class="fa fa-angle-left"></i></a>
+                    </div>
+                   @Html.Action("FormDatHang", "Cart")
+                </div>
+            </div>
+            <div class="sidebar sidebar--checkout sidebar--checkout-2">
+                <div class="box">
+                    <div class="box__header">
+                        <h2 class="box__title">Thông tin đơn hàng</h2>
+                        <div class="box__tools">
+                        </div>
+                    </div>
+                    <div class="box__body">
+                        <div class="order-items">
+                            @foreach (var item in Model)
+                            {
+                                <div class="order-item">
+                                    <div class="name">
+                                        <span class="quantity">@item.Views x</span>
+                                        <a target="_blank" href="@Url.Action("Detail","Product", new { Id = item.Id, alias = item.Route }).ToLower()" title="@item.Name">
+                                           @item.Name
+                                        </a>
+                                    </div>
+                                    <div class="price">
+                                        @string.Format("{0:#,###}",item.Price) đ
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <hr />
+                        <ul class="order-summary">
+                            <li>
+                                <span class="k">Tổng sản phẩm</span>
+                                <span class="v">@ShoppingCart.Cart.Count</span>
+                            </li>
+                            <li class="sep"></li>
+                            <li class="total">
+                                <span class="k">Tổng cộng</span>
+                                <span class="v" id="cart_info_total" data-order="total">@string.Format("{0:#,###}",ShoppingCart.Cart.Total) đ</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="box__footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>  
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

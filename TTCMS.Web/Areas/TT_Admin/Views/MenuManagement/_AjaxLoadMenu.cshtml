@@ -1,0 +1,99 @@
+﻿@model TTCMS.Web.Areas.TT_Admin.Models.MenuManagerViewModel[]
+@{
+    
+    var root = Model.Where(x => x.ParentID == 0).OrderBy(x => x.Order);
+}
+@if (Model.ToList().Any())
+{
+    <ol class="dd-list">
+        @TreeView(root.ToList())
+    </ol>
+}
+else
+{
+<p class="alert alert-info">
+    @TTCMS.Resources.Resources.ErrorNoData
+</p>
+}
+        @helper TreeView(List<TTCMS.Web.Areas.TT_Admin.Models.MenuManagerViewModel> menuTree)
+{
+    foreach (var item in menuTree)
+    {
+        var parent = Model.Where(x => x.ParentID == item.Id).OrderBy(x => x.Order);
+        <li class="dd-item dd2-item" data-id="@item.Id">
+            @if (parent.Any())
+            {
+                <button type="button" data-action="collapse">Collapse</button>
+                <button type="button" data-action="expand" style="display: none;">Expand</button>
+            }
+            <div class="dd-handle dd2-handle">
+                <i class="normal-icon ace-icon fa fa-bars blue bigger-130"></i>
+                <i class="drag-icon ace-icon fa fa-arrows bigger-125"></i>
+            </div>
+            <div class="dd2-content">
+                @item.Name
+                <div class="pull-right action-buttons">
+                    <i>@item.TextType</i>
+                    <a href="@Url.Action("Edit", new {Id = item.Id })" data-toggle="modal" data-target="#myModal" data-remote="false" data-ajax="modal-json" class="blue">
+                        <i class="ace-icon fa fa-pencil bigger-130"></i>
+                    </a>
+                    <a href="javascript:void(0)" onclick="DeleteMenu('@Url.Action("Delete", new { Id=item.Id})');" class="red delete-menu">
+                        <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                    </a>
+                    @if (item.IsActived == true)
+                    {
+                        <a class="inline pull-right position-relative dropdown-hover green" onclick="_Activated('@item.Id', 'false');" title="Activated" href="javascript:void(0)">
+                            <i class="ace-icon fa fa-flag bigger-130"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="inline pull-right position-relative dropdown-hover red " onclick="_Activated('@item.Id', 'true');" href="javascript:void(0)" title="Not Activated">
+                            <i class="ace-icon fa fa-flag bigger-130"></i>
+                        </a>
+                    }
+                    
+                </div>
+            </div>
+        @if (parent.Any())
+        {
+            <ol class="dd-list">
+                @TreeView(parent.ToList())
+            </ol>
+        }
+    </li>
+    }
+}
+<script>
+    function DeleteMenu(URL)
+    {
+        var r = confirm($("#alert_delete").val());
+        if (r == true) {
+            var url = $(this).attr("href");
+            $.ajax({
+                url: URL,
+                type: 'GET',
+                success: function (data) {
+                    onSuccess(data);
+                    LoadListmenu();
+                }
+            });
+        }
+        else {
+            return false;
+        }
+    }
+    LoadClickAjaxModalJson();
+    function _Activated(id, key)
+    {
+        $.ajax({
+            url: "/MenuManagement/_Activated",
+            type: 'POST',
+            data:{Id: id, key: key},
+            success: function (data) {
+                onSuccess(data);
+                LoadListmenu();
+            }
+        });
+    }
+</script>

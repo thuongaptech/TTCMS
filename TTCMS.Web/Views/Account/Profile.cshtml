@@ -1,0 +1,73 @@
+﻿@model TTCMS.Web.Models.ProfileViewModel
+@{
+    ViewBag.Title = "Thông tin tài khoản";
+    Layout = "~/Views/Shared/_Layout_Content.cshtml";
+}
+<main class="main-content clearfix" id="main">
+    <div class="container">
+        <div class="sidebar-content--2">
+            @Html.Action("Info_Right", "Account")
+            <div class="content">
+                <div class="box">
+                    <div class="box__header">
+                        <h2 class="box__title">Thông tin tài khoản</h2>
+                    </div>
+                    <div class="box__body">
+                    @using (Html.BeginForm("Profile", "Account", FormMethod.Post, new { @class = "form-horizontal form form--general form-registration fv-form fv-form-bootstrap", role = "form" }))
+                      {
+                        @Html.Partial("_Alerts")
+                        @Html.AntiForgeryToken()
+                            <div class="row form">
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-lg has-feedback">
+                                        <label class="control-label" for="email">Email <span class="text-color-red">(*)</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="hd hd-user"></i></div>
+                                            @Html.TextBoxFor(m => m.TaiKhoan, new { @class = "form-control", @placeholder = "Nhập email của bạn", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(model => model.TaiKhoan, "", new { @class = "text-danger alert-error" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group-lg has-feedback">
+                                        <label class="control-label" for="fullname">Họ tên <span class="text-color-red">(*)</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="hd hd-user"></i></div>
+                                            @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", @placeholder = "Nhập đầy đủ họ và tên" })
+                                            @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger alert-error" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group-lg has-feedback">
+                                        <label class="control-label" for="phone">Điện thoại <span class="text-color-red">(*)</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @placeholder = "Nhập số điện thoại liện hệ" })
+                                            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger alert-error" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group-lg has-feedback">
+                                        <label class="control-label" for="phone">Địa chỉ <span class="text-color-red">(*)</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                                            @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @placeholder = "Nhập số địa chỉ liên hệ" })
+                                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger alert-error" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group-lg">
+                                        <label class="control-label" for="gender">Giới tính <span class="text-color-red">(*)</span></label>
+                                        <div class="radio-list">
+                                            <label>@Html.RadioButtonFor(x => x.Sex, "true") Nam</label>
+                                            <label>@Html.RadioButtonFor(x => x.Sex, "false") Nữ</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group-lg">
+                                        <button class="btn btn-lg btn-success btn-block" type="submit">CẬP NHẬT</button>
+                                    </div>
+                                </div>
+                            </div>
+                    }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+

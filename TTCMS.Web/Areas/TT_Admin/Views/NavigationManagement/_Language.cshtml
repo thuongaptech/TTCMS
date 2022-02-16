@@ -1,0 +1,15 @@
+﻿@model TTCMS.Web.Areas.TT_Admin.Models.LanguageItemViewModel[]
+@if (Model.Count() > 0)
+{
+    <li class="purple">
+        <a style="background:#438eb9" data-toggle="dropdown" class="dropdown-toggle" href="#" aria-expanded="false"> <img alt="@ViewBag.Language.Name" class="flag @ViewBag.Language.Img_Icon" src="/Content/admin/img/blank.gif"> <span> @ViewBag.Language.Name</span> <i class="fa fa-angle-down"></i> </a>
+        <ul class="dropdown-menu pull-right">
+            @foreach (var item in Model)
+            {
+                <li class="@(ViewBag.Language.Id == item.Id? "active":"")">
+                    <a href="@Url.Action("SetCulture", "Base", new { culture = item.Id })"><img alt="@item.Name" class="flag @item.Img_Icon" src="/Content/admin/img/blank.gif"> @item.Name</a>
+                </li>
+            }
+        </ul>
+    </li>
+}

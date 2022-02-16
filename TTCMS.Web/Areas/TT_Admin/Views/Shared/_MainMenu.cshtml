@@ -1,0 +1,66 @@
+﻿@model TTCMS.Web.Areas.TT_Admin.Models.MenuViewModel[]
+<div id="sidebar" class="sidebar responsive">
+    <script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+    </script>
+    <div id="sidebar-shortcuts" class="sidebar-shortcuts">
+                        <div id="sidebar-shortcuts-large" class="">
+                            <a style="width: 85%; margin: 7px 0; font-weight: bold;" title="Nhấp vào đây để xem website" class="btn btn-warning" href="/" target="_blank">
+                                <i style="margin-right: 12px;" class="menu-icon fa fa-desktop"></i>Xem website
+                            </a>
+                        </div>
+
+                        <div id="sidebar-shortcuts-mini" class="sidebar-shortcuts-mini">
+                            <span class="btn btn-success"></span>
+
+                            <span class="btn btn-info"></span>
+
+                            <span class="btn btn-warning"></span>
+
+                            <span class="btn btn-danger"></span>
+                        </div>
+                    </div><!-- /.sidebar-shortcuts -->
+
+    <ul class="nav nav-list">
+    @foreach (var item in Model)
+    {
+            var arrowCss = item.Children.Count > 0 ? "dropdown-toggle" : "";
+            var arrowCssfa = item.Children.Count > 0 ? "fa fa-angle-down" : "";
+        <li class="">
+            <a href="@item.Link" target="@item.Target" class="@arrowCss">
+                <i class="menu-icon @item.CssClass"></i>
+                <span class="menu-text">
+                    @item.Text
+                </span>
+                <b class="arrow @arrowCssfa"></b>
+            </a>
+            <b class="arrow"></b>
+            @if (item.Children.Count > 0)
+            {
+                <ul class="submenu">
+                    @foreach (var child in item.Children)
+                    {
+                        <li class="">
+                            <a href="@child.Link" target="@child.Target">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                        @child.Text
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                    }
+                   
+                </ul>
+            }
+           
+        </li>
+    }
+    </ul><!-- /.nav-list -->
+
+    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+        <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+    </div>
+
+    <script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+    </script>
+</div>

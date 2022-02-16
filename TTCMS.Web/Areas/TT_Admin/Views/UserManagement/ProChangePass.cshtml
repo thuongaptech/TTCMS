@@ -1,0 +1,82 @@
+﻿
+@model TTCMS.Web.Areas.TT_Admin.Models.ChangePasswordViewModel
+<div id="modal-form" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="blue bigger">@TTCMS.Resources.Resources.ChangePasswordText</h4>
+            </div>
+            @using (Html.BeginForm("ProChangePass", "UserManagement", FormMethod.Post, new { @role = "form", @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-5">
+                            <span class="profile-picture">
+                                @if (System.IO.File.Exists(Server.MapPath("/Content/avatars/" + Model.ProfilePicUrl)))
+                                {
+                                    <img src="/Content/avatars/@Model.ProfilePicUrl" alt="@Model.Name" class="editable img-responsive editable-click editable-empty" />
+                                }
+                                else
+                                {
+                                    <img src="/Content/avatar/default_avatar.png" alt="@Model.Name" class="editable img-responsive editable-click editable-empty" />
+                                }
+
+                            </span>
+                        </div>
+                        <div class="col-xs-12 col-sm-7 change-password">
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label">@TTCMS.Resources.Resources.UserName</label>
+                                <div class="col-sm-7">
+                                    @Model.Name
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label">@TTCMS.Resources.Resources.PasswordOldext</label>
+                                <div class="col-sm-7">
+                                    @Html.PasswordFor(x => x.OldPassword, new { @class = "col-xs-12 col-sm-12", @placeholder = TTCMS.Resources.Resources.PasswordOldext })
+                                    @Html.ValidationMessageFor(model => model.OldPassword, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label">@TTCMS.Resources.Resources.PasswordNewText</label>
+                                <div class="col-sm-7">
+                                    @Html.PasswordFor(x => x.NewPassword, new { @class = "col-xs-12 col-sm-12", @placeholder = TTCMS.Resources.Resources.PasswordNewText })
+                                    @Html.ValidationMessageFor(model => model.NewPassword, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label">@TTCMS.Resources.Resources.ConfirmPasswordNewText</label>
+                                <div class="col-sm-7">
+                                    @Html.Password("ConfirmPassword", null, new { @class = "col-xs-12 col-sm-12", @placeholder = TTCMS.Resources.Resources.ConfirmPasswordNewText })
+                                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-sm" data-dismiss="modal">
+                        <i class="ace-icon fa fa-times"></i>
+                        @TTCMS.Resources.Resources.CancelText
+                    </button>
+
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <i class="ace-icon fa fa-check"></i>
+                        @TTCMS.Resources.Resources.btnUpdateSubmit
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- PAGE CONTENT ENDS -->
+<script>
+    $.validator.unobtrusive.parse($("form"));
+</script>

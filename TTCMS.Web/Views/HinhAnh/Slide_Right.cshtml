@@ -1,0 +1,10 @@
+﻿@model TTCMS.Domain.QuangCao[]
+@if (Model.Any())
+{
+    <div class="promo-banners hidden-sm hidden-xs">
+        @foreach (var item in Model)
+        {
+            <a class="" href="@item.LinkRedirec"><img src="@item.Images" alt="@item.Title" /></a>
+        }
+     </div>
+}

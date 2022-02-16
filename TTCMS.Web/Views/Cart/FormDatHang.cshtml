@@ -1,0 +1,61 @@
+﻿@model TTCMS.Web.Models.DonHangViewModel
+<div class="box__body address-container ">
+    @using (Html.BeginForm("DatHang", "Cart", FormMethod.Post, new { role = "form", @class = "form form-blocking form--general check-out-step-2", @id = "DatHang" }))
+    {
+        @Html.Partial("_Alerts")
+        @Html.AntiForgeryToken()
+        <div class="address-edit editable-section" id="address-edit-">
+            <div class="row form">
+                <div class="col-md-6">
+                    <div class="form-group form-group-lg ">
+                        <label for="UserName" class="control-label">Họ tên</label>
+                        <div>
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control tt-input span5", @placeholder = "Họ tên người nhận" })
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger alert-error" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-lg">
+                        <label for="Phone" class="control-label">Điện thoại</label>
+                        <div>
+                            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control tt-input span5", @placeholder = "Số điện thoại liên hệ" })
+                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger alert-error" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-group-lg ">
+                        <label for="Address" class="control-label">Địa chỉ</label>
+                        <div>
+                            @Html.TextBoxFor(m => m.Address, new { @class = "form-control tt-input span5", @placeholder = "Địa chỉ nhận hàng" })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger alert-error" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-lg">
+                        <label for="Email" class="control-label">Email</label>
+                        <div>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control tt-input span5", @placeholder = "Nhập email người nhận hàng" })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger alert-error" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12" style="margin-bottom: 5px;">
+                    <div class="form-group form-group-lg">
+                        <label for="Note" class="control-label">Ghi chú</label>
+                        <div>
+                            @Html.TextAreaFor(m => m.Note, new { @class = "form-control tt-input span5",@row="50", @placeholder = "Nhập nội dung ghi chú" })
+                            @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger alert-error" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="box__footer">
+        <button id="btn--buy-now" type="submit" class="btn btn-success btn-lg btn--buy-now btn--buy-now-new pull-right" name="submit">TIẾP TỤC</button>
+        <a href="@Url.Action("Index","Cart")" class="btn btn--back"><i class="hd hd-back"></i> Quay lại bước 1</a>
+    </div>
+    }
+</div>
+
+<script>
+    $.validator.unobtrusive.parse($("form"));
+</script>

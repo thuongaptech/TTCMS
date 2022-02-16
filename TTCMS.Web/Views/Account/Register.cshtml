@@ -1,0 +1,88 @@
+﻿@model TTCMS.Web.Models.RegisterViewModel
+@{ ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="banner-default">
+    <div class="bg">
+        <img data-src="../webroot/images/banner/ekyc.png" alt="Ekyc" class="lazyload">
+        <h1>Đăng ký mở tài khoản eKYC</h1>
+    </div>
+</section>
+
+<section class="ekyc-select-image">
+    <div class="container">
+        <div class="desc">
+            <h2>XÁC NHẬN GIẤY TỜ VÀ KHUÔN MẶT</h2>
+            <h3>Chụp/ tải ảnh mặt trước và mặt sau giấy tờ của quý khách</h3>
+            <p>* Chứng minh thư/Căn cước công dân còn hiệu lực theo quy định của pháp luật.</p>
+            <p>
+                * Vui lòng sử dụng giấy tờ thật. Hãy đảm bảo ảnh chụp không bị mờ hoặc bóng, thông tin hiển thị rõ
+                ràng,
+                dễ đọc trong điều kiện đầy đủ ánh sáng, ảnh chụp ở chế độ bình thường không phóng to/ thu nhỏ.
+            </p>
+        </div>
+
+        <form action="ekyc-1.html">
+            <div class="take-photo">
+                <div class="row">
+                    <div class="col-12 col-md-6 ps-0 pe-4">
+                        <div class="title-default">
+                            <img src="../webroot/images/icon/chart.svg" alt="Chart">
+                            <h2>CMND/CCCD mặt trước</h2>
+                        </div>
+                        <div class="photo">
+                            <input type="file" accept="image/png, image/jpeg" class="d-none">
+                            <img src="" alt="TVSI" class="input-upload">
+                            <img src="../webroot/images/ekyc/border-red.svg" alt="Border"
+                                 class="border-red pc lazyload">
+                            <img src="../webroot/images/ekyc/border-red-sp.svg" alt="Border"
+                                 class="border-red sp lazyload">
+                            <div class="camera">
+                                <img data-src="../webroot/images/ekyc/camera.svg" alt="Camera" class="lazyload">
+                                <button type="button" class="take">
+                                    CHỤP ẢNH
+                                </button>
+                                <button type="button" class="upload">
+                                    TẢI ẢNH LÊN
+                                </button>
+                            </div>
+                            <i class="close"><img data-src="../webroot/images/icon/close.png" alt="Close" class="lazyload"></i>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 ps-4 pe-0">
+                        <div class="title-default">
+                            <img src="../webroot/images/icon/chart.svg" alt="Chart">
+                            <h2>CMND/CCCD mặt trước</h2>
+                        </div>
+                        <div class="photo">
+                            <input type="file" accept="image/png, image/jpeg" class="d-none">
+                            <img src="" alt="TVSI" class="input-upload">
+                            <img src="../webroot/images/ekyc/border-red.svg" alt="Border"
+                                 class="border-red pc lazyload">
+                            <img src="../webroot/images/ekyc/border-red-sp.svg" alt="Border"
+                                 class="border-red sp lazyload">
+                            <div class="camera">
+                                <img data-src="../webroot/images/ekyc/camera.svg" alt="Camera" class="lazyload">
+                                <button type="button" class="take">
+                                    CHỤP ẢNH
+                                </button>
+                                <button type="button" class="upload">
+                                    TẢI ẢNH LÊN
+                                </button>
+                            </div>
+                            <i class="close"><img data-src="../webroot/images/icon/close.png" alt="Close" class="lazyload"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note">
+                <p>* Nếu muốn tự nhập thông tin, quý khách vui lòng bấm vào <a href="@Url.Action("Maintenance", "Page")">đây</a></p>
+            </div>
+
+            @*<button type="submit" class="continue">TIẾP TỤC</button>*@
+        <a href="@Url.Action("Maintenance", "Page")" class="continue" style="text-align:center">TIẾP TỤC</a>
+        </form>
+    </div>
+</section>

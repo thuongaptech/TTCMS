@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" type="image/ico" href="@ViewBag.Meta.Favicon" />
+    <link rel="icon" type="image/ico" href="@ViewBag.Meta.Favicon" />
+    <meta http-equiv="content-language" content="vi" />
+    <meta name="description" content="@Html.Raw(ViewBag.Meta.Description)" />
+    <meta name="keywords" content="@Html.Raw(ViewBag.Meta.Keywords)" />
+    <meta name="robots" content="index, follow" />
+    <meta name="geo.region" content="VN-SG" />
+    <meta name="geo.placename" content="@Html.Raw(ViewBag.Meta.Address)" />
+    <meta property="og:site_name" content="@Html.Raw(ViewBag.Meta.ApplicationName)" />
+    <meta property="og:title" content="@Html.Raw(ViewBag.Title)" />
+    <meta property="og:description" content="@Html.Raw(ViewBag.Meta.Description)" />
+    <meta property="og:url" itemprop="url" content='@Request.Url.AbsoluteUri' />
+    <meta property="og:image" content="@ViewBag.Meta.Seo_Image" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" itemprop="inLanguage" content="vi_VN" />
+    <link rel="canonical" href="@Request.Url.AbsoluteUri" />
+    <link rel="image_src" href="@ViewBag.Meta.Seo_Image" />
+    <link href="/Content/Default/css/base-2.6.3.min.css" rel="stylesheet" />
+    <link href="/Content/Default/css/app-2.8.7.min.css" rel="stylesheet" />
+    <link href="/Content/Default/css/style.css" rel="stylesheet" />
+    <style>
+        nav.main-nav
+        {
+            background-color: @(ViewBag.Meta.BackgroudColor) !important;
+        }
+        nav.main-nav .nav__branding > a, nav.main-nav .nav > li:hover > a, nav.main-nav .nav > li.active > a, nav.main-nav .nav > li > a:focus, nav.main-nav .nav > li > a:active, nav.main-nav .nav > li > a:hover
+        {
+         background-color: @(ViewBag.Meta.ActiveColor) !important;
+        }
+        .btn-danger{
+          background-color: @(ViewBag.Meta.BackgroudColor) !important;
+        }
+        .header-cart .circle{
+        background-color: @(ViewBag.Meta.BackgroudColor) !important;
+        }
+        .main-nav .branding__menu > li.nav-active > a{
+         color:@(ViewBag.Meta.BackgroudColor) !important;
+        }
+        .sticky-header .nav-cart .circle
+        {
+        color:@(ViewBag.Meta.BackgroudColor) !important;
+        }
+    </style>
+</head>
+<body class="page-category ">
+    <div id="fb-root"></div>
+    <div id="ohsnap"></div>
+    <div id="hd-container" class="hd-container">
+        <a class="toggle-nav visible-xs visible-sm" data-target="#hd-container" data-effect="hd-effect-4">
+            <i class="fa fa-bars"></i>
+        </a>
+        <div class="hd-menu hd-effect-4 visible-xs visible-sm">
+            <div class="hd-menu-container">
+                @Html.Action("User_Info", "Account")
+                @Html.Action("Category_Mobile", "Menu")
+                <div class="hotline">
+                    <span class="hotline__text">HOTLINE</span>
+                    <span class="hotline__number">@ViewBag.Meta.HotLine</span>
+                </div>
+            </div>
+        </div>
+        <div class="hd-pusher">
+            <div class="hd-content">
+                <div class="hd-content-inner">
+                    <div id="page-wrapper">
+                        <div class="hd-touch-layer"></div>
+                        <header id="header" class="header clearfix">
+                            <div class="header__main  clearfix">
+                                <div class="container">
+                                    <div class="row">
+                                        <a class="toggle-nav visible-xs visible-sm" data-target="#hd-container" data-effect="hd-effect-4"><i class="fa fa-bars"></i></a>
+                                        <a class="toggle-search visible-xs visible-sm" data-target="#main-search"><i class="hd hd-search"></i></a>
+                                        <div id="logo" class="logo-wrapper col-md-3">
+                                            <a href="@Url.Action("Index","Home")">
+                                                <img style="margin: 0 auto;" class="hidden-xs hidden-sm logo" src="@ViewBag.Meta.Logo" />
+                                                <img style="margin: 0 auto;" class="visible-xs visible-sm logo" src="@ViewBag.Meta.Logo" />
+                                            </a>
+                                        </div>
+                                        @Html.Action("TimKiem", "Home")
+                                        @Html.Action("GioHang", "Cart")
+                                        @Html.Action("Login", "Account")
+                                    </div>
+                                </div>
+                            </div>
+                            <nav class="header__navigation main-nav" id="main-nav">
+                                <div class="container">
+                                    <ul class="nav main-nav tt-mainmenu">
+                                        <li class="main-nav__branding active">
+                                            <a class="branding__heading" href="#">
+                                                <span class="">Danh mục <i class="fa fa-angle-down"></i></span>
+                                            </a>
+                                            @Html.Action("Category", "Menu")
+                                        </li>
+                                        <li class="visible-affix">
+                                            <a href="@Url.Action("Index","Home")" class="logo-affix">
+                                                <svg class="logo-white" style="width: 140px; height: 21px; fill: #fff;"><use xlink:href="" /></svg>
+                                            </a>
+                                        </li>
+                                        @Html.Action("MainMenu", "Menu")
+                                    </ul>
+                                    @Html.Action("GioHang_Fixed", "Cart")
+                                </div>
+                            </nav>
+
+                        </header>
+                        @RenderBody()
+                        <footer id="footer" class="footer clearfix">
+                            <div class="footer__top">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="visible-xs visible-sm">
+                                            <div class="hotline">
+                                                <span class="hotline__text">HOTLINE&nbsp;</span>
+                                                <span class="hotline__number">@ViewBag.Meta.HotLine</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="row footer-menu">
+                                                @Html.Action("BotMenu", "Menu")
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 support-info">
+                                            <h3 class="support-info__heading">Trung tâm Khách hàng</h3>
+                                            <div class="support-info__address">@ViewBag.Meta.Address</div>
+                                            <div class="support-info__contact contact">
+                                                @if (ViewBag.Meta.HotLine != null || ViewBag.Meta.HotLine != "")
+                                                {
+                                                    <div class="contact__email"><i class="fa fa-phone"></i> <a href="tel:@(ViewBag.Meta.HotLine.Replace(" ", ""))"> @(ViewBag.Meta.HotLine)</a></div>
+                                                }
+                                                @if (ViewBag.Meta.Email != null || ViewBag.Meta.Email != "")
+                                                {
+                                                    <div class="contact__email"><i class="hd hd-email"></i> <a href="mailto:@(ViewBag.Meta.Email)"> @(ViewBag.Meta.Email)</a></div>
+                                                }
+                                                @if (ViewBag.Meta.LinkMaps != null || ViewBag.Meta.LinkMaps != "")
+                                                {
+                                                    <div class="contact__map">
+                                                        <i class="hd hd-gps"></i> <a target="_blank" href="@ViewBag.Meta.LinkMaps"> Xem bản đồ</a>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer__bottom ">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-2 col-xs-12 col-sm-12 hidden-xs hidden-sm">
+                                            <a target="_blank" href="@ViewBag.Meta.LinkFooter">
+                                                <img class="img-responsive" src="@ViewBag.Meta.FileXML" style="max-width: 165px;" />
+                                            </a>
+                                        </div>
+                                        <div class="col-md-6 col-xs-12 col-sm-12 address-block">
+                                            <div class="visible-xs text-center">
+                                            </div>
+                                            <p>
+                                                @Html.Raw(ViewBag.Meta.Strfooter)
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4 col-xs-12 col-sm-12 websites-block">
+                                            <div class="fb-page" data-href="https://www.facebook.com/khonggianxinh" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/khonggianxinh" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/khonggianxinh">Trang trí phòng</a></blockquote></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#top" data-offset="300" class="btn btn-default btn--to-top to-top"><i class="fa fa-arrow-up"></i></a>
+    <script src="~/Content/Default/js/base-2.6.3.min.js"></script>
+    <script src="~/Content/Default/js/app-2.8.7.min.js"></script>
+    <script src="~/Content/js-custom.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
+    <div id="fb-root"></div>
+    <script>
+        $(document).ready(function () {
+            $(".cart-remove").click(function () {
+                pid = $(this).attr("data-product");
+                $.ajax({
+                    url: '@Url.Action("Remove", "Cart")',
+                    data: { id: pid },
+                    success: function (response) {
+                        $("#Count_Cart").html(response.Count);
+                        $("#cart_total").html(response.Total.toCurrencyString('', ''));
+                        $("#minicart__item__" + pid).remove();
+                    }
+                });
+            });
+        });
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.3";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+    <script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-41801427-15', 'auto');
+    ga('send', 'pageview');
+
+    </script>
+</body>
+</html>

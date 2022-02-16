@@ -1,0 +1,21 @@
+﻿<div class="profile">
+    <div class="profile__info">
+        <div id="mobile_user_header">
+            @if (!Request.IsAuthenticated)
+            {
+                <ul class="profile__menu">
+                    <li><a href="@Url.Action("Register", "Account")" rel="nofollow">Đăng ký</a></li>
+                    <li>&nbsp; | &nbsp;</li>
+                    <li><a href="@Url.Action("LoginS", "Account")" rel="nofollow">Đăng nhập</a></li>
+                </ul>
+            }
+            else
+            {
+                <div class="profile__name">
+                    <a href="@Url.Action("Profile", "Account")" class="account"><strong>@XString.CutString(ViewBag.FullName, 20)</strong></a> <a href="@Url.Action("LogOff", "Account")" rel="nofollow" class="logout btn btn-default btn-sm">Thoát</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

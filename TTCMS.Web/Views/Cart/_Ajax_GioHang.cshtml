@@ -1,0 +1,20 @@
+﻿@model TTCMS.Web.Models.Product.ProductHomeViewModel[]
+@foreach (var item in Model)
+{
+    <div class="minicart__item" id="minicart__item__@item.Id">
+        <div class="minicart__item__info">
+            <img alt="" src="@item.Img_Thumbnail"><div class="minicart__item__name">
+                <div>
+                    <a href="@Url.Action("Detail","Product", new { Id = item.Id, alias = item.Route }).ToLower()">
+                        @item.Name -
+                    @if (item.MaSP != "")
+                    {
+                        <span style="color: #999;">Mã SP: @item.MaSP</span>
+                    }
+                </a>
+            </div>
+            <span class="minicart__item__price price"><span class="price__value">@string.Format("{0:#,###}", item.Price)</span><span class="price__symbol">đ</span></span> x @item.Views
+        </div>
+    </div><div class="minicart__item__actions"><a class="btn-close show-on-hover" title="Xóa khỏi giỏ hàng" data-product="208896" rel="nofollow" href="#">x</a></div>
+</div>
+}

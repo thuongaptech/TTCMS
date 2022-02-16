@@ -1,0 +1,82 @@
+﻿@model PagedList.IPagedList<TTCMS.Web.Models.Product.ProductHomeViewModel>
+@using PagedList.Mvc;
+<div class="row products" id="block-main">
+    @if (Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <div class="col-md-4 product-auto-resize product-wrapper " id="product-@item.Id-wrapper">
+                <div class="product product-kind-2"
+                     id="product-@item.Id"
+                     itemscope itemtype="http://schema.org/Product"
+                     data-toggle="box-link" data-url="@Url.Action("Detail","Product", new { Id = item.Id, alias = item.Route }).ToLower()">
+                    <div class="product__image">
+                        <a href="@Url.Action("Detail","Product", new { Id = item.Id, alias = item.Route }).ToLower()" title="@item.Name">
+                            <img itemprop="image" class="lazy" width="280" height="280"
+                                 data-original="@item.Img_Thumbnail"
+                                 data-src-mobile="@item.Img_Thumbnail"
+                                 src="@item.Img_Thumbnail"
+                                 alt="@item.Name" />
+                            @if (item.IsHot)
+                            {
+                                <span class="icon-hot hot">HOT</span>
+                            }
+                            <div class="item__meta">
+                                <span class="view" href="@Url.Action("Detail","Product", new { Id = item.Id, alias = item.Route }).ToLower()">Xem Ngay</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="product__header">
+                        <h3 class="product__title">
+                            <a href="@Url.Action("Detail","Product", new { Id = item.Id, alias = item.Route }).ToLower()" itemprop="name" title="@item.Name">@item.Name</a>
+                            <meta itemprop="brand" content="" />
+                        </h3>
+                    </div>
+                    <div class="product__info">
+                        <div class="product__price" itemprop="offers" itemscope
+                             itemtype="http://schema.org/Offer">
+                            <meta itemprop="priceCurrency" content="VND" />
+                            <span class="price">
+                                <span class="price__value" itemprop="price">@string.Format("{0:#,###}", item.GiaKM)</span><span class="price__symbol">đ</span>
+                                @if (item.GiaKM < item.GiaBan)
+                                {
+                                    <div class="product__price product__price--list-price tt-destop" style="display: inline-block;">
+                                        <span class="price price--list-price">
+                                            <span class="price__value">@string.Format("{0:#,###}", item.GiaBan)</span><span class="price__symbol">đ</span>
+                                        </span>
+                                    </div>
+                                }
+
+                                @if (item.GiaKM < item.GiaBan)
+                                {
+                                    <span class="price__discount">-@item.Percent%</span>
+                                }
+                            </span>
+                        </div>
+                        @if (item.GiaKM < item.GiaBan)
+                        {
+                            <div class="product__price product__price--list-price tt-mobile" style="display: none;">
+                                <span class="price price--list-price">
+                                    <span class="price__value">@string.Format("{0:#,###}", item.GiaBan)</span><span class="price__symbol">đ</span>
+                                </span>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        }
+    }
+
+</div>
+@if (Model.TotalItemCount > Model.PageSize)
+{
+    <div class="pagination pull-right" id="block-main-pagination" data-distance="300" data-target="#block-main">
+        <div class="loading visible-xs visible-sm"></div>
+        @Html.PagedListPager(Model, page => Url.Action("Category",
+                              new { page }), new PagedListRenderOptions { LinkToFirstPageFormat = String.Format("Đầu"), LinkToPreviousPageFormat = String.Format("Trước"), LinkToNextPageFormat = String.Format("Sau"), LinkToLastPageFormat = String.Format("Cuối"), MaximumPageNumbersToDisplay = 8 })
+    </div>
+}
+
+  
+

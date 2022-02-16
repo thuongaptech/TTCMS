@@ -1,0 +1,130 @@
+﻿.page-header {
+    margin:0;
+    padding-bottom: 5px;
+    padding-top: 0;
+}
+.btn {
+    padding: 3px 10px;
+}
+.table {
+    margin-bottom:10px;
+}
+.flag {
+    background: rgba(0, 0, 0, 0) url("../img/flags.png") no-repeat scroll 0 0;
+    display: inline-block;
+    height: 11px;
+    margin-top: -0.18em;
+    width: 16px;
+}
+.flag.flag-us {
+    background-position: -144px -154px;
+}
+.flag.flag-fr {
+    background-position: -144px -44px;
+}
+.flag.flag-es {
+    background-position: -16px -44px;
+}
+.flag.flag-de {
+    background-position: -80px -33px;
+}
+.flag.flag-jp {
+    background-position: -16px -77px;
+}
+.flag.flag-cn {
+    background-position: -208px -22px;
+}
+.flag.flag-it {
+    background-position: -208px -66px;
+}
+.flag.flag-pt {
+    background-position: -112px -121px;
+}
+.flag.flag-ru {
+    background-position: -224px -121px;
+}
+.flag.flag-kr {
+    background-position: -144px -77px;
+}
+.flag.flag-vi {
+    background-position: -16px -165px;
+}
+.widget-main > .form-group {
+    overflow:hidden;
+}
+.tt-table-header {
+    width:100%;
+    overflow:hidden;
+}
+#admin_alert {
+    bottom: 55px;
+    position: fixed;
+    right: 12px;
+    width: 310px;
+    z-index: 999999;
+}
+
+#admin_alert > .alert::before {
+    color: #fff;
+    float: left;
+    font-family: FontAwesome;
+    font-size: 24px;
+    line-height: 18px;
+    margin: auto 0.5em auto -1.5em;
+    padding-right: 0.5em;
+    position: fixed;
+}
+#admin_alert > div {
+    background-clip: padding-box;
+    background-position: 15px center;
+    background-repeat: no-repeat;
+    border-radius: 3px;
+    box-shadow: 0 0 12px #999;
+    margin: 0 0 6px;
+    opacity: 0.8;
+    width: 300px;
+}
+.toast-close-button {
+    color: #fff;
+    float: right;
+    font-family: "FontAwesome";
+    font-size: 18px;
+    font-weight: bold;
+    opacity: 0.8;
+    position: relative;
+    right: -0.3em;
+    text-shadow: 0 1px 0 #fff;
+    top: -0.5em;
+}
+.change-password > .form-group {
+    overflow:hidden;
+}
+.no-skin .nav-list > li.active > a {
+    color: #2b7dbc;
+    font-weight: normal;
+}
+.modal-header h4 {
+    margin:0;
+}
+.tags {
+    width:100%;
+}
+#Permalink > span {
+    float:left;
+}
+.ui-accordion .ui-accordion-content {
+    padding:1em;
+}
+.ui-accordion .ui-accordion-content p{
+    margin:0 0 2px;
+}
+.add-menu {
+    overflow:hidden;
+    margin:0;
+}
+.add-menu li {
+    list-style:none;
+}
+.colpick {
+  z-index: 9999;
+}

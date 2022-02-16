@@ -1,0 +1,116 @@
+﻿@model TTCMS.Web.Areas.TT_Admin.Models.RoleTableViewModel
+@using PagedList.Mvc;
+@if (Model.RoleList.Any())
+{
+<input id="Page" type="hidden" value="@Model.RoleList.PageNumber" />
+<table class="table table-striped table-bordered table-hover" id="simple-table">
+    <thead>
+        <tr>
+            <th class="center">
+                <label class="pos-rel">
+                    <input type="checkbox" class="ace">
+                    <span class="lbl"></span>
+                </label>
+            </th>
+            <th>@TTCMS.Resources.Resources.GroupName</th>
+            <th>@TTCMS.Resources.Resources.Description</th>
+            <th>@Html.Action("_TabLanguage", "Base")</th>
+            <th>
+                <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
+                @TTCMS.Resources.Resources.Created
+            </th>
+            <th class="hidden-480">@TTCMS.Resources.Resources.Status</th>
+            <th>@TTCMS.Resources.Resources.Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.RoleList)
+        {
+            <tr id="item_@item.Id">
+                <td class="center">
+                    <label class="pos-rel">
+                        <input type="checkbox" class="ace" value="@item.Id">
+                        <span class="lbl"></span>
+                    </label>
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>@item.Description</td>
+                <td>@Html.Action("_TabLanguge", new { Id = item.Id })</td>
+                <td>@string.Format("{0:dd/MM/yyyy}", item.CreatedDate)</td>
+                <td class="hidden-480">
+                    @if (item.IsActived == true)
+                    {
+                        <span class="label label-sm label-success arrowed arrowed-right"><i class="fa fa-unlock"></i> Active</span>
+                    }
+                    else
+                    {
+                        <span class="label label-sm label-danger arrowed arrowed-right"><i class="fa fa-unlock-alt"></i> NotActive</span>
+                    }
+                </td>
+                <td>
+                    <div class="hidden-sm hidden-xs btn-group">
+                        <a href="@Url.Action("SetRole", "PermissionManagement", new { Id = item.Id })" title="@TTCMS.Resources.Resources.SetRole" class="btn btn-xs btn-success">
+                            @TTCMS.Resources.Resources.SetRole
+                        </a>
+                        <a href="@Url.Action("Edit", new { Id = item.Id })" title="@TTCMS.Resources.Resources.EditPost" class="btn btn-xs btn-info">
+                            @TTCMS.Resources.Resources.EditText
+                        </a>
+                        @Ajax.ActionLink(TTCMS.Resources.Resources.DeleteText, "Delete", new { Id = item.Id },
+                                        new AjaxOptions()
+                                        {
+                                            HttpMethod = "Delete",
+                                            Confirm = TTCMS.Resources.Resources.ConfirmText,
+                                            UpdateTargetId = @item.Id,
+                                            OnSuccess = "onSuccess"
+                                        }, new { @class = "btn btn-xs btn-danger DeleteDialog", @title = TTCMS.Resources.Resources.DeletePost })
+                    </div>
+                    <div class="hidden-md hidden-lg">
+                        <div class="inline pos-rel">
+                            <button data-position="auto" data-toggle="dropdown" class="btn btn-minier btn-primary dropdown-toggle">
+                                <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+                                <li>
+                                    <a title="@TTCMS.Resources.Resources.SetRole" class="btn btn-xs btn-success" href="@Url.Action("SetRole", "PermissionManagement", new { Id = item.Id })">
+                                        @TTCMS.Resources.Resources.SetRole
+                                    </a>
+                                </li>
+                                <li>
+                                    <a title="@TTCMS.Resources.Resources.EditPost" class="btn btn-xs btn-info" href="@Url.Action("Edit", new {Id = item.Id })">
+                                        @TTCMS.Resources.Resources.EditText
+                                    </a>
+                                </li>
+                                <li>
+                                    @Ajax.ActionLink(TTCMS.Resources.Resources.DeleteText, "Delete", new { Id = item.Id },
+                                        new AjaxOptions()
+                                        {
+                                            HttpMethod = "Delete",
+                                            Confirm = TTCMS.Resources.Resources.ConfirmText,
+                                            UpdateTargetId = @item.Id,
+                                            OnSuccess = "onSuccess"
+                                        }, new { @class = "btn btn-xs btn-danger DeleteDialog", @title = TTCMS.Resources.Resources.DeletePost })
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="row">
+    <div class="col-xs-6"><div class="dataTables_info" id="dynamic-table_info" role="status" aria-live="polite">@TTCMS.Resources.Resources.Page @(Model.RoleList.PageCount < Model.RoleList.PageNumber ? 0 : Model.RoleList.PageNumber) @TTCMS.Resources.Resources.Of @Model.RoleList.PageCount</div></div>
+    <div class="col-xs-6 no-padding">
+        <div class="dataTables_paginate paging_simple_numbers" id="ajax_paging">
+            @Html.PagedListPager(Model.RoleList, page => Url.Action("Index",
+                                new { page, search = Model.Search, show = Model.Show }))
+        </div>
+</div>
+</div>
+}
+else
+{
+    @Html.Partial("_AlertInfo", @TTCMS.Resources.Resources.ErrorNoData);
+}

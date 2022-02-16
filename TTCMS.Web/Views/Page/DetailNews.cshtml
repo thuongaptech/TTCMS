@@ -1,0 +1,129 @@
+﻿@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model TTCMS.Domain.News
+
+<div class="main-container col1-layout">
+   
+    <div class="main">
+        <div class="col-main">
+            <div id="block-left" class="post-content">
+                <div class="top-bar">
+                    <div class="breadcrumbs">
+                        <ul>
+                            <li class="home" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                                <a itemprop="url" href="/" title="Đến trang chủ"><span itemprop="title">Trang chủ</span></a>
+                            </li>
+                            <li class="cat icon-li" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                                <a itemprop="url" href="3" title="Return to @ViewBag.CatalogName"><span itemprop="title">@ViewBag.CatalogName</span></a>
+                            </li>
+                            <li class="blog_page icon-li">
+                                <strong>@Model.Title</strong>
+                            </li>
+                            <li style="float: right; max-height:22px; overflow:hidden;">
+                                <div class="share">
+                                    <div class="facebook">
+                                        <div class="fb-like" data-send="true" data-layout="button_count" data-width="100" data-show-faces="false"></div>
+                                    </div>
+                                    <div class="google">
+                                        <g:plusone size="medium"></g:plusone>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <ul style="margin-top:15px;" class="tablist">
+                    @foreach (var item in ViewBag.Catalog)
+                    {
+                        <li class="tabclick" id="@item.Id"><a href="/cat/@item.Route">@item.Name</a></li>
+                    }
+
+                </ul>
+                <div style="clear:both;"></div>
+                <div class="accountpage blogpage">
+                    <div class="block-content">
+                        <div id="messages_product_view"></div>
+                        <div class="postWrapper">
+                            <div class="postTitle">
+                                <h1>@Model.Title</h1>
+                            </div>
+                            <div class="block_timer_share">
+                                <div class="block_timer left txt_666">@Model.Published.ToShortDateString()</div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div style="clear:both;"></div>
+                            <div class="share">
+                                <div style="float:left; margin: 0 3px;">
+                                    <div class="fb-like fb_iframe_widget" data-send="true" data-layout="button_count" data-width="100" data-show-faces="false" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=214940878707177&amp;container_width=0&amp;href=@Request.Url.AbsoluteUri&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;send=true&amp;show_faces=false&amp;width=100"><span style="vertical-align: bottom; width: 124px; height: 20px;"><iframe name="f1da91cfbc" width="100px" height="1000px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="fb:like Facebook Social Plugin" src="http://www.facebook.com/v2.0/plugins/like.php?app_id=214940878707177&amp;channel=http%3A%2F%2Fstatic.ak.facebook.com%2Fconnect%2Fxd_arbiter%2Fjb3BUxkAISL.js%3Fversion%3D41%23cb%3Df3f1a8362%26domain%3Dzanado.com%26origin%3Dhttp%253A%252F%252Fzanado.com%252Ff21c139ad4%26relation%3Dparent.parent&amp;container_width=0&amp;href=@Request.Url.AbsoluteUri&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;send=true&amp;show_faces=false&amp;width=100" style="border: none; visibility: visible; width: 124px; height: 20px;" class=""></iframe></span></div>
+                                </div>
+                                <div style="float:left; margin: 0 3px;">
+                                    <div id="___plusone_1" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I1_1445062015277" name="I1_1445062015277" src="https://apis.google.com/u/0/se/0/_/+1/fastbutton?usegapi=1&amp;size=medium&amp;hl=vi&amp;origin=http%3A%2F%2Fzanado.com&amp;url=@Request.Url.AbsoluteUri&amp;gsrc=3p&amp;jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.vi.OBXSxE6PkGA.O%2Fm%3D__features__%2Fam%3DAQ%2Frt%3Dj%2Fd%3D1%2Ft%3Dzcms%2Frs%3DAGLTcCMlsbJ9guZcf_iXdm4oNRxDVHYzww#_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe%2C_renderstart%2Concircled%2Cdrefresh%2Cerefresh&amp;id=I1_1445062015277&amp;parent=http%3A%2F%2Fzanado.com&amp;pfname=&amp;rpctoken=28215266" data-gapiattached="true" title="+1"></iframe></div>
+                                </div>
+                            </div>
+                            <div style="clear:both;"></div>
+                            <div class="postContent">
+                                @if (Model.Summary != null)
+                                {
+                                    <p style="text-align: justify;"><strong>@Model.Summary</strong></p>
+                                }
+                                @Html.Raw(Model.Body)
+                            </div>
+                            <div style="clear:both;"></div>
+                            <div class="share">
+                                <div style="float:left; margin: 0 3px;">
+                                    <div class="fb-like fb_iframe_widget" data-send="true" data-layout="button_count" data-width="100" data-show-faces="false" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=214940878707177&amp;container_width=0&amp;href=@Request.Url.AbsoluteUri&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;send=true&amp;show_faces=false&amp;width=100"><span style="vertical-align: bottom; width: 124px; height: 20px;"><iframe name="f7308eadc" width="100px" height="1000px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="fb:like Facebook Social Plugin" src="http://www.facebook.com/v2.0/plugins/like.php?app_id=214940878707177&amp;channel=http%3A%2F%2Fstatic.ak.facebook.com%2Fconnect%2Fxd_arbiter%2Fjb3BUxkAISL.js%3Fversion%3D41%23cb%3Df5fa412a4%26domain%3Dzanado.com%26origin%3Dhttp%253A%252F%252Fzanado.com%252Ff21c139ad4%26relation%3Dparent.parent&amp;container_width=0&amp;href=@Request.Url.AbsoluteUri&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;send=true&amp;show_faces=false&amp;width=100" style="border: none; visibility: visible; width: 124px; height: 20px;" class=""></iframe></span></div>
+                                </div>
+                                <div style="float:left; margin: 0 3px;">
+                                    <div id="___plusone_2" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I2_1445062015285" name="I2_1445062015285" src="https://apis.google.com/u/0/se/0/_/+1/fastbutton?usegapi=1&amp;size=medium&amp;hl=vi&amp;origin=http%3A%2F%2Fzanado.com&amp;url=@Request.Url.AbsoluteUri&amp;gsrc=3p&amp;jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.vi.OBXSxE6PkGA.O%2Fm%3D__features__%2Fam%3DAQ%2Frt%3Dj%2Fd%3D1%2Ft%3Dzcms%2Frs%3DAGLTcCMlsbJ9guZcf_iXdm4oNRxDVHYzww#_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe%2C_renderstart%2Concircled%2Cdrefresh%2Cerefresh&amp;id=I2_1445062015285&amp;parent=http%3A%2F%2Fzanado.com&amp;pfname=&amp;rpctoken=59861037" data-gapiattached="true" title="+1"></iframe></div>
+                                </div>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+
+                        <!-- Comment Section -->
+
+                        <div class="product-view" style=" margin:0;">
+                            <div class="block-reviews" style="border:0; margin-top:0;">
+                                <div class="reviews-content">
+                                    <script type="text/javascript">document.write('<fb:comments href="' + hostname + '" width="730" numposts="5" colorscheme="light"></fb:comments>');</script><fb:comments href="@Request.Url.AbsoluteUri" width="730" numposts="5" colorscheme="light" fb-xfbml-state="rendered" class="fb_iframe_widget"><span style="height: 175px; width: 730px;"><iframe id="f3a0d6ca74" name="f3f87072f4" scrolling="no" title="Facebook Social Plugin" class="fb_ltr" src="https://www.facebook.com/plugins/comments.php?api_key=214940878707177&amp;channel_url=http%3A%2F%2Fstatic.ak.facebook.com%2Fconnect%2Fxd_arbiter%2Fjb3BUxkAISL.js%3Fversion%3D41%23cb%3Df5c29093c%26domain%3Dzanado.com%26origin%3Dhttp%253A%252F%252Fzanado.com%252Ff21c139ad4%26relation%3Dparent.parent&amp;colorscheme=light&amp;href=@Request.Url.AbsoluteUri&amp;locale=en_US&amp;numposts=5&amp;sdk=joey&amp;skin=light&amp;version=v2.0&amp;width=730" style="border: none; overflow: hidden; height: 175px; width: 730px;"></iframe></span></fb:comments>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--- tag --->
+                    </div>
+                </div>
+            </div>
+
+            <div id="block-right">
+                <div class="product-right-content">
+                    <div class="product-box block-box">
+                        <div class="block-title">Xem nhiều</div>
+                        <div class="product-box-content">
+                            <div class="right-post-content">
+                                <ul>
+                                    @Html.Action("NewViewMore", "Page")
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+    <script language="javascript">
+        $(document).ready(function () {
+            $(function () {
+                $('#@ViewBag.Id').addClass("selected");
+            });
+        });
+
+    </script>
+}

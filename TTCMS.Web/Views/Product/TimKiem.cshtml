@@ -1,0 +1,228 @@
+﻿@model PagedList.IPagedList<TTCMS.Web.Models.Product.ProductHomeViewModel>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Tìm kiếm sản phẩm";
+    int icount = 1;
+    Layout = "~/Views/Shared/_Layout_Content.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<div class="breadcrumb">
+    <div class="container">
+        <ol itemtype="http://schema.org/BreadcrumbList" itemscope="">
+            <li itemtype="http://schema.org/ListItem" itemscope="" itemprop="itemListElement">
+                <a title="Trang chủ" itemprop="item" href="@Url.Action("Index","Home")" class="breadcrumb__link breadcrumb__link--home">
+                    <span>Trang chủ</span>
+                    <meta content="@Html.Raw(ViewBag.Meta.ApplicationName)" itemprop="name">
+                    <meta content="1" itemprop="position">
+                </a>
+            </li>
+            <li><span class="breadcrumb__sep"><i class="fa fa-angle-right"></i></span></li>
+            <li itemtype="http://schema.org/ListItem" itemscope="" itemprop="itemListElement"><span itemprop="name">Từ khóa "@ViewBag.tukhoa"</span><meta content="2" itemprop="position"></li>
+        </ol>
+    </div>
+</div>
+<main class="main-content clearfix" id="main">
+    <div class="container">
+        <div id="block-main-container" class="row">
+            <div class="col-md-12">
+                <style>
+                    .cate-on-slide {
+                        position: relative;
+                    }
+
+                        .cate-on-slide .cycle-prev, .cate-on-slide .cycle-next {
+                            position: absolute;
+                            top: 50%;
+                            display: none;
+                            width: 36px;
+                            height: 66px;
+                            line-height: 80px;
+                            margin-top: -33px;
+                            background-color: #000;
+                            background-color: rgba(0, 0, 0, 0.2);
+                            z-index: 100;
+                            text-align: center;
+                            cursor: pointer;
+                        }
+                        .cate-on-slide .cycle-prev {
+                            left: 0px;
+                        }
+
+                        .cate-on-slide .cycle-next {
+                            right: 0px;
+                        }
+
+                        .cate-on-slide .cycle-prev .icon-arr-left {
+                            background-position: -199px -60px;
+                        }
+
+                        .cate-on-slide .cycle-next .icon-arr-right {
+                            background-position: 0px -127px;
+                        }
+
+                        .cate-on-slide:hover .cycle-prev {
+                            display: block;
+                        }
+
+                        .cate-on-slide:hover .cycle-next {
+                            display: block;
+                        }
+
+                    .cycle-pager {
+                        text-align: center;
+                        width: 100%;
+                        z-index: 500;
+                        top: 10px;
+                        overflow: hidden;
+                    }
+
+                        .cycle-pager span {
+                            font-size: 50px;
+                            width: 16px;
+                            height: 16px;
+                            display: inline-block;
+                            color: #ddd;
+                        }
+
+                            .cycle-pager span.cycle-pager-active {
+                                color: #D69746;
+                            }
+
+                        .cycle-pager &gt; * {
+                            cursor: pointer;
+                        }
+                </style>
+                <div id="category_content">
+                    <div id="block-main-category-header" class="block  category-header">
+                        <div class="block__header has-subheading ">
+                            <h1 class="block__title category-header-heading">
+                                Tìm từ khóa "@ViewBag.tukhoa"
+                                <span class="category-header-subheading">@Model.TotalItemCount kết quả</span>
+                            </h1>
+                            <div class="category-header-descr visible-xs visible-sm">
+                                Tìm thấy @string.Format("{0:#,###}",Model.TotalItemCount) sản phẩm
+                            </div>
+                            <div id="block-main-sortings" class="block__sorting hidden-sm hidden-xs">
+                                <div class="product-sortings">
+                                    <div class="filter filter--no-padding">
+                                        <div class="filter__title">
+                                            <i class="filter__icon hd hd-sort2"></i> SẮP XẾP THEO
+                                        </div>
+                                        <div class="filter__body tt-filter">
+                                            <ul class="ajax-filter">
+                                                <li>
+                                                    <a style="float:right" href="@Request.Url.AbsoluteUri" class="btn btn-default  tt-sorting sorting--default @(ViewBag.field == "" ? "sorting--active" : "")">Mặc định</a>
+                                                </li>
+                                                <li>
+                                                    <a style="float:right" href="@Url.Action("TimKiem", new { q = ViewBag.tukhoa, field = "hot" }).ToLower()" class="btn btn-default tt-sorting sorting--sell sorting--desc @(ViewBag.field == "hot" ? "sorting--active" : "")">Bán chạy <i class="hd hd-sort-arrow"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a style="float:right" href="@Url.Action("TimKiem", new { Id = ViewBag.tukhoa, field = "price" }).ToLower()" class="btn btn-default tt-sorting sorting--price sorting--desc @(ViewBag.field == "price" ? "sorting--active" : "")">Giá tốt nhất <i class="hd hd-sort-arrow"></i></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a class="btn btn-sm btn-default visible-xs visible-sm filters-toggle category-header-filter-button" style="visibility: hidden;">Bộ lọc <i class="fa fa-angle-double-right"></i></a>
+                        </div>
+                    </div>                    <div class="filter--inline current-filter hidden">
+                        <div class="filter__title">Tìm kiếm được @string.Format("{0:#,###}", Model.TotalItemCount) sản phẩm:</div>
+                        <div class="filter__body">
+                            <div id="current-filter-tag"></div>
+                        </div>
+                    </div>
+                    <div id="block_product">
+                        <div id="block-main" class="row products">
+                            @foreach (var item in Model)
+                        {
+                        <div class="col-md-3 product-wrapper" id="product-@item.Id-wrapper">
+                            <div class="product product-kind-2"
+                                 id="product-@item.Id"
+                                 itemscope itemtype="http://schema.org/Product"
+                                 data-toggle="box-link" data-url="@Url.Action("Detail","Product", new { Id = item.Id, alias = item.Route }).ToLower()">
+                                <div class="product__image">
+                                    <a href="@Url.Action("Detail","Product", new { Id = item.Id, alias = item.Route }).ToLower()" title="@item.Name">
+                                        <img itemprop="image" class="lazy" width="280" height="280"
+                                             data-original="@item.Img_Thumbnail"
+                                             data-src-mobile="@item.Img_Thumbnail"
+                                             src="@item.Img_Thumbnail"
+                                             alt="@item.Name" />
+                                        @if (item.IsHot)
+                                        {
+                                        <span class="icon-hot hot">HOT</span>
+                                        }
+                                        <div class="item__meta">
+                                            <span class="view" href="@Url.Action("Detail","Product", new { Id = item.Id, alias = item.Route }).ToLower()">Xem Ngay</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="product__header">
+                                    <h3 class="product__title">
+                                        <a href="@Url.Action("Detail","Product", new { Id = item.Id, alias = item.Route }).ToLower()" itemprop="name" title="@item.Name">@item.Name</a>
+                                        <meta itemprop="brand" content="" />
+                                    </h3>
+                                </div>
+                                <div class="product__info">
+                                    <div itemtype="http://schema.org/Offer" itemscope="" itemprop="offers" class="product__price">
+                                        <meta content="VND" itemprop="priceCurrency">
+                                        <span class="price">
+                                            <span itemprop="price" class="price__value">@string.Format("{0:#,###}", item.GiaKM)</span><span class="price__symbol">đ</span>
+                                            <span class="price__discount">-@item.Percent%</span>
+                                        </span>
+                                    </div>
+                                    <div style="display: inline-block;" class="product__price product__price--list-price">
+                                        <span class="price price--list-price">
+                                            <span class="price__value">@string.Format("{0:#,###}", item.GiaBan)</span><span class="price__symbol">đ</span>
+                                        </span>
+                                    </div>
+                                    <div class="product__stats">
+                                        <div class="product__views">
+                                            <i class="hd hd-user"></i> @(item.DaMua > 0 ? string.Format("{0:#,###}", item.DaMua) : "0")
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        }
+                        </div>
+                        @if (Model.TotalItemCount > Model.PageSize)
+                        {
+                            <div class="pagination pull-right" id="block-main-pagination" data-distance="300" data-target="#block-main">
+                                <div class="loading visible-xs visible-sm"></div>
+                                @Html.PagedListPager(Model, page => Url.Action("TimKiem",
+                              new { page }), new PagedListRenderOptions { LinkToFirstPageFormat = String.Format("Đầu"), LinkToPreviousPageFormat = String.Format("Trước"), LinkToNextPageFormat = String.Format("Sau"), LinkToLastPageFormat = String.Format("Cuối"), MaximumPageNumbersToDisplay = 8 })
+                            </div>
+                        }
+                   </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</main>
+<div class="loading-cover" style="display: none;"> <div class="loading-content"> <img src="/Content/Default/images/ajax-loader.gif"> </div> </div>
+@section Scripts {
+    <script>
+       $(document).ready(function () {
+           $('.tt-sorting').on('click', function () {
+               var self = $(this);
+               $(".tt-sorting").removeClass('sorting--active');
+               self.addClass('sorting--active');
+               $('.loading-cover').show();
+               var url = self.attr('href');
+               $.ajax({
+                   type: 'GET',
+                   url: url,
+                   success: function (response) {
+                       $('#block_product').html(response);
+                       $('.loading-cover').hide();
+                       return false;
+                   }
+               });
+               return false;
+           });
+       });
+    </script>
+}

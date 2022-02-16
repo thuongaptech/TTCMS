@@ -1,0 +1,23 @@
+﻿<div class="sidebar sidebar--profile">
+    <div class="box box--no-padding">
+        <div class="box__header">
+            <h2 class="box__title">Thông tin chung</h2>
+        </div>
+        <div class="box__body">
+            <div class="sidebar__widget widget widget--profile">
+                <div class="profile">
+                    <div class="profile__info">
+                        <div class="profile__name">Xin chào <b>@ViewBag.FullName</b></div>
+                    </div>
+                </div>
+            </div>            <div class="sidebar__widget widget">
+                <ul class="side-menu">
+                    <li class=""><a href="@Url.Action("Profile", "Account")">Thông tin tài khoản</a></li>
+                    <li class=""><a href="@Url.Action("Info", "Cart")">Thông tin đơn hàng</a></li>
+                    <li class=""><a href="@Url.Action("ChangePass", "Account")">Thay đổi mật khẩu</a></li>
+                    <li class=""><a href="@Url.Action("LogOff", "Account")">Đăng xuất</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

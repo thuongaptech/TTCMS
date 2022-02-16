@@ -1,0 +1,59 @@
+﻿@model PagedList.IPagedList<TTCMS.Web.Areas.TT_Admin.Models.ListDonHangViewModel>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Thông tin đơn hàng";
+    Layout = "~/Views/Shared/_Layout_Content.cshtml";
+}
+<main class="main-content clearfix" id="main">
+    <div class="container">
+        <div class="sidebar-content--2">
+            @Html.Action("Info_Right", "Account")
+            <div class="content">
+                <div class="box box--no-padding">
+                    <div class="box__body">
+                        <table class="table table--listing table--orders">
+                            <thead>
+                                <tr>
+                                    <th width="14%">ID</th>
+                                    <th>Sản phẩm</th>
+                                    <th width="14%">Ngày</th>
+                                    <th width="15%">Tổng cộng</th>
+                                    <th width="12%">Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Any())
+                                {
+                                    foreach(var item in Model)
+                                    {
+                                        <tr>
+                                            <td class="order-id"><a href="@Url.Action("Info_Detail", "Cart", new { order_id = item.Id }).ToLower()">#@item.Id</a></td>
+                                            <td class="name">
+                                              @foreach (var pro in item.ListPro)
+                                              {
+                                                <div style="width: 100%; margin-bottom: 7px;"><a href="@Url.Action("Detail", "Product", new { Id = pro.Id, alias = pro.Route }).ToLower()">@pro.Name</a></div>
+                                              }
+                                            </td>
+                                            <td class="date">@string.Format("{0:dd/MM/yyyy}",item.DateCreate)</td>
+                                            <td class="total">@string.Format("{0:#,### đ}",item.Total)</td>
+                                            <td class="status text-right">@item.Status.ToDescription()</td>
+                                        </tr>
+                                    }
+
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5" style="text-align:center">Không tìm thấy đơn hàng nào!</td>
+                                    </tr>
+                                }
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
